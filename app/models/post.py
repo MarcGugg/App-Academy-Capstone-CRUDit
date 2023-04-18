@@ -1,0 +1,27 @@
+from .db import db, environment, SCHEMA, add_prefix_for_prod
+
+class Post(db.Model):
+    __tablename__ = 'posts'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
+    sub_id = db.Column(db.Integer, db.ForeignKey)
+    header = db.Column(db.String, nullable=False)
+    body = db.Column(db.Text)
+
+    author = db.relationship('Users', back_populates='posts')
+    subcrudit = db.relationship('Subcrudit', back_populates='posts')
+    image = db.relationship('PostImage', back_populates='post', uselist=False)
+    
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'authorId': self.author_id,
+            'subId': self.sub_id,
+            'header': self.header,
+            'body': self.body
+        }
