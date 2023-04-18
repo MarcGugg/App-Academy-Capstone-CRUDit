@@ -42,6 +42,17 @@ def seed_post_images():
         url = 'https://www.foodandwine.com/thmb/Wd4lBRZz3X_8qBr69UOu2m7I2iw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg'
     )
 
+    db.session.add(image1)
+    db.session.add(image2)
+    db.session.add(image3)
+    db.session.add(image4)
+    db.session.add(image5)
+    db.session.add(image6)
+    db.session.add(image7)
+    db.session.add(image8)
+    db.session.add(image9)
+    db.session.commit()
+
 
 
 
