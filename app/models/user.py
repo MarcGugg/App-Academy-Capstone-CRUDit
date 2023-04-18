@@ -15,8 +15,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     # added
-    username = db.Column(db.String, nullable=False, unique=True)
-    bio = db.Column(db.String)
+    bio = db.Column(db.String(255))
     
     subcrudits = db.relationship('Subcrudit', back_populates='owner', cascade='all, delete')
     posts = db.relationship('Post', back_populates='author')
