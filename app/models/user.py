@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
+from app.models.subs_mods import subs_mods
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -13,6 +13,14 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+
+    # added
+    bio = db.Column(db.String(255))
+    
+    all_subcrudits = db.relationship('Subcrudit', back_populates='owner', cascade='all, delete')
+    posts = db.relationship('Post', back_populates='author')
+
+    modded_subs = db.relationship('Subcrudit', secondary='subs_mods', back_populates='mods')
 
     @property
     def password(self):
@@ -29,5 +37,16 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'bio': self.bio
+        }
+    def to_dict_inclusive(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'bio': self.bio,
+            'allSubcruddits': [sub.to_dict() for sub in self.all_subcrudits],
+            'posts': [post.to_dict() for post in self.posts],
+            'moddedSubs': [modded_sub.to_dict() for modded_sub in self.modded_subs]
         }

@@ -2,8 +2,15 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
 
+import postReducer from './post';
+import subcruditReducer from './subcrudit';
+import postImageReducer from './post_image';
+
 const rootReducer = combineReducers({
   session,
+  posts: postReducer,
+  subcrudits: subcruditReducer,
+  postImages: postImageReducer
 });
 
 
