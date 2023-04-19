@@ -44,7 +44,7 @@ function Subcrudit() {
     // console.log('AUTHOR IDS', authorIdArr)
     // console.log('AUTHORS', authors)
 
-    if (!Object.values(sub).length) {
+    if (!Object.values(sub).length || !sub || !authors || !Object.values(authors).length) {
         return null
     }
 
@@ -59,7 +59,8 @@ function Subcrudit() {
         <div>{Object.values(sub.posts).map(post => (
                         <NavLink to={`/posts/${post.id}`}>
                         <div>
-                            <p>{authors[post.authorId].username} </p>
+                            <p>{authors[post.authorId]?.username} </p>
+                            {/* {post.authorId} */}
                             <h1>{post.header}</h1>
                             <div>
                                 {/* {Object.keys(post).includes('image') ? 
