@@ -17,3 +17,14 @@ def get_all_posts():
                 post_list.append(post.to_dict_no_image())
         return post_list
     return None
+
+@post_routes.route('/<int:post_id>')
+def get_post(post_id):
+    post = Post.query.get(post_id)
+
+    if post:
+        if post.image:
+            return post.to_dict_inclusive()
+        else:
+            return post.to_dict_no_image()
+    return None
