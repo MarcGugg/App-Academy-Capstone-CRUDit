@@ -26,6 +26,7 @@ function HomePage() {
         <h1>Home Page</h1>
         <div>
         {Object.values(posts).map(post => (
+            <NavLink to={`/posts/${post.id}`}>
             <div>
                 <p>{post.author.username} to {post.subcrudit.name}</p>
                 <h1>{post.header}</h1>
@@ -38,6 +39,7 @@ function HomePage() {
                     {post.body}
                 </div>
             </div>
+            </NavLink>
         ))}
         </div>
         </>

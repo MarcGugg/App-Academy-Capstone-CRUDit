@@ -1,8 +1,16 @@
 const GET_ALL_POSTS = 'posts/getAll'
+const GET_ONE_POST = 'posts/getOne'
+
+
 
 const actionGetAllPosts =(allPosts) => ({
     type: GET_ALL_POSTS,
     allPosts
+})
+
+const actionGetOnePost = (singlePost) => ({
+    type: GET_ONE_POST,
+    singlePost
 })
 
 export const getAllPosts = () => async dispatch => {
@@ -13,6 +21,15 @@ export const getAllPosts = () => async dispatch => {
         const allPosts = await res.json()
         console.log('allPosts', allPosts)
         dispatch(actionGetAllPosts(allPosts))
+    }
+}
+
+export const getOnePost = (postId) => async dispatch => {
+    const res = await fetch(`/api/posts/${postId}`)
+
+    if (res.ok) {
+        const singlePost = await res.json()
+        dispatch(actionGetOnePost(singlePost))
     }
 }
 
@@ -27,6 +44,13 @@ export default function postReducer(state=initialState, action) {
             const newState = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
             action.allPosts.map(post => newState.allPosts[post.id] = {...post})
             return newState
+        }
+        case GET_ONE_POST: {
+            const newState2 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+
+            newState2.singlePost = {...action.singlePost}
+
+            return newState2
         }
         default:
             return state

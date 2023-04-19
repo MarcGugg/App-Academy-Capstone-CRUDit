@@ -6,6 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
+import OnePost from "./components/Post";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ function App() {
         <Switch>
           <Route path='/' exact={true}>
             <HomePage />
+          </Route>
+          <Route path='/posts/:postId' exact={true}>
+            <OnePost />
           </Route>
           <Route path="/login" >
             <LoginFormPage />
