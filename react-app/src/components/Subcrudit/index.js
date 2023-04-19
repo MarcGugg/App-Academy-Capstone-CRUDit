@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import { getOneSub } from '../../store/subcrudit'
 import { getAuthors } from '../../store/post'
+import { getPostImages } from '../../store/post_image'
 
 function Subcrudit() {
 
@@ -25,19 +26,24 @@ function Subcrudit() {
             //     authors.push(author)
             // }
             await dispatch(getAuthors(authorIdArr))
+            await dispatch(getPostImages(postIdArr))
         }
     }, [sub])
 
     const authors = useSelector((state) => state.posts.authors)
+    const postImages = useSelector((state) => state.postImages.imagesByPost)
     console.log('authors from state', authors)
-
+    console.log('post images from state', postImages)
     console.log('sub', sub)
     console.log('posts', sub.posts)
 
     const authorIdArr = []
+    const postIdArr = []
     for (let key in sub.posts) {
         authorIdArr.push(sub.posts[key].authorId)
+        postIdArr.push(key)
     }
+    console.log('postIdArr', postIdArr)
 
     // let authors = []
 
@@ -63,9 +69,11 @@ function Subcrudit() {
                             {/* {post.authorId} */}
                             <h1>{post.header}</h1>
                             <div>
-                                {/* {Object.keys(post).includes('image') ? 
-                                    <img src={post.image.url} style={{height:50}} />
-                                : ''} */}
+                                {Object.values(postImages).length > 1 ? 
+                                    <img src={postImages[post.id]?.url} style={{height:50}} />
+                                    // <h2>Hello</h2>
+                                    // <p>{postImages[9].url}</p>
+                                : ''}
                             </div>
                             <div>
                                 {post.body}

@@ -4,11 +4,13 @@ import session from './session'
 
 import postReducer from './post';
 import subcruditReducer from './subcrudit';
+import postImageReducer from './post_image';
 
 const rootReducer = combineReducers({
   session,
   posts: postReducer,
-  subcrudits: subcruditReducer
+  subcrudits: subcruditReducer,
+  postImages: postImageReducer
 });
 
 
