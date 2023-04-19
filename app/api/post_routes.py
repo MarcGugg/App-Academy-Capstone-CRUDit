@@ -6,6 +6,20 @@ post_routes = Blueprint('/posts', __name__)
 
 @post_routes.route('/all')
 def get_all_posts():
+    print('')
+    print('')
+    print('')
+    print('')
+    print('')
+    print('')
+    print('')
+    print('BACKEND HIT')
+    print('')
+    print('')
+    print('')
+    print('')
+    print('')
+    print('')
     posts = Post.query.all()
 
     if posts:
@@ -15,6 +29,21 @@ def get_all_posts():
                 post_list.append(post.to_dict_inclusive())
             else:
                 post_list.append(post.to_dict_no_image())
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print(post_list)
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
         return post_list
     return None
 
