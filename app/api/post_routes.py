@@ -57,3 +57,11 @@ def get_post(post_id):
         else:
             return post.to_dict_no_image()
     return None
+
+@post_routes.route('/authors/<int:author_id>')
+def get_author_by_id(author_id):
+    author = User.query.get(author_id)
+
+    if author:
+        return author.to_dict()
+    return None

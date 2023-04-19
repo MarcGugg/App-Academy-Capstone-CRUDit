@@ -1,6 +1,6 @@
 const GET_ALL_POSTS = 'posts/getAll'
 const GET_ONE_POST = 'posts/getOne'
-
+const GET_AUTHOR = 'posts/getAuthor'
 
 
 const actionGetAllPosts =(allPosts) => ({
@@ -11,6 +11,11 @@ const actionGetAllPosts =(allPosts) => ({
 const actionGetOnePost = (singlePost) => ({
     type: GET_ONE_POST,
     singlePost
+})
+
+const actionGetAuthors = (authors) => ({
+    type: GET_AUTHOR,
+    authors
 })
 
 export const getAllPosts = () => async dispatch => {
@@ -33,6 +38,28 @@ export const getOnePost = (postId) => async dispatch => {
     }
 }
 
+export const getAuthors = (authorIdArr) => async dispatch => {
+    console.log('AUTHOR THUNK HIT', authorIdArr)
+    let resArr = []
+    for (let i = 0; i < authorIdArr.length; i++) {
+        const res = await fetch(`/api/posts/authors/${authorIdArr[i]}`)
+        if (res.ok) {
+            resArr.push(res)
+        }
+    }
+
+    if (resArr.length) {
+        let authors = []
+        console.log('AUTHOR RES OK')
+        for (let author of resArr) {
+            const authorJson = await author.json()
+            authors.push(authorJson)
+        }
+        console.log('RES ARR JSON', authors)
+        dispatch(actionGetAuthors(authors))
+    }
+}
+
 let initialState = {
     allPosts: {},
     singlePost: {}
@@ -51,6 +78,15 @@ export default function postReducer(state=initialState, action) {
             newState2.singlePost = {...action.singlePost}
 
             return newState2
+        }
+        case GET_AUTHOR: {
+            const newState3 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+
+           newState3.authors = {}
+
+           Object.values(action.authors).map(author => newState3.authors[author.id] = {...author})
+
+            return newState3
         }
         default:
             return state
