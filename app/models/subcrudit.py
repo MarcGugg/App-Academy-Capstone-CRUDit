@@ -26,3 +26,13 @@ class Subcrudit(db.Model):
             'description': self.description,
             'ownerId': self.owner_id
         }
+    def to_dict_inclusive(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'ownerId': self.owner_id,
+            'owner': self.owner.to_dict(),
+            'mods': [mod.to_dict() for mod in self.mods],
+            'posts': [post.to_dict() for post in self.posts]
+        }

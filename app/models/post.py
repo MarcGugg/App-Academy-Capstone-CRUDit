@@ -25,3 +25,14 @@ class Post(db.Model):
             'header': self.header,
             'body': self.body
         }
+    def to_dict_inclusive(self):
+        return {
+            'id': self.id,
+            'authorId': self.author_id,
+            'subId': self.sub_id,
+            'header': self.header,
+            'body': self.body,
+            'author': self.author.to_dict(),
+            'subcrudit': self.subcrudit.to_dict(),
+            'image': self.image.to_dict()
+        }

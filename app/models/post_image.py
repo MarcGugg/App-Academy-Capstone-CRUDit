@@ -11,3 +11,17 @@ class PostImage(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')))
 
     post = db.relationship('Post', back_populates='image')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'url': self.url,
+            'postId': self.post_id
+        }
+    def to_dict_inclusive(self):
+        return {
+            'id': self.id,
+            'url': self.url,
+            'postId': self.post_id,
+            'post': self.post.to_dict()
+        }

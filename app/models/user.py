@@ -40,3 +40,13 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'bio': self.bio
         }
+    def to_dict_inclusive(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'bio': self.bio,
+            'allSubcruddits': [sub.to_dict() for sub in self.all_subcrudits],
+            'posts': [post.to_dict() for post in self.posts],
+            'moddedSubs': [modded_sub.to_dict() for modded_sub in self.modded_subs]
+        }
