@@ -17,12 +17,21 @@ def get_all_subcrudits():
         print('')
         print('')
         print('')
-        print(subcrudits[0].owner.to_dict())
+        print(subcrudits[0].owner.to_dict_inclusive())
         print('')
         print('')
         print('')
         print('')
         print('')
         print('')
-        return [sub.to_dict() for sub in subcrudits]
+        # return [sub.to_dict() for sub in subcrudits]
+        return [sub.to_dict_inclusive() for sub in subcrudits]
+    return None
+
+@subcrudit_routes.route('/<int:subcrudit_id>')
+def get_subcrudit(subcrudit_id):
+    subcrudit = Subcrudit.query.get(subcrudit_id)
+
+    if subcrudit:
+        return subcrudit.to_dict_inclusive()
     return None
