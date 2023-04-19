@@ -8,6 +8,6 @@ class PostImage(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String, nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('Posts.id')))
+    post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')))
 
     post = db.relationship('Post', back_populates='image')

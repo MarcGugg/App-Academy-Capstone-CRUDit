@@ -8,11 +8,11 @@ class Post(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
-    sub_id = db.Column(db.Integer, db.ForeignKey)
+    sub_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('subcrudits.id')))
     header = db.Column(db.String, nullable=False)
     body = db.Column(db.Text, nullable=False)
 
-    author = db.relationship('Users', back_populates='posts')
+    author = db.relationship('User', back_populates='posts')
     subcrudit = db.relationship('Subcrudit', back_populates='posts')
     image = db.relationship('PostImage', back_populates='post', uselist=False)
     

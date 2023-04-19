@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from subs_mods import subs_mods
+from app.models.subs_mods import subs_mods
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -17,10 +17,10 @@ class User(db.Model, UserMixin):
     # added
     bio = db.Column(db.String(255))
     
-    subcrudits = db.relationship('Subcrudit', back_populates='owner', cascade='all, delete')
+    all_subcrudits = db.relationship('Subcrudit', back_populates='owner', cascade='all, delete')
     posts = db.relationship('Post', back_populates='author')
 
-    modded_subs = db.relationship('Subcrudit', secondary=subs_mods, back_populates='mods')
+    modded_subs = db.relationship('Subcrudit', secondary='subs_mods', back_populates='mods')
 
     @property
     def password(self):
@@ -37,5 +37,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'bio': self.bio
         }
