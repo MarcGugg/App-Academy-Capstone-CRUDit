@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
 import OnePost from "./components/Post";
+import Subcrudit from "./components/Subcrudit";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route path='/posts/:postId' exact={true}>
             <OnePost />
+          </Route>
+          <Route path='/subcrudits/:subcruditId' exact={true}>
+            <Subcrudit />
           </Route>
           <Route path="/login" >
             <LoginFormPage />

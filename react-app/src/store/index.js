@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 import session from './session'
 
 import postReducer from './post';
+import subcruditReducer from './subcrudit';
 
 const rootReducer = combineReducers({
   session,
-  posts: postReducer
+  posts: postReducer,
+  subcrudits: subcruditReducer
 });
 
 

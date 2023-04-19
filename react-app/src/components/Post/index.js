@@ -26,7 +26,14 @@ function OnePost() {
         <>
         <h1>Single Post</h1>
         <div>
-            <div>{post.author.username}</div>
+            <div>
+                <NavLink to={`/subcrudits/${post.subcrudit.id}`}>
+                {post.subcrudit.name} 
+                </NavLink>
+                <h3>
+                posted by {post.author.username}
+                </h3>
+                </div>
             <h1>{post.header}</h1>
             {Object.keys(post).includes('image') ? <div>
                 <img src={post.image.url}/>
