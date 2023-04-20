@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom'
 
 import { getAllPosts } from '../../store/post'
 
+import './HomePage.css'
+
 function HomePage() {
 
     const dispatch = useDispatch()
@@ -24,31 +26,47 @@ function HomePage() {
 
     return (
         <>
-        <h1>Home Page</h1>
+        <div className='wholePage'>
+        <div className='headerAndCreateButtonParent'>
+            <div className='headerAndCreateButton'>
+        <h1 className='homePageText'>Home Page</h1>
         {user ? 
-        <div>
-            <button>
-                <NavLink to={'/subcrudits/create/new'}>Create A New Subcrudit</NavLink>
+        <div className='createSubButtonDiv'>
+            <button className='createSubButton'>
+            Create A New SubCRUDit
+                <NavLink to={'/subcrudits/create/new'}></NavLink>
             </button>
         </div>
         : ''}
-        <div>
+            </div>
+        </div>
+        <div className='homePagePostParent'>
         {Object.values(posts).map(post => (
-            <NavLink to={`/posts/${post.id}`}>
-            <div>
-                <p>{post.author.username} to {post.subcrudit.name}</p>
-                <h1>{post.header}</h1>
-                <div>
-                    {Object.keys(post).includes('image') ? 
-                        <img src={post.image.url} style={{height:50}} />
-                    : ''}
-                </div>
-                <div>
+            <NavLink to={`/posts/${post.id}`} style={{ textDecoration: 'none'}}>
+            <div className='homePagePostLink'>
+                <p className='author-subcrudit'>
+                    <p className='subcruditName'>
+                        <NavLink to={`/subcrudits/${post.subcrudit.id}`} 
+                        style={{textDecoration:'none', color:'black'}}>
+                            {post.subcrudit.name}</NavLink>
+                        </p>
+                    <p className='authorUsername'>Posted by {post.author.username}</p>
+                </p>
+                <h1 className='postHeader'>{post.header}</h1>
+                {Object.keys(post).includes('image') ? 
+                    <div className='postImage'>
+                        <img src={post.image.url} 
+                        className='postImageSrc'
+                        />
+                    </div>
+                : ''}
+                <div className='postBody'>
                     {post.body}
                 </div>
             </div>
             </NavLink>
         ))}
+        </div>
         </div>
         </>
     )
