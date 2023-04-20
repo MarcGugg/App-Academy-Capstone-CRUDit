@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.models import  User, PostImage, db, Subcrudit
 from app.forms.create_subcrudit import CreateSubForm
+from app.forms.edit_subcrudit import EditSubForm
 
 subcrudit_routes = Blueprint('/subcrudits', __name__)
 
@@ -56,3 +57,23 @@ def create_subcrudit():
         return new_sub.to_dict()
     
     return {'Error': 'Validation Error'}, 401
+
+@subcrudit_routes.route('/<int:sub_id/edit', methods=['PUT'])
+@login_required
+def edit_sub(sub_id):
+    subcrudit = Subcrudit.query.get(sub_id)
+
+    form = EditSubForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+    
+    if subcrudit:
+        if form.validate_on_submit():
+            subcrudit.name = form['name']
+            subcrudit.description = form['description']
+            db.session.commit()
+            return subcrudit.to_dict_inclusive()
+
+        return {'Error': 'Validation Error'}, 401
+    
+    return None

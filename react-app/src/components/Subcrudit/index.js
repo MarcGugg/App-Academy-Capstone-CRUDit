@@ -68,7 +68,11 @@ function Subcrudit() {
         <h1>Subcrudit page</h1>
         {user && user.id === sub.ownerId ? 
         <div>
-            <button>Edit Sub Info</button>
+            <button>
+                <NavLink to={`/subcrudits/${subcruditId}/edit`}>
+                Edit Sub Info
+                </NavLink>
+                </button>
             <button>Delete Sub</button>
         </div>
         : ''}

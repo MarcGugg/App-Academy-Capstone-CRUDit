@@ -9,6 +9,7 @@ import HomePage from "./components/HomePage";
 import OnePost from "./components/Post";
 import Subcrudit from "./components/Subcrudit";
 import CreateSubcruditForm from "./components/CreateSubcrudit";
+import EditSubcruditForm from "./components/EditSubcrudit";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route path='/subcrudits/create/new' exact={true}>
             <CreateSubcruditForm />
+          </Route>
+          <Route path='/subcrudits/:subcruditId/edit' exact={true}>
+            <EditSubcruditForm />
           </Route>
           <Route path="/login" >
             <LoginFormPage />
