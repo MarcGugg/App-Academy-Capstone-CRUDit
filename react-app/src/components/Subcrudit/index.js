@@ -15,6 +15,7 @@ function Subcrudit() {
         await dispatch(getOneSub(subcruditId))
     }, [dispatch])
 
+    const user = useSelector((state) => state.session.user)
     const sub = useSelector((state) => state.subcrudits.oneSubcrudit)
     
     useEffect(async () => {
@@ -50,9 +51,12 @@ function Subcrudit() {
     // console.log('AUTHOR IDS', authorIdArr)
     // console.log('AUTHORS', authors)
 
-    if (!Object.values(sub).length || !sub || !authors || !Object.values(authors).length) {
+    if (!Object.values(sub).length) {
         return null
     }
+
+    // || !sub || !authors
+    //  || !Object.values(authors).length
 
     // if (postImages && !Object.values(postImages).length) {
     //     return null
@@ -62,6 +66,17 @@ function Subcrudit() {
     return (
         <>
         <h1>Subcrudit page</h1>
+        {user && user.id === sub.ownerId ? 
+        <div>
+            <button>Edit Sub Info</button>
+            <button>Delete Sub</button>
+        </div>
+        : ''}
+        {user ? 
+        <div>
+            <button>Make a Post</button>
+        </div>
+        : ''}
         <div>
             <h1>{sub.name}</h1>
             <h2>{sub.description}</h2>
