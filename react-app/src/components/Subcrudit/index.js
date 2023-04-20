@@ -36,7 +36,7 @@ function Subcrudit() {
     const postImages = useSelector((state) => state.postImages.imagesByPost)
     // console.log('authors from state', authors)
     // console.log('post images from state', postImages)
-    // console.log('sub', sub)
+    console.log('sub', sub)
     // console.log('posts', sub.posts)
 
     const authorIdArr = []
@@ -58,7 +58,7 @@ function Subcrudit() {
         history.push('/')
     }
 
-    if (!Object.values(sub).length) {
+    if (!sub || !Object.values(sub).length ) {
         return null
     }
 
@@ -84,33 +84,40 @@ function Subcrudit() {
         </div>
         : ''}
         {user ? 
-        <div>
-            <button>Make a Post</button>
-        </div>
+            <div>
+                <button>Make a Post</button>
+            </div>
         : ''}
         <div>
             <h1>{sub.name}</h1>
             <h2>{sub.description}</h2>
         </div>
-        <div>{Object.values(sub.posts).map(post => (
-                        <NavLink to={`/posts/${post.id}`}>
-                        <div>
-                            <p>{authors[post.authorId]?.username} </p>
-                            {/* {post.authorId} */}
-                            <h1>{post.header}</h1>
-                        {postImages ? 
-                            <div className='images'>
-                                    <img src={postImages[post.id]?.url} style={{height:50}} />
-                                    {/* // <h2>Hello</h2>
-                                    // <p>{postImages[9].url}</p> */}
-                            </div>
+        {sub.posts && Object.values(sub.posts).length ?         
+            <div>
+                {Object.values(sub.posts).map(post => (
+                    <NavLink to={`/posts/${post.id}`}>
+                    <div>
+                        {authors && Object.values(authors).length ? 
+
+                        <p>{authors[post.authorId]?.username} </p>
                         : ''}
-                            <div>
-                                {post.body}
-                            </div>
+                        {/* {post.authorId} */}
+                        <h1>{post.header}</h1>
+                    {postImages ? 
+                        <div className='images'>
+                                <img src={postImages[post.id]?.url} style={{height:50}} />
+                                {/* // <h2>Hello</h2>
+                                // <p>{postImages[9].url}</p> */}
                         </div>
-                        </NavLink>
-        ))}</div>
+                    : ''}
+                        <div>
+                            {post.body}
+                        </div>
+                    </div>
+                    </NavLink>
+                ))}
+            </div>
+        : ''}
         </>
     )
 }
