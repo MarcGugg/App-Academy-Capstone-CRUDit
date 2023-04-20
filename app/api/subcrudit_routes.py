@@ -91,3 +91,37 @@ def edit_sub(sub_id):
         return {'Error': 'Validation Error'}, 401
     
     return None
+
+@subcrudit_routes.route('/<int:sub_id>/delete', methods=['DELETE'])
+@login_required
+def delete_sub(sub_id):
+    if current_user.is_authenticated:
+        
+        subcrudit = Subcrudit.query.get(sub_id)
+        
+        if subcrudit:
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            print('SUBCRUDIT TO DELETE', subcrudit.to_dict())
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            
+            if not subcrudit.owner_id == current_user.id:
+                return {'Error': 'Current user does not own this SubCRUDit.'}
+            
+            db.session.delete(subcrudit)
+            db.session.commit()
+            return {'Message': 'SubCRUDit deleted.'}
+        else:
+            return None
+            
+    return {'Error': 'Please sign in to delete a SubCRUDit.'}, 401

@@ -1,14 +1,15 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { NavLink, useParams } from 'react-router-dom'
-import { getOneSub } from '../../store/subcrudit'
+import { NavLink, useHistory, useParams } from 'react-router-dom'
+import { deleteSub, getOneSub } from '../../store/subcrudit'
 import { getAuthors } from '../../store/post'
 import { getPostImages } from '../../store/post_image'
 
 function Subcrudit() {
 
     const dispatch = useDispatch()
+    const history = useHistory()
     const {subcruditId} = useParams()
 
     useEffect(async () => {
@@ -33,10 +34,10 @@ function Subcrudit() {
 
     const authors = useSelector((state) => state.posts.authors)
     const postImages = useSelector((state) => state.postImages.imagesByPost)
-    console.log('authors from state', authors)
-    console.log('post images from state', postImages)
-    console.log('sub', sub)
-    console.log('posts', sub.posts)
+    // console.log('authors from state', authors)
+    // console.log('post images from state', postImages)
+    // console.log('sub', sub)
+    // console.log('posts', sub.posts)
 
     const authorIdArr = []
     const postIdArr = []
@@ -50,6 +51,12 @@ function Subcrudit() {
 
     // console.log('AUTHOR IDS', authorIdArr)
     // console.log('AUTHORS', authors)
+
+    const handleDeleteClick = async (e) => {
+        e.preventDefault()
+        await dispatch(deleteSub(subcruditId))
+        history.push('/')
+    }
 
     if (!Object.values(sub).length) {
         return null
@@ -73,7 +80,7 @@ function Subcrudit() {
                 Edit Sub Info
                 </NavLink>
                 </button>
-            <button>Delete Sub</button>
+            <button onClick={handleDeleteClick}>Delete Sub</button>
         </div>
         : ''}
         {user ? 

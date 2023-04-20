@@ -1,7 +1,7 @@
 const GET_ONE_SUB = 'subs/getOne'
 const CREATE_SUB = 'subs/Create'
 const EDIT_SUB = 'subs/Edit'
-
+const DELETE_SUB = 'subs/Delete'
 
 const actionGetOneSub = (oneSub) => ({
     type: GET_ONE_SUB,
@@ -18,6 +18,10 @@ const actionEditSub = (editedSub) => ({
     editedSub
 })
 
+const actionDeleteSub = (subcruditId) => ({
+    type: DELETE_SUB,
+    subcruditId
+})
 
 export const getOneSub = (subcruditId) => async dispatch => {
     const res = await fetch(`/api/subcrudits/${subcruditId}`)
@@ -48,7 +52,7 @@ export const createSub = (name, description) => async dispatch => {
 }
 
 export const editSub = (subcruditId, name, description) => async dispatch => {
-    console.log('EDIT SUB THUNK HIT')
+    // console.log('EDIT SUB THUNK HIT')
     const res = await fetch(`/api/subcrudits/${subcruditId}/edit`, {
         method: 'PUT',
         headers: {"Content-Type": "application/json"},
@@ -59,9 +63,22 @@ export const editSub = (subcruditId, name, description) => async dispatch => {
     })
 
     if (res.ok) {
-        console.log('EDIT SUB RES OK')
+        // console.log('EDIT SUB RES OK')
         const editedSub = await res.json()
         dispatch(actionEditSub(editedSub))
+    }
+}
+
+export const deleteSub = (subcruditId) => async dispatch => {
+    console.log('DELETE SUB THUNK HIT')
+    const res = await fetch(`/api/subcrudits/${subcruditId}/delete`, {
+        method: 'DELETE',
+        headers: {"Content-Type": "application/json"}
+    })
+
+    if (res.ok) {
+        console.log('DELETE SUB RES OK')
+        await dispatch(actionDeleteSub(subcruditId))
     }
 }
 
@@ -95,12 +112,22 @@ export default function subcruditReducer(state=initialState, action) {
             return newState2
         }
         case EDIT_SUB: {
-            console.log('EDIT SUB REDUCER HIT')
+            // console.log('EDIT SUB REDUCER HIT')
             const newState3 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}, newSubcrudit: {...state.newSubcrudit}, editedSubcrudit: {...state.editedSubcrudit}}
 
             newState3.editedSubcrudit = {...action.editedSub}
 
             return newState3
+        }
+        case DELETE_SUB: {
+            console.log('DELETE SUB REDUCER HIT')
+            const newState4 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+            
+            delete newState4.allSubcrudits[action.subcruditId]
+            
+            delete newState4.oneSubcrudit[action.subcruditId]
+            
+            return newState4
         }
         default:
             return state
