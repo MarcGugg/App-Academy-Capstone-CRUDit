@@ -13,7 +13,7 @@ function Subcrudit() {
 
     useEffect(async () => {
         await dispatch(getOneSub(subcruditId))
-    }, [])
+    }, [dispatch])
 
     const sub = useSelector((state) => state.subcrudits.oneSubcrudit)
     
@@ -28,7 +28,7 @@ function Subcrudit() {
             await dispatch(getAuthors(authorIdArr))
             await dispatch(getPostImages(postIdArr))
         }
-    }, [sub])
+    }, [sub, dispatch])
 
     const authors = useSelector((state) => state.posts.authors)
     const postImages = useSelector((state) => state.postImages.imagesByPost)
@@ -54,6 +54,10 @@ function Subcrudit() {
         return null
     }
 
+    // if (postImages && !Object.values(postImages).length) {
+    //     return null
+    // }
+
 
     return (
         <>
@@ -68,13 +72,13 @@ function Subcrudit() {
                             <p>{authors[post.authorId]?.username} </p>
                             {/* {post.authorId} */}
                             <h1>{post.header}</h1>
-                            <div>
-                                {Object.values(postImages).length > 1 ? 
+                        {postImages ? 
+                            <div className='images'>
                                     <img src={postImages[post.id]?.url} style={{height:50}} />
-                                    // <h2>Hello</h2>
-                                    // <p>{postImages[9].url}</p>
-                                : ''}
+                                    {/* // <h2>Hello</h2>
+                                    // <p>{postImages[9].url}</p> */}
                             </div>
+                        : ''}
                             <div>
                                 {post.body}
                             </div>

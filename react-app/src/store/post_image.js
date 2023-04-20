@@ -39,7 +39,7 @@ const initialState = {
 export default function postImageReducer(state=initialState, action) {
     switch(action.type){
         case GET_POST_IMAGES: {
-            const newState = {...state, allPostImages: {...state.allPostImages}, postImages: {...state.imagesByPost}}
+            const newState = {...state, allPostImages: {...state.allPostImages}, imagesByPost: {...state.imagesByPost}}
             
             // newState.imagesByPost = {...action.images}
             Object.values(action.images).map(image => newState.imagesByPost[image.postId] = {...image})
