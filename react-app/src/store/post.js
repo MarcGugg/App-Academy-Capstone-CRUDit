@@ -22,7 +22,7 @@ export const getAllPosts = () => async dispatch => {
     const res = await fetch('/api/posts/all')
 
     if (res.ok) {
-        console.log('RES OK')
+        // console.log('RES OK')
         const allPosts = await res.json()
         console.log('allPosts', allPosts)
         dispatch(actionGetAllPosts(allPosts))
@@ -39,7 +39,7 @@ export const getOnePost = (postId) => async dispatch => {
 }
 
 export const getAuthors = (authorIdArr) => async dispatch => {
-    console.log('AUTHOR THUNK HIT', authorIdArr)
+    // console.log('AUTHOR THUNK HIT', authorIdArr)
     let resArr = []
     for (let i = 0; i < authorIdArr.length; i++) {
         const res = await fetch(`/api/posts/authors/${authorIdArr[i]}`)
@@ -50,12 +50,12 @@ export const getAuthors = (authorIdArr) => async dispatch => {
 
     if (resArr.length) {
         let authors = []
-        console.log('AUTHOR RES OK')
+        // console.log('AUTHOR RES OK')
         for (let author of resArr) {
             const authorJson = await author.json()
             authors.push(authorJson)
         }
-        console.log('RES ARR JSON', authors)
+        // console.log('RES ARR JSON', authors)
         dispatch(actionGetAuthors(authors))
     }
 }
@@ -67,7 +67,7 @@ let initialState = {
 export default function postReducer(state=initialState, action) {
     switch (action.type) {
         case GET_ALL_POSTS: {
-            console.log('REDUCER')
+            // console.log('REDUCER')
             const newState = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
             action.allPosts.map(post => newState.allPosts[post.id] = {...post})
             return newState
