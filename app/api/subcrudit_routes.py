@@ -58,7 +58,7 @@ def create_subcrudit():
     
     return {'Error': 'Validation Error'}, 401
 
-@subcrudit_routes.route('/<int:sub_id/edit', methods=['PUT'])
+@subcrudit_routes.route('/<int:sub_id>/edit', methods=['PUT'])
 @login_required
 def edit_sub(sub_id):
     subcrudit = Subcrudit.query.get(sub_id)
@@ -69,9 +69,23 @@ def edit_sub(sub_id):
     
     if subcrudit:
         if form.validate_on_submit():
-            subcrudit.name = form['name']
-            subcrudit.description = form['description']
+            data = form.data
+            subcrudit.name = data['name']
+            subcrudit.description = data['description']
             db.session.commit()
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            print('edited sub', subcrudit.to_dict())
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
             return subcrudit.to_dict_inclusive()
 
         return {'Error': 'Validation Error'}, 401
