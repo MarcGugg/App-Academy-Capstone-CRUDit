@@ -13,6 +13,7 @@ function HomePage() {
         await dispatch(getAllPosts())
     }, [])
 
+    const user = useSelector((state) => state.session.user)
     const posts = useSelector((state) => state.posts.allPosts)
 
     console.log('posts', posts)
@@ -24,6 +25,13 @@ function HomePage() {
     return (
         <>
         <h1>Home Page</h1>
+        {user ? 
+        <div>
+            <button>
+                <NavLink to={'/subcrudits/create/new'}>Create A New Subcrudit</NavLink>
+            </button>
+        </div>
+        : ''}
         <div>
         {Object.values(posts).map(post => (
             <NavLink to={`/posts/${post.id}`}>
