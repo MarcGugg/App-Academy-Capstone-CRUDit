@@ -37,8 +37,8 @@ function Subcrudit() {
     const authors = useSelector((state) => state.posts.authors)
     const postImages = useSelector((state) => state.postImages.imagesByPost)
     // console.log('authors from state', authors)
-    console.log('post images from state', postImages)
-    console.log('sub', sub)
+    // console.log('post images from state', postImages)
+    // console.log('sub', sub)
     // console.log('posts', sub.posts)
 
     const authorIdArr = []
@@ -47,7 +47,7 @@ function Subcrudit() {
         authorIdArr.push(sub.posts[key].authorId)
         postIdArr.push(key)
     }
-    console.log('postIdArr', postIdArr)
+    // console.log('postIdArr', postIdArr)
 
     // let authors = []
 
@@ -94,7 +94,11 @@ function Subcrudit() {
                 </div>
                 {user ? 
                     <div className='postButtonParent'>
-                        <button className='postButton'>Create Post</button>
+                            <NavLink to={`/subcrudits/${subcruditId}/new_post`} style={{textDecoration: 'none', color: 'black'}}>
+                        <button className='postButton'>
+                            Create Post
+                        </button>
+                            </NavLink>
                     </div>
                 : ''}
                 </div>

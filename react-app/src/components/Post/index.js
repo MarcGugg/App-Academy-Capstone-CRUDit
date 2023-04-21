@@ -17,7 +17,7 @@ function OnePost() {
 
     const post = useSelector((state) => state.posts.singlePost)
 
-    console.log('one post', post)
+    // console.log('one post', post)
 
     if (!Object.values(post).length) {
         return null

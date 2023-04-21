@@ -71,13 +71,15 @@ def get_author_by_id(author_id):
 @post_routes.route('/<int:subcrud_id>/new_post', methods=['POST'])
 @login_required
 def create_post(subcrud_id):
+    print('HIT BACKEND')
     if current_user.is_authenticated:
-
+        print('PASSED BACKEND CONDITION')
         form = CreatePostForm()
 
         form['csrf_token'].data = request.cookies['csrf_token']
 
         if form.validate_on_submit():
+            print('BACKEND FORM VALIDATED')
             data = form.data
             new_post = Post(
                 author_id = current_user.id,
@@ -101,5 +103,7 @@ def create_post(subcrud_id):
 
             db.session.add(new_post)
             db.session.commit()
+
+            return new_post.to_dict_no_image()
 
     return {'Error': 'User must sign in to post.'}, 403

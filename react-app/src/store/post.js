@@ -1,7 +1,7 @@
 const GET_ALL_POSTS = 'posts/getAll'
 const GET_ONE_POST = 'posts/getOne'
 const GET_AUTHOR = 'posts/getAuthor'
-
+const CREATE_POST = 'posts/Create'
 
 const actionGetAllPosts =(allPosts) => ({
     type: GET_ALL_POSTS,
@@ -18,13 +18,18 @@ const actionGetAuthors = (authors) => ({
     authors
 })
 
+const actionCreatePost = (newPost) => ({
+    type: CREATE_POST,
+    newPost
+})
+
 export const getAllPosts = () => async dispatch => {
     const res = await fetch('/api/posts/all')
 
     if (res.ok) {
         // console.log('RES OK')
         const allPosts = await res.json()
-        console.log('allPosts', allPosts)
+        // console.log('allPosts', allPosts)
         dispatch(actionGetAllPosts(allPosts))
     }
 }
@@ -60,9 +65,65 @@ export const getAuthors = (authorIdArr) => async dispatch => {
     }
 }
 
+export const addImageToPost = (newPost, image) => async dispatch => {
+    console.log('ASSOCIATE IMAGE THUNK HIT')
+    const res = await fetch(`/api/post_images/${newPost.id}/add_image`, {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            'url': image
+        })
+    })
+
+    if (res.ok) {
+        console.log('RES OK')
+        console.log('NEW IMAGE', res.json())
+    }
+} 
+
+export const createPost = (subcrudditId, header, body, image) => async dispatch => {
+    console.log('NEW POST THUNK HIT')
+    let res;
+    if (image) {
+        console.log('IN IMAGE CONDITIONAL')
+        res = await fetch(`/api/posts/${subcrudditId}/new_post`, {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                'header': header,
+                'body': body
+            })
+        })
+
+        if (res.ok) {
+            const newPost = await res.json()
+            console.log('NEW POST', newPost)
+            await dispatch(addImageToPost(newPost, image))
+            dispatch(actionCreatePost(newPost))
+        }
+    } else {
+        console.log('IN ELSE STATEMENT')
+        res = await fetch(`/api/posts/${subcrudditId}/new_post`, {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                'header': header,
+                'body': body
+            })
+        })
+        
+        if (res.ok) {
+            const newPost = await res.json()
+            dispatch(actionCreatePost(newPost))
+        }
+    }
+
+}
+
 let initialState = {
     allPosts: {},
-    singlePost: {}
+    singlePost: {},
+    newPost: {}
 }
 export default function postReducer(state=initialState, action) {
     switch (action.type) {
@@ -87,6 +148,13 @@ export default function postReducer(state=initialState, action) {
            Object.values(action.authors).map(author => newState3.authors[author.id] = {...author})
 
             return newState3
+        }
+        case CREATE_POST: {
+            const newState4 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, newPost: {...state.newPost}}
+        
+            newState4.newPost = {...action.newPost}
+
+            return newState4
         }
         default:
             return state

@@ -18,7 +18,7 @@ function HomePage() {
     const user = useSelector((state) => state.session.user)
     const posts = useSelector((state) => state.posts.allPosts)
 
-    console.log('posts', posts)
+    // console.log('posts', posts)
 
     if (!Object.values(posts).length) {
         return null

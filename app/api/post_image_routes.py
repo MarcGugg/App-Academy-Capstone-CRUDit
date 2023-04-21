@@ -36,7 +36,7 @@ def get_image(post_id):
     # return {'Message':'Image Not Found'}
     return None
 
-@post_image_routes.route('/<int:post_id>/add_image', methods=['PUT'])
+@post_image_routes.route('/<int:post_id>/add_image', methods=['POST'])
 @login_required
 def create_post_image(post_id):
     if current_user.is_authenticated:
@@ -55,12 +55,16 @@ def create_post_image(post_id):
             print('') 
             print('') 
             print('')
-            print('NEW IMAGE', new_image) 
+            print('NEW IMAGE', new_image.to_dict_inclusive()) 
             print('') 
             print('') 
             print('') 
             print('') 
-            print('') 
+            print('')
+
+            db.session.add(new_image)
+            db.session.commit()
+            return new_image.to_dict_inclusive() 
         
         return None
     

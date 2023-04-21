@@ -14,7 +14,7 @@ function EditSubcruditForm() {
     }, [dispatch])
 
     const subToEdit = useSelector((state) => state.subcrudits.oneSubcrudit)
-    console.log('subToEdit', subToEdit)
+    // console.log('subToEdit', subToEdit)
 
     const [name, setName] = useState(subToEdit.name || '')
     const [description, setDescription] = useState(subToEdit.description || '')

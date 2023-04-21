@@ -70,14 +70,14 @@ export const editSub = (subcruditId, name, description) => async dispatch => {
 }
 
 export const deleteSub = (subcruditId) => async dispatch => {
-    console.log('DELETE SUB THUNK HIT')
+    // console.log('DELETE SUB THUNK HIT')
     const res = await fetch(`/api/subcrudits/${subcruditId}/delete`, {
         method: 'DELETE',
         headers: {"Content-Type": "application/json"}
     })
 
     if (res.ok) {
-        console.log('DELETE SUB RES OK')
+        // console.log('DELETE SUB RES OK')
         await dispatch(actionDeleteSub(subcruditId))
     }
 }
@@ -120,7 +120,7 @@ export default function subcruditReducer(state=initialState, action) {
             return newState3
         }
         case DELETE_SUB: {
-            console.log('DELETE SUB REDUCER HIT')
+            // console.log('DELETE SUB REDUCER HIT')
             const newState4 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
             
             delete newState4.allSubcrudits[action.subcruditId]
