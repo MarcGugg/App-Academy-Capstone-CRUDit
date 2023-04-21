@@ -26,3 +26,13 @@
 .postBody {
     font-size: larger;
 }
+
+/* .imageDiv {
+
+} */
+
+.imgTag {
+    height: 40rem;
+    width: 60rem;
+    object-fit: fill;
+}

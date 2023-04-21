@@ -37,7 +37,7 @@ function Subcrudit() {
     const authors = useSelector((state) => state.posts.authors)
     const postImages = useSelector((state) => state.postImages.imagesByPost)
     // console.log('authors from state', authors)
-    // console.log('post images from state', postImages)
+    console.log('post images from state', postImages)
     console.log('sub', sub)
     // console.log('posts', sub.posts)
 
@@ -81,9 +81,9 @@ function Subcrudit() {
                 {user && user.id === sub.ownerId ? 
                 <div>
                     <button>
-                        <NavLink to={`/subcrudits/${subcruditId}/edit`}>
-                        </NavLink>
+                        <NavLink to={`/subcrudits/${subcruditId}/edit`} style={{textDecoration: 'none', color: 'black'}}>
                         Edit Sub Info
+                        </NavLink>
                     </button>
                     <button onClick={handleDeleteClick}>Delete Sub</button>
                 </div>
@@ -110,7 +110,7 @@ function Subcrudit() {
                                     : ''}
                                     {/* {post.authorId} */}
                                     <h1 className='subPostHeader'>{post.header}</h1>
-                                    {postImages && Object.values(postImages).length ? 
+                                    {postImages && Object.values(postImages).length && postImages[post.id]?.url ? 
                                     <div className='image'>
                                         {/* {Object.keys(postImages).includes(post.id) ?  */}
                                         

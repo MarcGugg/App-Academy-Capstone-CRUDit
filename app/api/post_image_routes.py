@@ -33,4 +33,5 @@ def get_image(post_id):
         print('')
         print('')
         return image.to_dict()
+    # return {'Message':'Image Not Found'}
     return None

@@ -43,8 +43,10 @@ function OnePost() {
             </div>
             <h1>{post.header}</h1>
             {Object.keys(post).includes('image') ? 
-                <div>
-                    <img src={post.image.url}/>
+                <div className='imageDiv'>
+                    <img src={post.image.url}
+                    className='imgTag'
+                    />
                 </div>  
             : ''}
             <p className='postBody'>{post.body}</p>
