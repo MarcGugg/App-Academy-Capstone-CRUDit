@@ -6,6 +6,8 @@ import { deleteSub, getOneSub } from '../../store/subcrudit'
 import { getAuthors } from '../../store/post'
 import { getPostImages } from '../../store/post_image'
 
+import './Subcrudit.css'
+
 function Subcrudit() {
 
     const dispatch = useDispatch()
@@ -72,52 +74,60 @@ function Subcrudit() {
 
     return (
         <>
-        <h1>Subcrudit page</h1>
-        {user && user.id === sub.ownerId ? 
-        <div>
-            <button>
-                <NavLink to={`/subcrudits/${subcruditId}/edit`}>
-                Edit Sub Info
-                </NavLink>
-                </button>
-            <button onClick={handleDeleteClick}>Delete Sub</button>
-        </div>
-        : ''}
-        {user ? 
-            <div>
-                <button>Make a Post</button>
-            </div>
-        : ''}
-        <div>
-            <h1>{sub.name}</h1>
-            <h2>{sub.description}</h2>
-        </div>
-        {sub.posts && Object.values(sub.posts).length ?         
-            <div>
-                {Object.values(sub.posts).map(post => (
-                    <NavLink to={`/posts/${post.id}`}>
-                    <div>
-                        {authors && Object.values(authors).length ? 
-
-                        <p>{authors[post.authorId]?.username} </p>
-                        : ''}
-                        {/* {post.authorId} */}
-                        <h1>{post.header}</h1>
-                    {postImages ? 
-                        <div className='images'>
-                                <img src={postImages[post.id]?.url} style={{height:50}} />
-                                {/* // <h2>Hello</h2>
-                                // <p>{postImages[9].url}</p> */}
-                        </div>
-                    : ''}
-                        <div>
-                            {post.body}
-                        </div>
+        <div className='wholeSub'>
+            <div className='infoAndButtonBoxParent'>
+                <div className='infoAndButtonBox'>
+                {/* <h1>Subcrudit page</h1> */}
+                {user && user.id === sub.ownerId ? 
+                <div>
+                    <button>
+                        <NavLink to={`/subcrudits/${subcruditId}/edit`}>
+                        </NavLink>
+                        Edit Sub Info
+                    </button>
+                    <button onClick={handleDeleteClick}>Delete Sub</button>
+                </div>
+                : ''}
+                <div className='subNameAndDesc'>
+                    <h1 className='subName' >{sub.name}</h1>
+                    <p>{sub.description}</p>
+                </div>
+                {user ? 
+                    <div className='postButtonParent'>
+                        <button className='postButton'>Create Post</button>
                     </div>
-                    </NavLink>
-                ))}
+                : ''}
+                </div>
             </div>
-        : ''}
+            <div className='subPagePostParent'>
+                {sub.posts && Object.values(sub.posts).length ?         
+                 <div>
+                        {Object.values(sub.posts).map(post => (
+                            <NavLink to={`/posts/${post.id}`} style={{ textDecoration: 'none'}}>
+                                <div className='subPagePostLink'>
+                                    {authors && Object.values(authors).length ? 
+                                    <p>{authors[post.authorId]?.username} </p>
+                                    : ''}
+                                    {/* {post.authorId} */}
+                                    <h1>{post.header}</h1>
+                                    {postImages ? 
+                                    <div className='image'>
+                                        <img src={postImages[post.id]?.url} 
+                                        // style={{height:50}}
+                                        className='postImageSrc-sub'
+                                         />
+                                    </div>
+                                    : ''}
+                                    <div>
+                                        {post.body}
+                                    </div>
+                                </div>
+                            </NavLink>
+                        ))}
+                    </div>
+                : ''}
+            </div>
+        </div>
         </>
     )
 }
