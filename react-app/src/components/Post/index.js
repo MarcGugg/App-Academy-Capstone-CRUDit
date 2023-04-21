@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useParams, useHistory } from 'react-router-dom'
 import { getOnePost } from '../../store/post'
 
 import './Post.css'
@@ -10,14 +10,25 @@ function OnePost() {
 
     const dispatch = useDispatch()
     const {postId} = useParams()
+    const history = useHistory()
 
     useEffect(async () => {
         await dispatch(getOnePost(postId))
     }, [])
 
+    const user = useSelector((state) => state.session.user)
     const post = useSelector((state) => state.posts.singlePost)
 
     // console.log('one post', post)
+
+    //for dropdown menu
+    // const [clicked, setClicked] = useState(false)
+
+    const handleEditClick = async (e) => {
+        e.preventDefault()
+        history.push(`/posts/${postId}/edit`)
+    }
+
 
     if (!Object.values(post).length) {
         return null
@@ -50,6 +61,12 @@ function OnePost() {
                 </div>  
             : ''}
             <p className='postBody'>{post.body}</p>
+            {user && post.authorId == user.id ? 
+            <div>
+                <button>Delete</button>
+                <button onClick={handleEditClick}>Edit</button>
+            </div>            
+            : ''}
         </div>
         </div>
         </>

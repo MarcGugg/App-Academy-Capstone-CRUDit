@@ -11,6 +11,7 @@ import Subcrudit from "./components/Subcrudit";
 import CreateSubcruditForm from "./components/CreateSubcrudit";
 import EditSubcruditForm from "./components/EditSubcrudit";
 import CreatePostForm from "./components/CreatePost";
+import EditPostForm from "./components/EditPost";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path='/posts/:postId' exact={true}>
             <OnePost />
+          </Route>
+          <Route path='/posts/:postId/edit' exact={true}>
+            <EditPostForm />
           </Route>
           <Route path='/subcrudits/:subcruditId' exact={true}>
             <Subcrudit />

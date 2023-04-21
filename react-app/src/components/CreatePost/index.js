@@ -30,7 +30,7 @@ function CreatePostForm() {
         <h1>Create Post Form</h1>
         <form onSubmit={handleSubmit}>
             <input type="text" value={header} onChange={(e) => setHeader(e.target.value)} placeholder="Set your posts' header"/>
-            <textarea value={body} onChange={(e) => setBody(e.target.value)} placeholder="Wrtie the post body">Body</textarea>
+            <textarea value={body} onChange={(e) => setBody(e.target.value)} placeholder="Write the post body">Body</textarea>
             <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Inlcude an image to make your post stand out" />
             <button type="submit">Create Post</button>
         </form>

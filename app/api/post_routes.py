@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.models import  User, PostImage, db, Subcrudit, Post
 from app.forms.create_post import CreatePostForm
+from app.forms.edit_post import EditPostForm
 
 post_routes = Blueprint('/posts', __name__)
 
@@ -122,3 +123,36 @@ def create_post(subcrud_id):
             return new_post.to_dict_no_image()
 
     return {'Error': 'User must sign in to post.'}, 403
+
+
+@post_routes.route('/<int:post_id>/edit', methods=['PUT'])
+@login_required
+def edit_post(post_id):
+
+    post = Post.query.get(post_id)
+    
+    form = EditPostForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+    
+    if post:
+
+        if current_user.is_authenticated:
+
+            if post.author_id == current_user.id:
+
+                if form.validate_on_submit():
+
+                    data = form.data
+
+                    post.header = data['header']
+                    post.body = data['body']
+
+                    db.session.commit()
+                    return post.to_dict()
+            
+            return {'Error': 'User did not make this post'}
+    
+        return {'Error': 'User must sign in to edit a post.'}, 403 
+    
+    return {'Error': 'No Post Found.'}, 404

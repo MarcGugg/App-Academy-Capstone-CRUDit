@@ -2,6 +2,7 @@ const GET_ALL_POSTS = 'posts/getAll'
 const GET_ONE_POST = 'posts/getOne'
 const GET_AUTHOR = 'posts/getAuthor'
 const CREATE_POST = 'posts/Create'
+const EDIT_POST = 'posts/Edit'
 
 const actionGetAllPosts =(allPosts) => ({
     type: GET_ALL_POSTS,
@@ -21,6 +22,11 @@ const actionGetAuthors = (authors) => ({
 const actionCreatePost = (newPost) => ({
     type: CREATE_POST,
     newPost
+})
+
+const actionEditPost = (editedPost) => ({
+    type: EDIT_POST,
+    editedPost
 })
 
 export const getAllPosts = () => async dispatch => {
@@ -126,6 +132,29 @@ export const createPost = (subcrudditId, header, body, image) => async dispatch 
 
 }
 
+
+
+
+export const editPost = (postId, header, body) => async dispatch => {
+    // console.log('EDIT POST THUNK HIT')
+    // console.log('post id', postId)
+    const res = await fetch(`/api/posts/${postId}/edit`, {
+        method: 'PUT',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            'header': header,
+            'body': body
+        })
+    })
+    
+    if (res.ok) {
+        // console.log('EDIT POST RES OK')
+        const editedPost = await res.json()
+        dispatch(actionEditPost(editedPost))
+    }
+}
+
+
 let initialState = {
     allPosts: {},
     singlePost: {},
@@ -161,6 +190,14 @@ export default function postReducer(state=initialState, action) {
             newState4.newPost = {...action.newPost}
 
             return newState4
+        }
+        case EDIT_POST: {
+            // console.log('EDIT POST REDUCER HIT')
+            const newState5 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+
+            newState5.editedPost = {...action.editedPost}
+
+            return newState5
         }
         default:
             return state
