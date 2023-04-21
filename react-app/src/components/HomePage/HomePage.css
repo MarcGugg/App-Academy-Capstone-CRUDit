@@ -70,6 +70,11 @@
 
 .postHeader {
     margin-top: 0;
+    color: black;
+}
+
+.postBody {
+    color: black;
 }
 
 .postImageSrc {

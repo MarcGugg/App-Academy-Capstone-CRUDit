@@ -15,8 +15,22 @@ def get_all_images():
 
 @post_image_routes.route('/<int:post_id>')
 def get_image(post_id):
-    image = PostImage.query.filter(PostImage.post_id == post_id).one()
+    image = PostImage.query.filter(PostImage.post_id == post_id).first()
 
     if image:
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('image', image.to_dict())
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
         return image.to_dict()
     return None

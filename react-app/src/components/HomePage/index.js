@@ -29,15 +29,15 @@ function HomePage() {
         <div className='wholePage'>
         <div className='headerAndCreateButtonParent'>
             <div className='headerAndCreateButton'>
-        <h1 className='homePageText'>Home Page</h1>
-        {user ? 
-        <div className='createSubButtonDiv'>
-            <button className='createSubButton'>
-            Create A New SubCRUDit
-                <NavLink to={'/subcrudits/create/new'}></NavLink>
-            </button>
-        </div>
-        : ''}
+            <h1 className='homePageText'>Home Page</h1>
+            {user ? 
+                <div className='createSubButtonDiv'>
+                    <button className='createSubButton'>
+                    Create A New SubCRUDit
+                        <NavLink to={'/subcrudits/create/new'}></NavLink>
+                    </button>
+                </div>
+            : ''}
             </div>
         </div>
         <div className='homePagePostParent'>
