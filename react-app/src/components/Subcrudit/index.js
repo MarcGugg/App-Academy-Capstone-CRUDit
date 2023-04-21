@@ -110,12 +110,12 @@ function Subcrudit() {
                                     : ''}
                                     {/* {post.authorId} */}
                                     <h1 className='subPostHeader'>{post.header}</h1>
-                                    {postImages ? 
+                                    {postImages && Object.values(postImages).length ? 
                                     <div className='image'>
-                                        <img src={postImages[post.id]?.url} 
-                                        // style={{height:50}}
-                                        className='postImageSrc-sub'
-                                         />
+                                        {/* {Object.keys(postImages).includes(post.id) ?  */}
+                                        
+                                        <img src={postImages[post.id]?.url} className='postImageSrc-sub'/>
+                                        {/* :''} */}
                                     </div>
                                     : ''}
                                     <div className='subPostBody'>
