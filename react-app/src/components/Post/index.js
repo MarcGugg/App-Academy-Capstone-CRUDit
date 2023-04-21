@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import { getOnePost } from '../../store/post'
 
+import './Post.css'
+
 function OnePost() {
 
     const dispatch = useDispatch()
@@ -24,21 +26,29 @@ function OnePost() {
 
     return (
         <>
-        <h1>Single Post</h1>
-        <div>
-            <div>
-                <NavLink to={`/subcrudits/${post.subcrudit.id}`}>
+        {/* <h1>Single Post</h1> */}
+        <div className='postParent'>
+        <div className='post'>
+            <div className='subAndAuthor'>
+                <p className='postSub'>
+                <NavLink to={`/subcrudits/${post.subcrudit.id}`} style={{textDecoration: 'none', color: 'black'}}>
                 {post.subcrudit.name} 
                 </NavLink>
-                <h3>
-                posted by {post.author.username}
-                </h3>
-                </div>
+                </p>
+            
+                <p className='postAuthor'>
+                Posted by {post.author.username}
+                </p>
+                
+            </div>
             <h1>{post.header}</h1>
-            {Object.keys(post).includes('image') ? <div>
-                <img src={post.image.url}/>
-            </div>  : ''}
-            <p>{post.body}</p>
+            {Object.keys(post).includes('image') ? 
+                <div>
+                    <img src={post.image.url}/>
+                </div>  
+            : ''}
+            <p className='postBody'>{post.body}</p>
+        </div>
         </div>
         </>
     )

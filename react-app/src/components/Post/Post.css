@@ -1,0 +1,28 @@
+.postParent {
+    display: flex;
+    justify-content: center;
+}
+
+.post {
+    padding: 2rem;
+    border: 1px solid darkgray;
+    border-radius: 4px;
+}
+
+.subAndAuthor {
+    display: flex;
+    justify-content: row;
+}
+
+.postSub {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.postAuthor {
+    color: gray;
+}
+
+.postBody {
+    font-size: larger;
+}
