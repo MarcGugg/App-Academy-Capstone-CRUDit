@@ -106,10 +106,10 @@ function Subcrudit() {
                             <NavLink to={`/posts/${post.id}`} style={{ textDecoration: 'none'}}>
                                 <div className='subPagePostLink'>
                                     {authors && Object.values(authors).length ? 
-                                    <p>{authors[post.authorId]?.username} </p>
+                                    <p className='subAuthorUsername'>Posted by {authors[post.authorId]?.username} </p>
                                     : ''}
                                     {/* {post.authorId} */}
-                                    <h1>{post.header}</h1>
+                                    <h1 className='subPostHeader'>{post.header}</h1>
                                     {postImages ? 
                                     <div className='image'>
                                         <img src={postImages[post.id]?.url} 
@@ -118,7 +118,7 @@ function Subcrudit() {
                                          />
                                     </div>
                                     : ''}
-                                    <div>
+                                    <div className='subPostBody'>
                                         {post.body}
                                     </div>
                                 </div>

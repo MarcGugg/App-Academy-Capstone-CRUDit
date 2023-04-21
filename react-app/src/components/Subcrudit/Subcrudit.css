@@ -37,6 +37,16 @@
     border: 1px solid black;
 }
 
+.subAuthorUsername {
+    color: gray;
+}
+.subPostHeader {
+    color: black;
+}
+.subPostBody {
+    color: black;
+}
+
 .image {
     margin-right: 1.7rem;
 }
