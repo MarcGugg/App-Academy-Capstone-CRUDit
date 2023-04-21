@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
-from app.models import  User, PostImage, db, Subcrudit
+from app.models import  User, PostImage, db, Subcrudit, Post
 
 
 post_image_routes = Blueprint('/post_images', __name__)
@@ -35,3 +35,33 @@ def get_image(post_id):
         return image.to_dict()
     # return {'Message':'Image Not Found'}
     return None
+
+@post_image_routes.route('/<int:post_id>/add_image', methods=['PUT'])
+@login_required
+def create_post_image(post_id):
+    if current_user.is_authenticated:
+        post = Post.query.get(post_id)
+
+        if post:
+            data = request.get_json()
+
+            new_image = PostImage(
+                url = data['url'],
+                post_id = post.id
+            )
+
+            print('') 
+            print('') 
+            print('') 
+            print('') 
+            print('')
+            print('NEW IMAGE', new_image) 
+            print('') 
+            print('') 
+            print('') 
+            print('') 
+            print('') 
+        
+        return None
+    
+    return {'Error': 'User must sign in to add post image.'}, 403
