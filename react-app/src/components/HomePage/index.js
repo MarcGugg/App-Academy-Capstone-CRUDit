@@ -33,8 +33,10 @@ function HomePage() {
             {user ? 
                 <div className='createSubButtonDiv'>
                     <button className='createSubButton'>
-                    Create A New SubCRUDit
-                        <NavLink to={'/subcrudits/create/new'}></NavLink>
+                        <NavLink to={'/subcrudits/create/new'} style={{textDecoration:'none'}}>
+                            Create A New SubCRUDit
+
+                        </NavLink>
                     </button>
                 </div>
             : ''}
