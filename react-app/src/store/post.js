@@ -66,7 +66,7 @@ export const getAuthors = (authorIdArr) => async dispatch => {
 }
 
 export const addImageToPost = (newPost, image) => async dispatch => {
-    console.log('ASSOCIATE IMAGE THUNK HIT')
+    // console.log('ASSOCIATE IMAGE THUNK HIT')
     const res = await fetch(`/api/post_images/${newPost.id}/add_image`, {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
@@ -76,16 +76,18 @@ export const addImageToPost = (newPost, image) => async dispatch => {
     })
 
     if (res.ok) {
-        console.log('RES OK')
-        console.log('NEW IMAGE', res.json())
+        // console.log('POST IMAGE RES OK')
+        const newImage = await res.json()
+        // console.log('NEW IMAGE', newImage)
+        return newImage
     }
 } 
 
 export const createPost = (subcrudditId, header, body, image) => async dispatch => {
-    console.log('NEW POST THUNK HIT')
+    // console.log('NEW POST THUNK HIT')
     let res;
     if (image) {
-        console.log('IN IMAGE CONDITIONAL')
+        // console.log('IN IMAGE CONDITIONAL')
         res = await fetch(`/api/posts/${subcrudditId}/new_post`, {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
@@ -97,12 +99,15 @@ export const createPost = (subcrudditId, header, body, image) => async dispatch 
 
         if (res.ok) {
             const newPost = await res.json()
-            console.log('NEW POST', newPost)
+            // console.log('NEW POST', newPost)
+            // const newPostWithImage= await dispatch(addImageToPost(newPost, image))
             await dispatch(addImageToPost(newPost, image))
+            // console.log('NEW POST WITH IMAGE', newPostWithImage)
             dispatch(actionCreatePost(newPost))
+            return newPost
         }
     } else {
-        console.log('IN ELSE STATEMENT')
+        // console.log('IN ELSE STATEMENT')
         res = await fetch(`/api/posts/${subcrudditId}/new_post`, {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
@@ -115,6 +120,7 @@ export const createPost = (subcrudditId, header, body, image) => async dispatch 
         if (res.ok) {
             const newPost = await res.json()
             dispatch(actionCreatePost(newPost))
+            return newPost
         }
     }
 

@@ -18,7 +18,7 @@ function CreateSubcruditForm() {
         e.preventDefault()
         // console.log('yay')
         const newSub = await dispatch(createSub(name, description))
-        console.log('newSub', newSub)
+        // console.log('newSub', newSub)
         history.push(`/subcrudits/${newSub.id}`)
     }
 

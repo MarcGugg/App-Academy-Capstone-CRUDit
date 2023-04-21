@@ -17,10 +17,12 @@ function CreatePostForm() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         
-        // const post = await dispatch(createPost(subcruditId, header, body, image))
-        await dispatch(createPost(subcruditId, header, body, image))
+        const post = await dispatch(createPost(subcruditId, header, body, image))
+        // await dispatch(createPost(subcruditId, header, body, image))
 
-        // history.push(`/posts/${post.id}`)
+        // console.log('post dispatch', post)
+
+        history.push(`/posts/${post.id}`)
     }
 
     return (

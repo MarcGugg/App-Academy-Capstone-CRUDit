@@ -7,20 +7,20 @@ post_routes = Blueprint('/posts', __name__)
 
 @post_routes.route('/all')
 def get_all_posts():
-    print('')
-    print('')
-    print('')
-    print('')
-    print('')
-    print('')
-    print('')
-    print('BACKEND HIT')
-    print('')
-    print('')
-    print('')
-    print('')
-    print('')
-    print('')
+    # print('')
+    # print('')
+    # print('')
+    # print('')
+    # print('')
+    # print('')
+    # print('')
+    # print('BACKEND HIT')
+    # print('')
+    # print('')
+    # print('')
+    # print('')
+    # print('')
+    # print('')
     posts = Post.query.all()
 
     if posts:
@@ -30,21 +30,21 @@ def get_all_posts():
                 post_list.append(post.to_dict_inclusive())
             else:
                 post_list.append(post.to_dict_no_image())
-        print('')
-        print('')
-        print('')
-        print('')
-        print('')
-        print('')
-        print('')
-        print(post_list)
-        print('')
-        print('')
-        print('')
-        print('')
-        print('')
-        print('')
-        print('')
+        # print('')
+        # print('')
+        # print('')
+        # print('')
+        # print('')
+        # print('')
+        # print('')
+        # print(post_list)
+        # print('')
+        # print('')
+        # print('')
+        # print('')
+        # print('')
+        # print('')
+        # print('')
         return post_list
     return None
 
@@ -71,15 +71,16 @@ def get_author_by_id(author_id):
 @post_routes.route('/<int:subcrud_id>/new_post', methods=['POST'])
 @login_required
 def create_post(subcrud_id):
-    print('HIT BACKEND')
+    # print('HIT BACKEND')
     if current_user.is_authenticated:
-        print('PASSED BACKEND CONDITION')
+        # print('PASSED BACKEND CONDITION')
+        # print('CURRENT USER', current_user.to_dict())
         form = CreatePostForm()
 
         form['csrf_token'].data = request.cookies['csrf_token']
 
         if form.validate_on_submit():
-            print('BACKEND FORM VALIDATED')
+            # print('BACKEND FORM VALIDATED')
             data = form.data
             new_post = Post(
                 author_id = current_user.id,
@@ -87,22 +88,36 @@ def create_post(subcrud_id):
                 header = data['header'],
                 body = data['body']
             )
+            # print('new post before commit', new_post.to_dict())
+            # print('new post author', new_post.author())
 
-            print('')
-            print('')
-            print('')
-            print('')
-            print('')
-            print('NEW POST', new_post.to_dict_no_image())
-            print('')
-            print('')
-            print('')
-            print('')
-            print('')
+            # print('')
+            # print('')
+            # print('')
+            # print('')
+            # print('')
+            # print('NEW POST', new_post.to_dict_no_image())
+            # print('')
+            # print('')
+            # print('')
+            # print('')
+            # print('')
 
 
             db.session.add(new_post)
             db.session.commit()
+
+            # print('')
+            # print('')
+            # print('')
+            # print('')
+            # print('')
+            # print('NEW POST', new_post.to_dict_no_image())
+            # print('')
+            # print('')
+            # print('')
+            # print('')
+            # print('')
 
             return new_post.to_dict_no_image()
 
