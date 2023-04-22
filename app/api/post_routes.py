@@ -156,3 +156,49 @@ def edit_post(post_id):
         return {'Error': 'User must sign in to edit a post.'}, 403 
     
     return {'Error': 'No Post Found.'}, 404
+
+
+@post_routes.route('/<int:post_id>/delete', methods=['DELETE'])
+@login_required
+def delete_post(post_id):
+    print('')
+    print('')
+    print('')
+    print('BACKEND HIT')
+    print('')
+    print('')
+    print('')
+    post = Post.query.get(post_id)
+
+    if post:
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('POST EXISTS')
+        print('')
+        print('')
+        print('')
+        print('')
+        if current_user.is_authenticated:
+            print('')
+            print('')
+            print('')
+            print('')
+            print('USER AUTHENTICATED')
+            print('')
+            print('')
+            print('')
+            print('')
+            if post.author_id == current_user.id:
+                
+                db.session.delete(post)
+                db.session.commit()
+                return {'Message': 'Post deleted.'}
+            
+            return {'Error': 'User did not make this post'}, 403
+
+        return {'Error': 'User must sign in to delete a post.'}, 403
+    
+    return None

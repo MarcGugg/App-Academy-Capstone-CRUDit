@@ -3,6 +3,8 @@ const GET_ONE_POST = 'posts/getOne'
 const GET_AUTHOR = 'posts/getAuthor'
 const CREATE_POST = 'posts/Create'
 const EDIT_POST = 'posts/Edit'
+const DELETE_POST = 'posts/Delete'
+
 
 const actionGetAllPosts =(allPosts) => ({
     type: GET_ALL_POSTS,
@@ -28,6 +30,26 @@ const actionEditPost = (editedPost) => ({
     type: EDIT_POST,
     editedPost
 })
+
+const actionDeletePost = (postId) => ({
+    type: DELETE_POST,
+    postId
+})
+
+export const deletePost = (postId) => async dispatch => {
+    console.log('DELETE POST THUNK HIT')
+    const res = await fetch(`/api/posts/${postId}/delete`, {
+        method: 'DELETE',
+        headers: {"Content-Type": "application/json"}
+    })
+
+    if (res.ok) {
+        console.log('DELETE POST RES OK')
+        await dispatch(actionDeletePost(postId))
+    }
+}
+
+
 
 export const getAllPosts = () => async dispatch => {
     const res = await fetch('/api/posts/all')
@@ -198,6 +220,14 @@ export default function postReducer(state=initialState, action) {
             newState5.editedPost = {...action.editedPost}
 
             return newState5
+        }
+        case DELETE_POST: {
+            console.log('DELETE POST THUNK HIT')
+            const newState6 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+
+            delete newState6.allPosts[action.postId]
+
+            return newState6
         }
         default:
             return state

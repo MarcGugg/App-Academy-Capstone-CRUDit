@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { NavLink, useParams, useHistory } from 'react-router-dom'
-import { getOnePost } from '../../store/post'
+import { deletePost, getOnePost } from '../../store/post'
 
 import './Post.css'
 
@@ -11,6 +11,7 @@ function OnePost() {
     const dispatch = useDispatch()
     const {postId} = useParams()
     const history = useHistory()
+    // const navigate = useNavigate()
 
     useEffect(async () => {
         await dispatch(getOnePost(postId))
@@ -27,6 +28,12 @@ function OnePost() {
     const handleEditClick = async (e) => {
         e.preventDefault()
         history.push(`/posts/${postId}/edit`)
+    }
+
+    const handeDeleteClick = async (e) => {
+        e.preventDefault()
+        await dispatch(deletePost(postId))
+        history.push('/')
     }
 
 
@@ -63,7 +70,7 @@ function OnePost() {
             <p className='postBody'>{post.body}</p>
             {user && post.authorId == user.id ? 
             <div>
-                <button>Delete</button>
+                <button onClick={handeDeleteClick}>Delete</button>
                 <button onClick={handleEditClick}>Edit</button>
             </div>            
             : ''}
