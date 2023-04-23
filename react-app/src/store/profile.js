@@ -30,6 +30,15 @@ export default function profileReducer (state=initialState, action) {
             const newState = {...state, oneProfile: {...state.oneProfile}}
 
             newState.oneProfile = {...action.user}
+            console.log('ACTION SUBS', action.user.allSubcruddits)
+            newState.oneProfile.allSubcruddits = {}
+            newState.oneProfile.moddedSubs = {}
+            newState.oneProfile.posts = {}
+
+            action.user.allSubcruddits.map(sub => newState.oneProfile.allSubcruddits[sub.id] = {...sub})
+            action.user.moddedSubs.map(sub => newState.oneProfile.moddedSubs[sub.id] = {...sub})
+            action.user.posts.map(post => newState.oneProfile.posts[post.id] = {...post})
+            console.log('newState Subs Profile', newState.oneProfile)
 
             return newState
         }
