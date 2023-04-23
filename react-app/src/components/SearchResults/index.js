@@ -17,7 +17,7 @@ function SearchResults() {
 
     const subs = useSelector((state) => state.search.subsResults)
 
-    if (!subs || Object.values(subs).length) {
+    if (!subs || !Object.values(subs).length) {
         return (
             <h1>No Results</h1>
         )

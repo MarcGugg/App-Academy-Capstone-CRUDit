@@ -5,7 +5,7 @@ from app.models import  User, PostImage, db, Subcrudit, Post
 
 search_routes = Blueprint('/search', __name__)
 
-search_routes.route('/<string:params>')
+@search_routes.route('/<string:params>')
 def search_subcrudits(params):
     print("")
     print("")

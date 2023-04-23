@@ -26,7 +26,7 @@ export default function searchReducer(state=initialState, action) {
             const newState = {...state, subsResults: {...state.subsResults}}
 
             newState.subsResults = {}
-            action.subsResults.map(sub => newState.subsResults[sub.id] = {...sub})
+            action.subs.map(sub => newState.subsResults[sub.id] = {...sub})
 
             return newState
         }
