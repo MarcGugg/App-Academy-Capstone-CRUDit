@@ -78,16 +78,6 @@ function Subcrudit() {
             <div className='infoAndButtonBoxParent'>
                 <div className='infoAndButtonBox'>
                 {/* <h1>Subcrudit page</h1> */}
-                {user && user.id === sub.ownerId ? 
-                <div>
-                    <button>
-                        <NavLink to={`/subcrudits/${subcruditId}/edit`} style={{textDecoration: 'none', color: 'black'}}>
-                        Edit Sub Info
-                        </NavLink>
-                    </button>
-                    <button onClick={handleDeleteClick}>Delete Sub</button>
-                </div>
-                : ''}
                 <div className='subNameAndDesc'>
                     <h1 className='subName' >{sub.name}</h1>
                     <p>{sub.description}</p>
@@ -100,6 +90,16 @@ function Subcrudit() {
                         </button>
                             </NavLink>
                     </div>
+                : ''}
+                {user && user.id === sub.ownerId ? 
+                <div className='subEditAndDeleteButtons'>
+                    <button className='subEditButton'>
+                        <NavLink to={`/subcrudits/${subcruditId}/edit`} style={{textDecoration: 'none', color: 'white'}}>
+                        Edit Sub Info
+                        </NavLink>
+                    </button>
+                    <button onClick={handleDeleteClick} className='subDeleteButton'>Delete Sub</button>
+                </div>
                 : ''}
                 </div>
             </div>

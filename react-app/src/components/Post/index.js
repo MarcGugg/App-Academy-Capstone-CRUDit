@@ -56,8 +56,8 @@ function OnePost() {
             
                 <p className='postAuthor'>
                 Posted by
-                <NavLink to={`/users/${post.author.username}/profile`}>
-                {post.author.username}
+                <NavLink to={`/users/${post.author.username}/profile`} style={{textDecoration: 'none', color: 'gray'}}>
+                {' '}{post.author.username}
                     </NavLink> 
                 </p>
                 
@@ -71,12 +71,16 @@ function OnePost() {
                 </div>  
             : ''}
             <p className='postBody'>{post.body}</p>
-            {user && post.authorId == user.id ? 
-            <div>
-                <button onClick={handeDeleteClick}>Delete</button>
+            <div className='editAndDeleteButtons'>
+                {user && post.authorId == user.id || post.subcrudit.ownerId == user.id ? 
+                <div>
+                    <button onClick={handeDeleteClick}>Delete</button>
+                </div>            
+                : ''}
+                {user && post.authorId == user.id ? 
                 <button onClick={handleEditClick}>Edit</button>
-            </div>            
-            : ''}
+                : ''}
+            </div>
         </div>
         </div>
         </>

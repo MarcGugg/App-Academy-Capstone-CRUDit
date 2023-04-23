@@ -13,6 +13,7 @@ import EditSubcruditForm from "./components/EditSubcrudit";
 import CreatePostForm from "./components/CreatePost";
 import EditPostForm from "./components/EditPost";
 import UserProfile from "./components/UserProfile";
+import SearchResults from "./components/SearchResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route path='/posts/:postId/edit' exact={true}>
             <EditPostForm />
+          </Route>
+          <Route path='/search/:parameters' exact={true}>
+            <SearchResults />
           </Route>
           <Route path='/subcrudits/:subcruditId' exact={true}>
             <Subcrudit />

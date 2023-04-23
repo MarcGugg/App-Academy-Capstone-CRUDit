@@ -6,13 +6,15 @@ import postReducer from './post';
 import subcruditReducer from './subcrudit';
 import postImageReducer from './post_image';
 import profileReducer from './profile';
+import searchReducer from './search';
 
 const rootReducer = combineReducers({
   session,
   posts: postReducer,
   subcrudits: subcruditReducer,
   postImages: postImageReducer,
-  userProfiles: profileReducer
+  userProfiles: profileReducer,
+  search: searchReducer
 });
 
 

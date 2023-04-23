@@ -3,7 +3,7 @@
     justify-content: center;
     /* border: 3px solid red; */
     z-index: 0;
-    background-color: rgba(169, 169, 169, 0.568);
+    /* background-color: rgba(169, 169, 169, 0.568); */
 }
 
 .post {
@@ -41,4 +41,9 @@
     height: 40rem;
     width: 60rem;
     object-fit: fill;
+}
+
+.editAndDeleteButtons {
+    display: flex;
+    flex-direction: row;
 }
