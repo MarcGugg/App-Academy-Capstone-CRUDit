@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom"
 
 
 function UserPosts(user={user}) {
@@ -14,7 +15,9 @@ function UserPosts(user={user}) {
             <div>
                 {Object.values(user.user).map(post => (
                     <div>
+                        <NavLink to={`/posts/${post.id}`}>
                         <h1>{post.header}</h1>
+                        </NavLink>
                     </div>
                 ))}
             </div>

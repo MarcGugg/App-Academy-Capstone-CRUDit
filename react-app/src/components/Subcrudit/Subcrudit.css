@@ -4,7 +4,7 @@
     justify-content: center;
     overflow-y: hidden;
     z-index: 0;
-    background-color: rgba(169, 169, 169, 0.568);
+    /* background-color: rgba(169, 169, 169, 0.568); */
 }
 
 .infoAndButtonBoxParent {

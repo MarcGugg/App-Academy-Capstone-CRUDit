@@ -1,4 +1,4 @@
-
+import {NavLink} from 'react-router-dom'
 
 
 
@@ -13,7 +13,9 @@ function UserSubs(user={user}) {
         {user.user.allSubcruddits && Object.values(user.user.allSubcruddits).length ? 
         <div>
             {Object.values(user.user.allSubcruddits).map(sub => (
-                <p>{sub.name}</p>
+                <NavLink to={`/subcrudits/${sub.id}`}>
+                    <p>{sub.name}</p>
+                </NavLink>
             ))}
         </div>
         : ''}
