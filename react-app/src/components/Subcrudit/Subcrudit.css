@@ -3,6 +3,8 @@
     flex-direction: row-reverse;
     justify-content: center;
     overflow-y: hidden;
+    z-index: 0;
+    background-color: rgba(169, 169, 169, 0.568);
 }
 
 .infoAndButtonBoxParent {
@@ -15,6 +17,8 @@
     width: 15rem;
     margin: 2.5rem;
     padding: 1rem;
+    z-index: 1;
+    background-color: white;
 }
 .subName {
     /* display: flex;
@@ -25,6 +29,7 @@
 
 .subPagePostParent {
     margin: 3rem;
+    /* border: 3px solid red; */
 }
 .subPagePostLink {
     border: 1px solid darkgray;
@@ -32,6 +37,9 @@
     margin-bottom: 1rem;
     margin-left: 2rem;
     padding-left: 2rem;
+    /* border: 3px solid blue; */
+    z-index: 1;
+    background-color: white;
 }
 .subPagePostLink:hover {
     border: 1px solid black;
