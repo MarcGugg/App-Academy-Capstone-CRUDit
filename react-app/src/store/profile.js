@@ -1,4 +1,5 @@
 const GET_USER_PROFILE = 'user/getProfile'
+const DELETE_POST = 'post/Delete'
 
 
 const actionGetUserProfile = (user) => ({
@@ -6,6 +7,10 @@ const actionGetUserProfile = (user) => ({
     user
 })
 
+const actionDeletePostFromProfile = (postId) => ({
+    type: DELETE_POST,
+    postId
+})
 
 
 export const getUserProfile = (username) => async dispatch => {
@@ -16,6 +21,18 @@ export const getUserProfile = (username) => async dispatch => {
         console.log('GET USER PROFILE RES OK')
         const user = await res.json()
         dispatch(actionGetUserProfile(user))
+    }
+}
+
+export const deletePostFromProfile = (postId) => async dispatch => {
+    console.log("DELETE POST FROM PROFILE THUNK HIT")
+    const res = await fetch(`/api/posts/${postId}/delete`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (res.ok) {
+        await dispatch(actionDeletePostFromProfile(postId))
     }
 }
 
@@ -41,6 +58,16 @@ export default function profileReducer (state=initialState, action) {
             console.log('newState Subs Profile', newState.oneProfile)
 
             return newState
+        }
+        case DELETE_POST: {
+            const newState2 = {...state, oneProfile: {...state.oneProfile}}
+            
+            console.log('new state 2', newState2)
+
+            delete newState2.oneProfile.posts[action.postId]
+
+            return newState2
+
         }
         default: {
             return state
