@@ -3,6 +3,9 @@
     flex-direction: row-reverse;
     justify-content: center;
     overflow-y: hidden;
+    z-index: 0;
+    background-color: rgba(169, 169, 169, 0.568);
+    padding-top: 2rem;
 }
 
 .createSubButton {
@@ -26,11 +29,17 @@
 .headerAndCreateButtonParent {
     margin-right: -10rem;
     margin-left: 3rem;
+    /* border: 3px solid red; */
 }
 .headerAndCreateButton {
     /* margin-right: -10rem; */
     /* margin-left: 3rem; */
     border: 1px solid darkgray;
+    /* border: 3px solid red; */
+    background-color: white;
+    z-index: 1;
+    padding: 0.5rem;
+    border: 2px solid gray;
 }
 .homePageText {
     margin: 1rem;
@@ -39,6 +48,8 @@
 
 .homePagePostParent {
     /* padding-right: 3rem; */
+    z-index: 1;
+    /* background-color: white; */
 }
 
 
@@ -49,6 +60,7 @@
     margin-bottom: 1rem;
     margin-left: 2rem;
     padding-left: 2rem;
+    background-color: white;
 }
 .homePagePostLink:hover {
     border: 1px solid black;
