@@ -55,7 +55,10 @@ function OnePost() {
                 </p>
             
                 <p className='postAuthor'>
-                Posted by {post.author.username}
+                Posted by
+                <NavLink to={`/users/${post.author.username}/profile`}>
+                {post.author.username}
+                    </NavLink> 
                 </p>
                 
             </div>

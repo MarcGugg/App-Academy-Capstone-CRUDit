@@ -12,6 +12,7 @@ import CreateSubcruditForm from "./components/CreateSubcrudit";
 import EditSubcruditForm from "./components/EditSubcrudit";
 import CreatePostForm from "./components/CreatePost";
 import EditPostForm from "./components/EditPost";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
         <Switch>
           <Route path='/' exact={true}>
             <HomePage />
+          </Route>
+          <Route path='/users/:username/profile' exact={true}>
+            <UserProfile />
           </Route>
           <Route path='/posts/:postId' exact={true}>
             <OnePost />

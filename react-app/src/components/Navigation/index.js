@@ -4,20 +4,29 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
+/*home page and profile buttons were originally li, not div
+there were originally no class names
+*/
+
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
 
 	return (
-		<ul>
-			<li>
-				<NavLink exact to="/">Home</NavLink>
-			</li>
+		<div className='headerElements'>
+			<div>
+				<NavLink exact to="/" className={'headerNavLink'}>CRUDit</NavLink>
+			</div>
+			<div>
+				<form>
+					<input type='text' className='searchBar' placeholder='Search for a SubCRUDit...'></input>
+				</form>
+			</div>
 			{isLoaded && (
-				<li>
+				<div>
 					<ProfileButton user={sessionUser} />
-				</li>
+				</div>
 			)}
-		</ul>
+		</div>
 	);
 }
 

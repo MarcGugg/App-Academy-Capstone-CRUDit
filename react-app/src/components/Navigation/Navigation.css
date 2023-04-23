@@ -5,3 +5,27 @@
 .hidden {
   display: none;
 }
+
+
+/* added */
+.headerElements {
+  display: flex;
+  justify-content: space-around;
+  /* background-color: rgb(240, 77, 12); */
+  border-bottom: 1px solid darkgray;
+  height: 3rem;
+  margin-bottom: 2rem;
+}
+.headerNavLink {
+  text-decoration: none;
+  color: lightblue;
+  font-weight: bolder;
+  font-size: xx-large;
+  /* border: 3px solid red; */
+}
+
+.searchBar {
+  height: 2rem;
+  width: 60rem;
+  border-radius: 2rem;
+}
