@@ -21,25 +21,34 @@ function Navigation({ isLoaded }){
 	const history = useHistory()
 	const [params, setParams] = useState('')
 	const [selectedOptions, setSelectedOptions] = useState();
-
+	
 	const handleSearchSubmit = async (e) => {
 		e.preventDefault()
 		console.log('SEARCH SUBMIT')
-		await dispatch(getOneSub(params.label))
+		await dispatch(getOneSub(selectedOptions[0].value))
 		// history.push(`/search/${params}`)
-		history.push(`/subcrudits/${params.label}`)
+		// setSelectedOptions(params)
+		history.push(`/subcrudits/${selectedOptions[0].value}`)
 	}
 
 	let optionsArr = []
 	
 	useEffect(async () => {
 		await dispatch(getAllSubs())
-	}, [dispatch])
+	}, [dispatch, selectedOptions])
 
 	// console.log('optionsArr', optionsArr)
 	
 	function handleSelect(data) {
+		console.log('DATA', data)
 		setParams(data);
+		console.log('PARAMS', params)
+		setSelectedOptions(data)
+		console.log('selectedOptions', selectedOptions)
+		// if (data.length) {
+		// 	history.push(`/subcrudits/${data[0].value}`)
+		// }
+		// setSelectedOptions()
 	}
 
 	if (subs && subs.length) {
@@ -57,15 +66,16 @@ function Navigation({ isLoaded }){
 			<div>
 				<NavLink exact to="/" className={'headerNavLink'}>CRUDit</NavLink>
 			</div>
-			<div>
+			<div className='searchInput'>
 				<form onSubmit={handleSearchSubmit}>
 					{/* <input type='text' className='searchBar' placeholder='Search for a SubCRUDit...' value={params} onChange={(e) => setParams(e.target.value)}></input> */}
 					<Select 
 					options={optionsArr}
 					placeholder='Search for a SubCRUDit'
-					value={params}
+					value={selectedOptions}
 					onChange={handleSelect}
 					isSearchable={true}
+					isMulti
 					/>
 				</form>
 			</div>

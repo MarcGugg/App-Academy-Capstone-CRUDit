@@ -52,6 +52,7 @@ export const getOneSub = (subName) => async dispatch => {
         console.log('GET ONE SUB RES OK')
         const oneSub = await res.json()
         dispatch(actionGetOneSub(oneSub))
+        return oneSub
     }
 }
 
