@@ -1,0 +1,51 @@
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+.detailsButton {
+    background-color: aqua;
+    height: 2rem;
+    border-radius: 8px;
+}
+
+.userPostsButton {
+    background-color: orange;
+    height: 2rem;
+    border-radius: 8px;
+}
+
+.userSubsButton {
+    background-color: blueviolet;
+    height: 2rem;
+    border-radius: 8px;
+    color: aliceblue;
+}
+
+.userDetailsParent {
+    display: flex;
+    justify-content: center;
+}
+.userDetails {
+    display: flex;
+    flex-direction: column;
+}
+
+.userPostsParent {
+    display: flex;
+    justify-content: center;
+    /* flex-direction: column; */
+}
+.userPostsHeader {
+    display: flex;
+    justify-content: center;
+}
+
+.userPostsHeader h1 {
+    border-bottom: 2px solid darkgray;
+}
+
+.postAndDelete {
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    margin: 1rem;
+}

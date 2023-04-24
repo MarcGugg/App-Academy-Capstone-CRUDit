@@ -6,7 +6,7 @@ import UserPosts from "./userPosts"
 import UserSubs from "./userSubs"
 import UserDetails from "./userDetails"
 
-
+import './Profile.css'
 
 function UserProfile() {
 
@@ -50,11 +50,11 @@ function UserProfile() {
         <NavLink to={'/'}>SubCRUDits</NavLink>
         </button> */}
         <div className="buttons">
-            <button onClick={handleDetailsClick}>User Details</button>
-            <button onClick={handlePostsClick}>User Posts</button>
-            <button onClick={handleSubsClick}>User SubCRUDits</button>
+            <button onClick={handleDetailsClick} className="detailsButton">User Details</button>
+            <button onClick={handlePostsClick} className="userPostsButton">User Posts</button>
+            <button onClick={handleSubsClick} className="userSubsButton">User SubCRUDits</button>
         </div>
-        <div>
+        <div className="propCompenents">
             {details ? 
             <UserDetails user={userProfile}/>
             : postsShow ? 
