@@ -35,6 +35,8 @@
   background-color: white;
   width: 6rem;
   padding-left: 1rem;
+  /* z-index: 5;
+  border: 3px solid red; */
 }
 
 .dropdownMenuLogOut {

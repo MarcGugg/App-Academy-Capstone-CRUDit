@@ -31,50 +31,68 @@ function SignupFormModal() {
 
 	return (
 		<>
-			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
+			<h1 className="signupHeader">Sign Up</h1>
+			<form onSubmit={handleSubmit} className="signupForm">
 				<ul>
 					{errors.map((error, idx) => (
 						<li key={idx}>{error}</li>
 					))}
 				</ul>
 				<label>
-					Email
+					{/* Email */}
+					<div className="emailParent">
 					<input
 						type="text"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
+						placeholder="Email"
+						className="signupEmail"
 						required
 					/>
+					</div>
 				</label>
 				<label>
-					Username
+					{/* Username */}
+					<div className="usernameParent">
 					<input
 						type="text"
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
+						placeholder="Username"
+						className="signupUsername"
 						required
 					/>
+					</div>
 				</label>
 				<label>
-					Password
+					{/* Password */}
+					<div className="signupPasswordParent">
 					<input
 						type="password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
+						placeholder="Password"
+						className="signupPassword"
 						required
 					/>
+					</div>
 				</label>
 				<label>
-					Confirm Password
+					{/* Confirm Password */}
+					<div className="signupConfirmPasswordParent">
 					<input
 						type="password"
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
+						placeholder="Confirm Password"
+						className="signupConfirmPassword"
 						required
 					/>
+					</div>
 				</label>
-				<button type="submit">Sign Up</button>
+				<div className="signUpButtonParent">
+				<button type="submit" className="signUpButton">Sign Up</button>
+				</div>
 			</form>
 		</>
 	);
