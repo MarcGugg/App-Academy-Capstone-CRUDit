@@ -2,6 +2,12 @@ const GET_ONE_SUB = 'subs/getOne'
 const CREATE_SUB = 'subs/Create'
 const EDIT_SUB = 'subs/Edit'
 const DELETE_SUB = 'subs/Delete'
+const GET_ALL_SUBS = 'subs/getAll'
+
+const actionGetAllSubs = (subs) => ({
+    type: GET_ALL_SUBS,
+    subs
+})
 
 const actionGetOneSub = (oneSub) => ({
     type: GET_ONE_SUB,
@@ -23,10 +29,27 @@ const actionDeleteSub = (subcruditId) => ({
     subcruditId
 })
 
-export const getOneSub = (subcruditId) => async dispatch => {
-    const res = await fetch(`/api/subcrudits/${subcruditId}`)
+
+export const getAllSubs = () => async dispatch => {
+    console.log('ALL SUBS THINK HIT')
+    const res = await fetch(`/api/subcrudits/all`)
 
     if (res.ok) {
+        console.log('ALL SUBS RES OK')
+        const subs = await res.json()
+        console.log('subs in res ok', subs)
+        dispatch(actionGetAllSubs(subs))
+        return subs
+    }
+}
+
+
+export const getOneSub = (subName) => async dispatch => {
+    console.log('GET ONE SUB THUNK HIT')
+    const res = await fetch(`/api/subcrudits/${subName}`)
+
+    if (res.ok) {
+        console.log('GET ONE SUB RES OK')
         const oneSub = await res.json()
         dispatch(actionGetOneSub(oneSub))
     }
@@ -91,7 +114,19 @@ const initialState = {
 }
 export default function subcruditReducer(state=initialState, action) {
     switch (action.type) {
+        case GET_ALL_SUBS: {
+            console.log('ALL SUBS REDUCER HIT')
+            const newState5 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+
+            newState5.allSubcrudits = [...action.subs]
+
+            // action.subs.map(sub => newState5.allSubcrudits[sub.id] = {...sub})
+
+            return newState5
+
+        }
         case GET_ONE_SUB: {
+            console.log('GET ONE SUB REDUCER HIT')
             const newState = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
 
             newState.oneSubcrudit = {...action.oneSub}
