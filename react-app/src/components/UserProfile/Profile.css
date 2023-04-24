@@ -49,3 +49,28 @@
     border-radius: 10px;
     margin: 1rem;
 }
+
+
+.userSubsHeaderParent {
+    display: flex;
+    justify-content: center;
+}
+.userSubsHeaderParent h1 {
+    border-bottom: 2px solid darkgray;
+}
+
+.userSubsPropParent {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+}
+
+.userSub {
+    border: 1px solid darkgray;
+    border-radius: 8px;
+    margin: 0.5rem;
+}
+.userSub:hover {
+    cursor: pointer;
+    border: 1px solid black;
+}
