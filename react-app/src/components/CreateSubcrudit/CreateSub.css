@@ -1,0 +1,47 @@
+
+
+.headerParent {
+    display: flex;
+    justify-content: center;
+}
+
+.headerParent h1 {
+    border-bottom: 2px solid black;
+}
+
+.formParent {
+    display: flex;
+    justify-content: center;
+}
+
+.createSubForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.subFormName {
+    border: 2px solid gray;
+    border-radius: 10px;
+    width: 25rem;
+    height: 2rem;
+}
+
+.subDesc {
+    border: 2px solid gray;
+    border-radius: 10px;
+    width: 25rem;
+    height: 20rem;
+    margin-top: 1rem;
+    /* margin-left: 3.5rem; */
+}
+
+.createButton {
+    border-radius: 10px;
+    background-color: orange;
+    color: white;
+    width: 10rem;
+    height: 3rem;
+    margin-left: 8rem;
+    margin-top: 1rem;
+}
