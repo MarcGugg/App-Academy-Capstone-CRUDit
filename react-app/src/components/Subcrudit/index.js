@@ -13,6 +13,7 @@ function Subcrudit() {
     const dispatch = useDispatch()
     const history = useHistory()
     const {subName} = useParams()
+    console.log('sub name', subName)
 
     useEffect(async () => {
         await dispatch(getOneSub(subName))
@@ -84,19 +85,19 @@ function Subcrudit() {
                 </div>
                 {user ? 
                     <div className='postButtonParent'>
-                            {/* <NavLink to={`/subcrudits/${subcruditId}/new_post`} style={{textDecoration: 'none', color: 'black'}}>
+                            <NavLink to={`/subcrudits/${subName}/new_post`} style={{textDecoration: 'none', color: 'black'}}>
                         <button className='postButton'>
                             Create Post
                         </button>
-                            </NavLink> */}
+                            </NavLink>
                     </div>
                 : ''}
                 {user && user.id === sub.ownerId ? 
                 <div className='subEditAndDeleteButtons'>
                     <button className='subEditButton'>
-                        {/* <NavLink to={`/subcrudits/${subcruditId}/edit`} style={{textDecoration: 'none', color: 'white'}}>
+                        <NavLink to={`/subcrudits/${subName}/edit`} style={{textDecoration: 'none', color: 'white'}}>
                         Edit Sub Info
-                        </NavLink> */}
+                        </NavLink>
                     </button>
                     <button onClick={handleDeleteClick} className='subDeleteButton'>Delete Sub</button>
                 </div>

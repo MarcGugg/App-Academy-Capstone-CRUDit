@@ -51,7 +51,7 @@ function App() {
           <Route path='/subcrudits/create/new' exact={true}>
             <CreateSubcruditForm />
           </Route>
-          <Route path='/subcrudits/:subcruditId/edit' exact={true}>
+          <Route path='/subcrudits/:subName/edit' exact={true}>
             <EditSubcruditForm />
           </Route>
           <Route path="/login" >

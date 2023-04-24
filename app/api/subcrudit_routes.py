@@ -76,10 +76,10 @@ def create_subcrudit():
     
     return {'Error': 'Validation Error'}, 401
 
-@subcrudit_routes.route('/<int:sub_id>/edit', methods=['PUT'])
+@subcrudit_routes.route('/<string:sub_name>/edit', methods=['PUT'])
 @login_required
-def edit_sub(sub_id):
-    subcrudit = Subcrudit.query.get(sub_id)
+def edit_sub(sub_name):
+    subcrudit = Subcrudit.query.filter(Subcrudit.name.ilike(sub_name)).first()
 
     form = EditSubForm()
 
@@ -110,12 +110,12 @@ def edit_sub(sub_id):
     
     return None
 
-@subcrudit_routes.route('/<int:sub_id>/delete', methods=['DELETE'])
+@subcrudit_routes.route('/<string:sub_name>/delete', methods=['DELETE'])
 @login_required
-def delete_sub(sub_id):
+def delete_sub(sub_name):
     if current_user.is_authenticated:
         
-        subcrudit = Subcrudit.query.get(sub_id)
+        subcrudit = Subcrudit.query.get(sub_name)
         
         if subcrudit:
             # print('')

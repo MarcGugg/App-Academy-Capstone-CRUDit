@@ -74,9 +74,9 @@ export const createSub = (name, description) => async dispatch => {
     }
 }
 
-export const editSub = (subcruditId, name, description) => async dispatch => {
+export const editSub = (subName, name, description) => async dispatch => {
     // console.log('EDIT SUB THUNK HIT')
-    const res = await fetch(`/api/subcrudits/${subcruditId}/edit`, {
+    const res = await fetch(`/api/subcrudits/${subName}/edit`, {
         method: 'PUT',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({

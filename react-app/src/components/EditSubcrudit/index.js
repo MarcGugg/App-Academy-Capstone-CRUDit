@@ -10,10 +10,10 @@ function EditSubcruditForm() {
 
     const history = useHistory()
     const dispatch = useDispatch()
-    const {subcruditId} = useParams()
+    const {subName} = useParams()
 
     useEffect(async () => {
-        await dispatch(getOneSub(subcruditId))
+        await dispatch(getOneSub(subName))
     }, [dispatch])
 
     const subToEdit = useSelector((state) => state.subcrudits.oneSubcrudit)
@@ -31,8 +31,8 @@ function EditSubcruditForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await dispatch(editSub(subcruditId, name, description))
-        history.push(`/subcrudits/${subcruditId}`)
+        await dispatch(editSub(subName, name, description))
+        history.push(`/subcrudits/${subName}`)
     }
 
     if (!subToEdit) {
