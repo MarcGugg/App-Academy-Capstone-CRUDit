@@ -14,6 +14,24 @@ def users():
     users = User.query.all()
     return {'users': [user.to_dict() for user in users]}
 
+# added
+@user_routes.route('/<string:username>/profile', methods=['GET'])
+def user_profile(username):
+    """get user profile page"""
+    print('BACKEND HIT')
+    print('BACKEND HIT')
+    print('BACKEND HIT')
+    print('BACKEND HIT')
+    print('BACKEND HIT')
+    print('BACKEND HIT')
+    print('BACKEND HIT')
+    print('BACKEND HIT')
+    user = User.query.filter(User.username == username).first()
+    if user:
+        
+        return user.to_dict_inclusive()
+
+    return None 
 
 @user_routes.route('/<int:id>')
 @login_required

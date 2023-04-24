@@ -37,6 +37,7 @@ class Post(db.Model):
             'image': self.image.to_dict()
         }
     def to_dict_no_image(self):
+        # print('POST AUTHOR', self.author)
         return {
             'id': self.id,
             'authorId': self.author_id,

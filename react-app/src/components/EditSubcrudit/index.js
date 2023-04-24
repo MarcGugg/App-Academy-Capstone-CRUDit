@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams, useHistory } from 'react-router-dom'
 import { editSub, getOneSub } from '../../store/subcrudit'
 
+import '../CreateSubcrudit/CreateSub.css'
+
+
 function EditSubcruditForm() {
 
     const history = useHistory()
@@ -14,7 +17,7 @@ function EditSubcruditForm() {
     }, [dispatch])
 
     const subToEdit = useSelector((state) => state.subcrudits.oneSubcrudit)
-    console.log('subToEdit', subToEdit)
+    // console.log('subToEdit', subToEdit)
 
     const [name, setName] = useState(subToEdit.name || '')
     const [description, setDescription] = useState(subToEdit.description || '')
@@ -39,12 +42,16 @@ function EditSubcruditForm() {
 
     return (
         <>
+        <div className='headerParent'>
         <h1>Edit Sub</h1>
-        <form onSubmit={handleSubmit}>
-            <input type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='Change the name of your SubCRUDit'></input>
-            <input type='text' value={description} onChange={(e) => setDescription(e.target.value)} placeholder='Change your SubCRUDits description'></input>
-            <button type='submit'>Edit</button>
+        </div>
+        <div className='formParent'>
+        <form onSubmit={handleSubmit} className='createSubForm'>
+            <input type='text' className='subFormName' value={name} onChange={(e) => setName(e.target.value)} placeholder='Change the name of your SubCRUDit'></input>
+            <textarea className='subDesc' value={description} onChange={(e) => setDescription(e.target.value)} placeholder='Change the description of your SubCRUDit'></textarea>
+            <button type='submit' className='createButton'>Update</button>
         </form>
+        </div>
         </>
     )
 }

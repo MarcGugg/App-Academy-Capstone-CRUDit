@@ -38,7 +38,7 @@ function Subcrudit() {
     const postImages = useSelector((state) => state.postImages.imagesByPost)
     // console.log('authors from state', authors)
     // console.log('post images from state', postImages)
-    console.log('sub', sub)
+    // console.log('sub', sub)
     // console.log('posts', sub.posts)
 
     const authorIdArr = []
@@ -47,7 +47,7 @@ function Subcrudit() {
         authorIdArr.push(sub.posts[key].authorId)
         postIdArr.push(key)
     }
-    console.log('postIdArr', postIdArr)
+    // console.log('postIdArr', postIdArr)
 
     // let authors = []
 
@@ -78,24 +78,28 @@ function Subcrudit() {
             <div className='infoAndButtonBoxParent'>
                 <div className='infoAndButtonBox'>
                 {/* <h1>Subcrudit page</h1> */}
-                {user && user.id === sub.ownerId ? 
-                <div>
-                    <button>
-                        <NavLink to={`/subcrudits/${subcruditId}/edit`}>
-                        </NavLink>
-                        Edit Sub Info
-                    </button>
-                    <button onClick={handleDeleteClick}>Delete Sub</button>
-                </div>
-                : ''}
                 <div className='subNameAndDesc'>
                     <h1 className='subName' >{sub.name}</h1>
                     <p>{sub.description}</p>
                 </div>
                 {user ? 
                     <div className='postButtonParent'>
-                        <button className='postButton'>Create Post</button>
+                            <NavLink to={`/subcrudits/${subcruditId}/new_post`} style={{textDecoration: 'none', color: 'black'}}>
+                        <button className='postButton'>
+                            Create Post
+                        </button>
+                            </NavLink>
                     </div>
+                : ''}
+                {user && user.id === sub.ownerId ? 
+                <div className='subEditAndDeleteButtons'>
+                    <button className='subEditButton'>
+                        <NavLink to={`/subcrudits/${subcruditId}/edit`} style={{textDecoration: 'none', color: 'white'}}>
+                        Edit Sub Info
+                        </NavLink>
+                    </button>
+                    <button onClick={handleDeleteClick} className='subDeleteButton'>Delete Sub</button>
+                </div>
                 : ''}
                 </div>
             </div>
@@ -110,7 +114,7 @@ function Subcrudit() {
                                     : ''}
                                     {/* {post.authorId} */}
                                     <h1 className='subPostHeader'>{post.header}</h1>
-                                    {postImages && Object.values(postImages).length ? 
+                                    {postImages && Object.values(postImages).length && postImages[post.id]?.url ? 
                                     <div className='image'>
                                         {/* {Object.keys(postImages).includes(post.id) ?  */}
                                         

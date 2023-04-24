@@ -10,6 +10,10 @@ import OnePost from "./components/Post";
 import Subcrudit from "./components/Subcrudit";
 import CreateSubcruditForm from "./components/CreateSubcrudit";
 import EditSubcruditForm from "./components/EditSubcrudit";
+import CreatePostForm from "./components/CreatePost";
+import EditPostForm from "./components/EditPost";
+import UserProfile from "./components/UserProfile";
+import SearchResults from "./components/SearchResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,11 +30,23 @@ function App() {
           <Route path='/' exact={true}>
             <HomePage />
           </Route>
+          <Route path='/users/:username/profile' exact={true}>
+            <UserProfile />
+          </Route>
           <Route path='/posts/:postId' exact={true}>
             <OnePost />
           </Route>
+          <Route path='/posts/:postId/edit' exact={true}>
+            <EditPostForm />
+          </Route>
+          <Route path='/search/:parameters' exact={true}>
+            <SearchResults />
+          </Route>
           <Route path='/subcrudits/:subcruditId' exact={true}>
             <Subcrudit />
+          </Route>
+          <Route path='/subcrudits/:subcruditId/new_post' exact={true}>
+            <CreatePostForm />
           </Route>
           <Route path='/subcrudits/create/new' exact={true}>
             <CreateSubcruditForm />

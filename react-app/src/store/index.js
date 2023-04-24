@@ -5,12 +5,16 @@ import session from './session'
 import postReducer from './post';
 import subcruditReducer from './subcrudit';
 import postImageReducer from './post_image';
+import profileReducer from './profile';
+import searchReducer from './search';
 
 const rootReducer = combineReducers({
   session,
   posts: postReducer,
   subcrudits: subcruditReducer,
-  postImages: postImageReducer
+  postImages: postImageReducer,
+  userProfiles: profileReducer,
+  search: searchReducer
 });
 
 

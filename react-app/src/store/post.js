@@ -1,6 +1,9 @@
 const GET_ALL_POSTS = 'posts/getAll'
 const GET_ONE_POST = 'posts/getOne'
 const GET_AUTHOR = 'posts/getAuthor'
+const CREATE_POST = 'posts/Create'
+const EDIT_POST = 'posts/Edit'
+const DELETE_POST = 'posts/Delete'
 
 
 const actionGetAllPosts =(allPosts) => ({
@@ -18,13 +21,43 @@ const actionGetAuthors = (authors) => ({
     authors
 })
 
+const actionCreatePost = (newPost) => ({
+    type: CREATE_POST,
+    newPost
+})
+
+const actionEditPost = (editedPost) => ({
+    type: EDIT_POST,
+    editedPost
+})
+
+const actionDeletePost = (postId) => ({
+    type: DELETE_POST,
+    postId
+})
+
+export const deletePost = (postId) => async dispatch => {
+    console.log('DELETE POST THUNK HIT')
+    const res = await fetch(`/api/posts/${postId}/delete`, {
+        method: 'DELETE',
+        headers: {"Content-Type": "application/json"}
+    })
+
+    if (res.ok) {
+        console.log('DELETE POST RES OK')
+        await dispatch(actionDeletePost(postId))
+    }
+}
+
+
+
 export const getAllPosts = () => async dispatch => {
     const res = await fetch('/api/posts/all')
 
     if (res.ok) {
         // console.log('RES OK')
         const allPosts = await res.json()
-        console.log('allPosts', allPosts)
+        // console.log('allPosts', allPosts)
         dispatch(actionGetAllPosts(allPosts))
     }
 }
@@ -60,9 +93,94 @@ export const getAuthors = (authorIdArr) => async dispatch => {
     }
 }
 
+export const addImageToPost = (newPost, image) => async dispatch => {
+    // console.log('ASSOCIATE IMAGE THUNK HIT')
+    const res = await fetch(`/api/post_images/${newPost.id}/add_image`, {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            'url': image
+        })
+    })
+
+    if (res.ok) {
+        // console.log('POST IMAGE RES OK')
+        const newImage = await res.json()
+        // console.log('NEW IMAGE', newImage)
+        return newImage
+    }
+} 
+
+export const createPost = (subcrudditId, header, body, image) => async dispatch => {
+    // console.log('NEW POST THUNK HIT')
+    let res;
+    if (image) {
+        // console.log('IN IMAGE CONDITIONAL')
+        res = await fetch(`/api/posts/${subcrudditId}/new_post`, {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                'header': header,
+                'body': body
+            })
+        })
+
+        if (res.ok) {
+            const newPost = await res.json()
+            // console.log('NEW POST', newPost)
+            // const newPostWithImage= await dispatch(addImageToPost(newPost, image))
+            await dispatch(addImageToPost(newPost, image))
+            // console.log('NEW POST WITH IMAGE', newPostWithImage)
+            dispatch(actionCreatePost(newPost))
+            return newPost
+        }
+    } else {
+        // console.log('IN ELSE STATEMENT')
+        res = await fetch(`/api/posts/${subcrudditId}/new_post`, {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                'header': header,
+                'body': body
+            })
+        })
+        
+        if (res.ok) {
+            const newPost = await res.json()
+            dispatch(actionCreatePost(newPost))
+            return newPost
+        }
+    }
+
+}
+
+
+
+
+export const editPost = (postId, header, body) => async dispatch => {
+    // console.log('EDIT POST THUNK HIT')
+    // console.log('post id', postId)
+    const res = await fetch(`/api/posts/${postId}/edit`, {
+        method: 'PUT',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            'header': header,
+            'body': body
+        })
+    })
+    
+    if (res.ok) {
+        // console.log('EDIT POST RES OK')
+        const editedPost = await res.json()
+        dispatch(actionEditPost(editedPost))
+    }
+}
+
+
 let initialState = {
     allPosts: {},
-    singlePost: {}
+    singlePost: {},
+    newPost: {}
 }
 export default function postReducer(state=initialState, action) {
     switch (action.type) {
@@ -87,6 +205,29 @@ export default function postReducer(state=initialState, action) {
            Object.values(action.authors).map(author => newState3.authors[author.id] = {...author})
 
             return newState3
+        }
+        case CREATE_POST: {
+            const newState4 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, newPost: {...state.newPost}}
+        
+            newState4.newPost = {...action.newPost}
+
+            return newState4
+        }
+        case EDIT_POST: {
+            // console.log('EDIT POST REDUCER HIT')
+            const newState5 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+
+            newState5.editedPost = {...action.editedPost}
+
+            return newState5
+        }
+        case DELETE_POST: {
+            console.log('DELETE POST THUNK HIT')
+            const newState6 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+
+            delete newState6.allPosts[action.postId]
+
+            return newState6
         }
         default:
             return state
