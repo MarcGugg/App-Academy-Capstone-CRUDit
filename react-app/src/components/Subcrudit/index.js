@@ -57,7 +57,7 @@ function Subcrudit() {
 
     const handleDeleteClick = async (e) => {
         e.preventDefault()
-        // await dispatch(deleteSub(subcruditId))
+        await dispatch(deleteSub(subName, sub.id))
         history.push('/')
     }
 

@@ -92,9 +92,9 @@ export const editSub = (subName, name, description) => async dispatch => {
     }
 }
 
-export const deleteSub = (subcruditId) => async dispatch => {
+export const deleteSub = (subName, subcruditId) => async dispatch => {
     // console.log('DELETE SUB THUNK HIT')
-    const res = await fetch(`/api/subcrudits/${subcruditId}/delete`, {
+    const res = await fetch(`/api/subcrudits/${subName}/delete`, {
         method: 'DELETE',
         headers: {"Content-Type": "application/json"}
     })

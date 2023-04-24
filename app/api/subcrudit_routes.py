@@ -115,7 +115,7 @@ def edit_sub(sub_name):
 def delete_sub(sub_name):
     if current_user.is_authenticated:
         
-        subcrudit = Subcrudit.query.get(sub_name)
+        subcrudit = Subcrudit.query.filter(Subcrudit.name.ilike(sub_name)).first()
         
         if subcrudit:
             # print('')
