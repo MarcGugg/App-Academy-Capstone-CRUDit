@@ -88,7 +88,7 @@ export const createSub = (name, description) => async dispatch => {
 }
 
 export const editSub = (subName, name, description) => async dispatch => {
-    // console.log('EDIT SUB THUNK HIT')
+    console.log('EDIT SUB THUNK HIT')
     const res = await fetch(`/api/subcrudits/${subName}/edit`, {
         method: 'PUT',
         headers: {"Content-Type": "application/json"},
@@ -99,9 +99,11 @@ export const editSub = (subName, name, description) => async dispatch => {
     })
 
     if (res.ok) {
-        // console.log('EDIT SUB RES OK')
+        console.log('EDIT SUB RES OK')
         const editedSub = await res.json()
-        dispatch(actionEditSub(editedSub))
+        console.log('EDITED SUB', editedSub)
+        await dispatch(actionEditSub(editedSub))
+        return editedSub
     }
 }
 
@@ -192,7 +194,8 @@ export default function subcruditReducer(state=initialState, action) {
             return newState2
         }
         case EDIT_SUB: {
-            // console.log('EDIT SUB REDUCER HIT')
+            console.log('EDIT SUB REDUCER HIT')
+            console.log('ACTION EDITED SUB', action.editedSub)
             const newState3 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}, newSubcrudit: {...state.newSubcrudit}, editedSubcrudit: {...state.editedSubcrudit}}
 
             newState3.editedSubcrudit = {...action.editedSub}

@@ -31,8 +31,9 @@ function EditSubcruditForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await dispatch(editSub(subName, name, description))
-        history.push(`/subcrudits/${subName}`)
+        const edited = await dispatch(editSub(subName, name, description))
+        console.log('edited frontend', edited)
+        history.push(`/subcrudits/${edited.name}`)
     }
 
     if (!subToEdit) {
