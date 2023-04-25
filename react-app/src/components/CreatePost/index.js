@@ -21,7 +21,7 @@ function CreatePostForm() {
         const post = await dispatch(createPost(subcruditId, header, body, image))
         // await dispatch(createPost(subcruditId, header, body, image))
 
-        // console.log('post dispatch', post)
+        console.log('post dispatch', post)
 
         history.push(`/posts/${post.id}`)
     }

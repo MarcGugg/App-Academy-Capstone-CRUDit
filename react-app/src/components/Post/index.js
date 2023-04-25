@@ -5,6 +5,7 @@ import { NavLink, useParams, useHistory } from 'react-router-dom'
 import { deletePost, getOnePost } from '../../store/post'
 
 import './Post.css'
+import { addMod } from '../../store/subcrudit'
 
 function OnePost() {
 
@@ -20,7 +21,7 @@ function OnePost() {
     const user = useSelector((state) => state.session.user)
     const post = useSelector((state) => state.posts.singlePost)
 
-    // console.log('one post', post)
+    console.log('one post', post)
 
     //for dropdown menu
     // const [clicked, setClicked] = useState(false)
@@ -36,6 +37,11 @@ function OnePost() {
         history.push('/')
     }
 
+    const handleModClick = async (e) => {
+        console.log('IDs', post.subcrudit.id, post.authorId)
+        e.preventDefault()
+        dispatch(addMod(post.subcrudit.id, post.authorId))
+    }
 
     if (!Object.values(post).length) {
         return null
@@ -80,6 +86,9 @@ function OnePost() {
                 {user && post.authorId == user.id ? 
                 <button onClick={handleEditClick}>Edit</button>
                 : ''}
+                {user && post.subcrudit.ownerId == user.id ? 
+                <button onClick={handleModClick}>Make User a Mod</button>
+                :''}
             </div>
         </div>
         </div>

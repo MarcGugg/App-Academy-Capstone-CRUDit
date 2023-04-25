@@ -4,7 +4,7 @@ const EDIT_SUB = 'subs/Edit'
 const DELETE_SUB = 'subs/Delete'
 const GET_ALL_SUBS = 'subs/getAll'
 const DELETE_POST_FROM_SUB = 'subs/deletePost'
-
+const ADD_MOD = 'subs/addMod'
 
 const actionGetAllSubs = (subs) => ({
     type: GET_ALL_SUBS,
@@ -34,6 +34,11 @@ const actionDeleteSub = (subcruditId) => ({
 const actionDeletePostFromSub = (postId) => ({
     type: DELETE_POST_FROM_SUB,
     postId
+})
+
+const actionAddMod = (user) => ({
+    type: ADD_MOD,
+    user
 })
 
 
@@ -126,6 +131,25 @@ export const deletePostFromSub = (postId) => async dispatch => {
     }
 }
 
+export const addMod = (subId, userId) => async dispatch => {
+    console.log('ADD MOD THUNK HIT')
+    console.log('userId', userId)
+    const res = await fetch(`/api/subcrudits/${subId}/add_mod`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            'userId': userId
+        })
+    })
+
+    if (res.ok) {
+        console.log('ADD MOD RES OK')
+        const user = await res.json()
+        console.log('USER RES JSON', user)
+        dispatch(actionAddMod(user))
+    }
+}
+
 
 const initialState = {
     allSubcrudits: {},
@@ -192,6 +216,16 @@ export default function subcruditReducer(state=initialState, action) {
             delete newState5.oneSubcrudit.posts[action.postId]
 
             return newState5
+        }
+        case ADD_MOD: {
+            console.log('ADD MOD REDUCER HIT')
+            console.log('action user', action.user)
+            const newState6 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+
+            // Object.values(newState6.oneSubcrudit).append(action.user)
+            newState6.oneSubcrudit[action.user.id] = {...action.user}
+
+            return newState6
         }
         default:
             return state

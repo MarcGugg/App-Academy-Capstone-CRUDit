@@ -143,3 +143,53 @@ def delete_sub(sub_name):
             return None
             
     return {'Error': 'Please sign in to delete a SubCRUDit.'}, 401
+
+@subcrudit_routes.route('/<int:sub_id>/add_mod', methods=['PUT'])
+@login_required
+def add_mod(sub_id):
+    print("")
+    print("")
+    print("")
+    print("")
+    print("BACKEND HIT")
+    print("")
+    print("")
+    print("")
+    print("")
+    print("")
+    data = request.get_json()
+    print("")
+    print("")
+    print("")
+    print("")
+    # print("data backend", data['userId'])
+    print("")
+    print("")
+    print("")
+    print("")
+    user = User.query.get(data['userId'])
+    sub = Subcrudit.query.get(sub_id)
+
+    if user and sub:
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("USER", user.to_dict())
+        print("SUB", sub.to_dict())
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print('add the append and commit now')
+        sub.mods.append(user)
+        db.session.add(sub)
+        db.session.commit()
+        return user.to_dict()
+    else :
+        return None
