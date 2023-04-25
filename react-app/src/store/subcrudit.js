@@ -3,6 +3,8 @@ const CREATE_SUB = 'subs/Create'
 const EDIT_SUB = 'subs/Edit'
 const DELETE_SUB = 'subs/Delete'
 const GET_ALL_SUBS = 'subs/getAll'
+const DELETE_POST_FROM_SUB = 'subs/deletePost'
+
 
 const actionGetAllSubs = (subs) => ({
     type: GET_ALL_SUBS,
@@ -27,6 +29,11 @@ const actionEditSub = (editedSub) => ({
 const actionDeleteSub = (subcruditId) => ({
     type: DELETE_SUB,
     subcruditId
+})
+
+const actionDeletePostFromSub = (postId) => ({
+    type: DELETE_POST_FROM_SUB,
+    postId
 })
 
 
@@ -106,6 +113,19 @@ export const deleteSub = (subName, subcruditId) => async dispatch => {
     }
 }
 
+export const deletePostFromSub = (postId) => async dispatch => {
+    console.log('DELETE POST FROM SUB THUNK HIT')
+    const res = await fetch(`/api/posts/${postId}/delete`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (res.ok) {
+        console.log('DELETE POST FROM SUB RES OK')
+        dispatch(actionDeletePostFromSub(postId))
+    }
+}
+
 
 const initialState = {
     allSubcrudits: {},
@@ -164,6 +184,14 @@ export default function subcruditReducer(state=initialState, action) {
             delete newState4.oneSubcrudit[action.subcruditId]
             
             return newState4
+        }
+        case DELETE_POST_FROM_SUB: {
+            console.log('DELETE POST FROM SUB REDUCER HIT')
+            const newState5 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+
+            delete newState5.oneSubcrudit.posts[action.postId]
+
+            return newState5
         }
         default:
             return state

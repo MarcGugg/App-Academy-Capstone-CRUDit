@@ -2,9 +2,13 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { NavLink, useHistory, useParams } from 'react-router-dom'
-import { deleteSub, getOneSub } from '../../store/subcrudit'
+import { deletePostFromSub, deleteSub, getOneSub } from '../../store/subcrudit'
 import { getAuthors } from '../../store/post'
 import { getPostImages } from '../../store/post_image'
+
+import OpenModalButton from '../OpenModalButton'
+import DeletePostFromSub from '../DeletePostFromSubModal'
+
 
 import './Subcrudit.css'
 
@@ -61,6 +65,7 @@ function Subcrudit() {
         history.push('/')
     }
 
+
     if (!sub || !Object.values(sub).length ) {
         return null
     }
@@ -108,10 +113,14 @@ function Subcrudit() {
                 {sub.posts && Object.values(sub.posts).length ?         
                  <div>
                         {Object.values(sub.posts).map(post => (
+                            <div>
+
                             <NavLink to={`/posts/${post.id}`} style={{ textDecoration: 'none'}}>
                                 <div className='subPagePostLink'>
                                     {authors && Object.values(authors).length ? 
-                                    <p className='subAuthorUsername'>Posted by {authors[post.authorId]?.username} </p>
+                                    <p className='subAuthorUsername'>Posted by {authors[post.authorId]?.username} 
+                                    {/* {user ? post.authorId == user.id || sub.ownerId == user.id ? <OpenModalButton modalComponent={<DeletePostFromSub postId={post.id}/>} buttonText={'Delete'}/> : '' : ''} */}
+                                    </p>
                                     : ''}
                                     {/* {post.authorId} */}
                                     <h1 className='subPostHeader'>{post.header}</h1>
@@ -128,6 +137,8 @@ function Subcrudit() {
                                     </div>
                                 </div>
                             </NavLink>
+                            {user ? post.authorId == user.id || sub.ownerId == user.id ? <OpenModalButton modalComponent={<DeletePostFromSub postId={post.id}/>} buttonText={'Delete'}/> : '' : ''}
+                            </div>
                         ))}
                     </div>
                 : ''}

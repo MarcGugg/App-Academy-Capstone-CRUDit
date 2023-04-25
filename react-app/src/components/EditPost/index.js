@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
 import { editPost, getOnePost } from "../../store/post"
 
-
+import '../CreatePost/CreatePost.css'
 
 function EditPostForm() {
 
@@ -47,13 +47,24 @@ function EditPostForm() {
 
     return (
         <>
-        <h1>Edit Post Form</h1>
-        <form onSubmit={handleSubmit}>
-            <input type="text" value={header} onChange={(e) => setHeader(e.target.value)} placeholder="Change your posts' header"/>
-            <textarea value={body} onChange={(e) => setBody(e.target.value)} placeholder="Change the post body">Body</textarea>
-            {/* <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Inlcude an image to make your post stand out" /> */}
-            <button type="submit">Update Post</button>
-        </form>
+            <h1 className="postFormHeader">Edit Post Form</h1>
+        <div className="everything">
+
+            <form onSubmit={handleSubmit} className="createPostForm">
+                <div className="postHeaderParent">
+                <input type="text" value={header} onChange={(e) => setHeader(e.target.value)} placeholder="Change your posts' header" className="postHeaderInput"/>
+                </div>
+                <div className="postBodyInputParent">
+                <textarea value={body} onChange={(e) => setBody(e.target.value)} placeholder="Change the post body" className="postBodyInput">Body</textarea>
+                </div>
+                {/* <div className="postImageInputParent">
+                <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Inlcude an image to make your post stand out" className="postImageInput"/>
+                </div> */}
+                <div className="postButtonParent">
+                <button type="submit" className="postFormButton">Update</button>
+                </div>
+            </form>
+        </div>
         </>
     )
 }

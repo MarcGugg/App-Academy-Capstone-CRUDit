@@ -208,13 +208,12 @@ def delete_post(post_id):
             print('')
             print('')
             print('')
-            if post.author_id == current_user.id:
+            # if post.author_id == current_user.id:
                 
-                db.session.delete(post)
-                db.session.commit()
-                return {'Message': 'Post deleted.'}
+            db.session.delete(post)
+            db.session.commit()
+            return {'Message': 'Post deleted.'}
             
-            return {'Error': 'User did not make this post'}, 403
 
         return {'Error': 'User must sign in to delete a post.'}, 403
     
