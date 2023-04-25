@@ -21,7 +21,7 @@ function CreateSubcruditForm() {
         // console.log('yay')
         const newSub = await dispatch(createSub(name, description))
         // console.log('newSub', newSub)
-        history.push(`/subcrudits/${newSub.id}`)
+        history.push(`/subcrudits/${newSub.name}`)
     }
 
     if (!user) {

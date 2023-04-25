@@ -49,7 +49,7 @@ function OnePost() {
         <div className='post'>
             <div className='subAndAuthor'>
                 <p className='postSub'>
-                <NavLink to={`/subcrudits/${post.subcrudit.id}`} style={{textDecoration: 'none', color: 'black'}}>
+                <NavLink to={`/subcrudits/${post.subcrudit.name}`} style={{textDecoration: 'none', color: 'black'}}>
                 {post.subcrudit.name} 
                 </NavLink>
                 </p>
@@ -72,11 +72,11 @@ function OnePost() {
             : ''}
             <p className='postBody'>{post.body}</p>
             <div className='editAndDeleteButtons'>
-                {user ? post.authorId == user.id || post.subcrudit.ownerId == user.id ? 
+                {/* {user ? post.authorId == user.id || post.subcrudit.ownerId == user.id ? 
                 <div>
                     <button onClick={handeDeleteClick}>Delete</button>
                 </div>            
-                : '': ''}
+                : '': ''} */}
                 {user && post.authorId == user.id ? 
                 <button onClick={handleEditClick}>Edit</button>
                 : ''}

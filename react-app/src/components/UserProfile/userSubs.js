@@ -20,7 +20,7 @@ function UserSubs(user={user}) {
         <div>
             {Object.values(user.user.allSubcruddits).map(sub => (
                 <div className='userSub'>
-                <NavLink to={`/subcrudits/${sub.id}`} style={{textDecoration:'none', color:'black'}}>
+                <NavLink to={`/subcrudits/${sub.name}`} style={{textDecoration:'none', color:'black'}}>
                     <p>{sub.name}</p>
                 </NavLink>
                 </div>

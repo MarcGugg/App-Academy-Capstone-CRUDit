@@ -1,0 +1,66 @@
+.everything {
+    display: flex;
+    justify-content: center;
+    /* flex-direction: column; */
+    /* border: 3px solid red; */
+}
+
+.postFormHeader {
+    display: flex;
+    justify-content: center;
+}
+
+.createPostForm {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background-color: darkgray;
+    box-shadow: 10px 5px 5px rgb(146, 115, 57);
+}
+
+.postHeaderParent {
+    display: flex;
+    justify-content: center;
+}
+
+.postHeaderInput {
+    height: 2rem;
+    width: 25rem;
+    border: 2px solid black;
+    margin: 2rem;
+}
+
+.postBodyInputParent {
+    display: flex;
+    justify-content: center;
+}
+
+.postBodyInput {
+    width: 25rem;
+    height: 25rem;
+    border: 2px solid black;
+}
+
+.postImageInputParent {
+    display: flex;
+    justify-content: center;
+    /* width: 25rem; */
+}
+.postImageInput {
+    width: 25rem;
+    height: 2rem;
+    margin: 1rem;
+    border: 2px solid black;
+}
+
+.postButtonParent {
+    display: flex;
+    justify-content: center;
+}
+.postFormButton {
+    background-color: pink;
+    width: 5rem;
+    height: 3rem;
+    border-radius: 5px;
+}

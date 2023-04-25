@@ -35,6 +35,8 @@
   background-color: white;
   width: 6rem;
   padding-left: 1rem;
+  /* z-index: 5;
+  border: 3px solid red; */
 }
 
 .dropdownMenuLogOut {
@@ -51,4 +53,9 @@
   display: flex;
   margin: 0.5rem;
   justify-content: center;
+}
+
+
+.searchInput {
+  z-index: 3;
 }

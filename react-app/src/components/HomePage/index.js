@@ -48,7 +48,7 @@ function HomePage() {
             <div className='homePagePostLink'>
                 <p className='author-subcrudit'>
                     <p className='subcruditName'>
-                        <NavLink to={`/subcrudits/${post.subcrudit.id}`} 
+                        <NavLink to={`/subcrudits/${post.subcrudit.name}`} 
                         style={{textDecoration:'none', color:'black'}}>
                             {post.subcrudit.name}</NavLink>
                         </p>

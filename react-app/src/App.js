@@ -42,7 +42,7 @@ function App() {
           <Route path='/search/:parameters' exact={true}>
             <SearchResults />
           </Route>
-          <Route path='/subcrudits/:subcruditId' exact={true}>
+          <Route path='/subcrudits/:subName' exact={true}>
             <Subcrudit />
           </Route>
           <Route path='/subcrudits/:subcruditId/new_post' exact={true}>
@@ -51,7 +51,7 @@ function App() {
           <Route path='/subcrudits/create/new' exact={true}>
             <CreateSubcruditForm />
           </Route>
-          <Route path='/subcrudits/:subcruditId/edit' exact={true}>
+          <Route path='/subcrudits/:subName/edit' exact={true}>
             <EditSubcruditForm />
           </Route>
           <Route path="/login" >

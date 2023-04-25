@@ -2,6 +2,14 @@ const GET_ONE_SUB = 'subs/getOne'
 const CREATE_SUB = 'subs/Create'
 const EDIT_SUB = 'subs/Edit'
 const DELETE_SUB = 'subs/Delete'
+const GET_ALL_SUBS = 'subs/getAll'
+const DELETE_POST_FROM_SUB = 'subs/deletePost'
+
+
+const actionGetAllSubs = (subs) => ({
+    type: GET_ALL_SUBS,
+    subs
+})
 
 const actionGetOneSub = (oneSub) => ({
     type: GET_ONE_SUB,
@@ -23,12 +31,35 @@ const actionDeleteSub = (subcruditId) => ({
     subcruditId
 })
 
-export const getOneSub = (subcruditId) => async dispatch => {
-    const res = await fetch(`/api/subcrudits/${subcruditId}`)
+const actionDeletePostFromSub = (postId) => ({
+    type: DELETE_POST_FROM_SUB,
+    postId
+})
+
+
+export const getAllSubs = () => async dispatch => {
+    console.log('ALL SUBS THINK HIT')
+    const res = await fetch(`/api/subcrudits/all`)
 
     if (res.ok) {
+        console.log('ALL SUBS RES OK')
+        const subs = await res.json()
+        console.log('subs in res ok', subs)
+        dispatch(actionGetAllSubs(subs))
+        return subs
+    }
+}
+
+
+export const getOneSub = (subName) => async dispatch => {
+    console.log('GET ONE SUB THUNK HIT')
+    const res = await fetch(`/api/subcrudits/${subName}`)
+
+    if (res.ok) {
+        console.log('GET ONE SUB RES OK')
         const oneSub = await res.json()
         dispatch(actionGetOneSub(oneSub))
+        return oneSub
     }
 }
 
@@ -51,9 +82,9 @@ export const createSub = (name, description) => async dispatch => {
     }
 }
 
-export const editSub = (subcruditId, name, description) => async dispatch => {
+export const editSub = (subName, name, description) => async dispatch => {
     // console.log('EDIT SUB THUNK HIT')
-    const res = await fetch(`/api/subcrudits/${subcruditId}/edit`, {
+    const res = await fetch(`/api/subcrudits/${subName}/edit`, {
         method: 'PUT',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -69,9 +100,9 @@ export const editSub = (subcruditId, name, description) => async dispatch => {
     }
 }
 
-export const deleteSub = (subcruditId) => async dispatch => {
+export const deleteSub = (subName, subcruditId) => async dispatch => {
     // console.log('DELETE SUB THUNK HIT')
-    const res = await fetch(`/api/subcrudits/${subcruditId}/delete`, {
+    const res = await fetch(`/api/subcrudits/${subName}/delete`, {
         method: 'DELETE',
         headers: {"Content-Type": "application/json"}
     })
@@ -79,6 +110,19 @@ export const deleteSub = (subcruditId) => async dispatch => {
     if (res.ok) {
         // console.log('DELETE SUB RES OK')
         await dispatch(actionDeleteSub(subcruditId))
+    }
+}
+
+export const deletePostFromSub = (postId) => async dispatch => {
+    console.log('DELETE POST FROM SUB THUNK HIT')
+    const res = await fetch(`/api/posts/${postId}/delete`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (res.ok) {
+        console.log('DELETE POST FROM SUB RES OK')
+        dispatch(actionDeletePostFromSub(postId))
     }
 }
 
@@ -91,7 +135,19 @@ const initialState = {
 }
 export default function subcruditReducer(state=initialState, action) {
     switch (action.type) {
+        case GET_ALL_SUBS: {
+            console.log('ALL SUBS REDUCER HIT')
+            const newState5 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+
+            newState5.allSubcrudits = [...action.subs]
+
+            // action.subs.map(sub => newState5.allSubcrudits[sub.id] = {...sub})
+
+            return newState5
+
+        }
         case GET_ONE_SUB: {
+            console.log('GET ONE SUB REDUCER HIT')
             const newState = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
 
             newState.oneSubcrudit = {...action.oneSub}
@@ -128,6 +184,14 @@ export default function subcruditReducer(state=initialState, action) {
             delete newState4.oneSubcrudit[action.subcruditId]
             
             return newState4
+        }
+        case DELETE_POST_FROM_SUB: {
+            console.log('DELETE POST FROM SUB REDUCER HIT')
+            const newState5 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+
+            delete newState5.oneSubcrudit.posts[action.postId]
+
+            return newState5
         }
         default:
             return state

@@ -69,10 +69,27 @@ def get_author_by_id(author_id):
     return None
 
 
-@post_routes.route('/<int:subcrud_id>/new_post', methods=['POST'])
+@post_routes.route('/<string:subcrud_name>/new_post', methods=['POST'])
 @login_required
-def create_post(subcrud_id):
+def create_post(subcrud_name):
     # print('HIT BACKEND')
+    sub = Subcrudit.query.filter(Subcrudit.name.like(subcrud_name)).first()
+    
+    if sub:
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('SUB EXISTS', sub.to_dict())
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+
     if current_user.is_authenticated:
         # print('PASSED BACKEND CONDITION')
         # print('CURRENT USER', current_user.to_dict())
@@ -85,7 +102,7 @@ def create_post(subcrud_id):
             data = form.data
             new_post = Post(
                 author_id = current_user.id,
-                sub_id = subcrud_id,
+                sub_id = sub.id,
                 header = data['header'],
                 body = data['body']
             )
@@ -191,13 +208,12 @@ def delete_post(post_id):
             print('')
             print('')
             print('')
-            if post.author_id == current_user.id:
+            # if post.author_id == current_user.id:
                 
-                db.session.delete(post)
-                db.session.commit()
-                return {'Message': 'Post deleted.'}
+            db.session.delete(post)
+            db.session.commit()
+            return {'Message': 'Post deleted.'}
             
-            return {'Error': 'User did not make this post'}, 403
 
         return {'Error': 'User must sign in to delete a post.'}, 403
     

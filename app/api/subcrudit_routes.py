@@ -8,30 +8,48 @@ subcrudit_routes = Blueprint('/subcrudits', __name__)
 
 @subcrudit_routes.route('/all')
 def get_all_subcrudits():
+    print("")
+    print("")
+    print("")
+    print("")
+    print("")
+    print("BACKEND ALL SUBS HIT")
+    print("")
+    print("")
+    print("")
+    print("")
+    print("")
     subcrudits = Subcrudit.query.all()
 
     if subcrudits:
-        # print('')
-        # print('')
-        # print('')
-        # print('')
-        # print('')
-        # print('')
-        # print('')
-        # print(subcrudits[0].owner.to_dict_inclusive())
-        # print('')
-        # print('')
-        # print('')
-        # print('')
-        # print('')
-        # print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print([sub.name for sub in subcrudits])
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
+        print('')
         # return [sub.to_dict() for sub in subcrudits]
-        return [sub.to_dict_inclusive() for sub in subcrudits]
+        return [sub.name for sub in subcrudits]
     return None
 
-@subcrudit_routes.route('/<int:subcrudit_id>')
-def get_subcrudit(subcrudit_id):
-    subcrudit = Subcrudit.query.get(subcrudit_id)
+# @subcrudit_routes.route('/<int:subcrudit_id>')
+# def get_subcrudit(subcrudit_id):
+#     subcrudit = Subcrudit.query.get(subcrudit_id)
+
+#     if subcrudit:
+#         return subcrudit.to_dict_inclusive()
+#     return None
+@subcrudit_routes.route('/<string:sub_name>')
+def get_subcrudit(sub_name):
+    subcrudit = Subcrudit.query.filter(Subcrudit.name.ilike(sub_name)).first()
 
     if subcrudit:
         return subcrudit.to_dict_inclusive()
@@ -58,10 +76,10 @@ def create_subcrudit():
     
     return {'Error': 'Validation Error'}, 401
 
-@subcrudit_routes.route('/<int:sub_id>/edit', methods=['PUT'])
+@subcrudit_routes.route('/<string:sub_name>/edit', methods=['PUT'])
 @login_required
-def edit_sub(sub_id):
-    subcrudit = Subcrudit.query.get(sub_id)
+def edit_sub(sub_name):
+    subcrudit = Subcrudit.query.filter(Subcrudit.name.ilike(sub_name)).first()
 
     form = EditSubForm()
 
@@ -92,12 +110,12 @@ def edit_sub(sub_id):
     
     return None
 
-@subcrudit_routes.route('/<int:sub_id>/delete', methods=['DELETE'])
+@subcrudit_routes.route('/<string:sub_name>/delete', methods=['DELETE'])
 @login_required
-def delete_sub(sub_id):
+def delete_sub(sub_name):
     if current_user.is_authenticated:
         
-        subcrudit = Subcrudit.query.get(sub_id)
+        subcrudit = Subcrudit.query.filter(Subcrudit.name.ilike(sub_name)).first()
         
         if subcrudit:
             # print('')
