@@ -3,11 +3,16 @@ const CREATE_SUB = 'subs/Create'
 const EDIT_SUB = 'subs/Edit'
 const DELETE_SUB = 'subs/Delete'
 const GET_ALL_SUBS = 'subs/getAll'
+const GET_ALL_SUBS_REAL = 'subs/getAllReal'
 const DELETE_POST_FROM_SUB = 'subs/deletePost'
 const ADD_MOD = 'subs/addMod'
 
 const actionGetAllSubs = (subs) => ({
     type: GET_ALL_SUBS,
+    subs
+})
+const actionGetAllSubsReal = (subs) => ({
+    type: GET_ALL_SUBS_REAL,
     subs
 })
 
@@ -54,6 +59,18 @@ export const getAllSubs = () => async dispatch => {
         return subs
     }
 }
+export const getAllSubsReal = () => async dispatch => {
+    console.log('ALL SUBS REAL THINK HIT')
+    const res = await fetch(`/api/subcrudits/all/objects`)
+
+    if (res.ok) {
+        console.log('ALL SUBS REAL RES OK')
+        const subs = await res.json()
+        console.log('COMPLETE SUB OBJECTS in res ok', subs)
+        dispatch(actionGetAllSubsReal(subs))
+        return subs
+    }
+}
 
 
 export const getOneSub = (subName) => async dispatch => {
@@ -88,7 +105,7 @@ export const createSub = (name, description) => async dispatch => {
 }
 
 export const editSub = (subName, name, description) => async dispatch => {
-    console.log('EDIT SUB THUNK HIT')
+    // console.log('EDIT SUB THUNK HIT')
     const res = await fetch(`/api/subcrudits/${subName}/edit`, {
         method: 'PUT',
         headers: {"Content-Type": "application/json"},
@@ -99,7 +116,7 @@ export const editSub = (subName, name, description) => async dispatch => {
     })
 
     if (res.ok) {
-        console.log('EDIT SUB RES OK')
+        // console.log('EDIT SUB RES OK')
         const editedSub = await res.json()
         console.log('EDITED SUB', editedSub)
         await dispatch(actionEditSub(editedSub))
@@ -155,14 +172,21 @@ export const addMod = (subId, userId) => async dispatch => {
 
 const initialState = {
     allSubcrudits: {},
+    allSubsReal: {},
     oneSubcrudit: {},
     newSubcrudit: {},
     editedSubcrudit: {}
 }
 export default function subcruditReducer(state=initialState, action) {
     switch (action.type) {
+        case GET_ALL_SUBS_REAL: {
+            console.log('ALL SUBS REAL REDUCER HIT')
+            const newState6 = {...state, allSubsReal: {...state.allSubsReal}, oneSubcrudit: {...state.oneSubcrudit}}
+            newState6.allSubsReal = {...action.subs}
+            return newState6
+        }
         case GET_ALL_SUBS: {
-            console.log('ALL SUBS REDUCER HIT')
+            // console.log('ALL SUBS REDUCER HIT')
             const newState5 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
 
             newState5.allSubcrudits = [...action.subs]
@@ -203,11 +227,13 @@ export default function subcruditReducer(state=initialState, action) {
             return newState3
         }
         case DELETE_SUB: {
-            // console.log('DELETE SUB REDUCER HIT')
-            const newState4 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+            console.log('DELETE SUB REDUCER HIT')
+            const newState4 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}, allSubsReal: {...state.allSubsReal}}
             
             delete newState4.allSubcrudits[action.subcruditId]
+            delete newState4.allSubsReal[action.subcruditId]
             
+            // delete newState4.oneSubcrudit[action.subcruditId]
             delete newState4.oneSubcrudit[action.subcruditId]
             
             return newState4

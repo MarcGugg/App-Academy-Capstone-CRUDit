@@ -40,6 +40,13 @@ def get_all_subcrudits():
         return [sub.name for sub in subcrudits]
     return None
 
+@subcrudit_routes.route('/all/objects')
+def get_all_subs_real():
+    subs = Subcrudit.query.all()
+    if subs:
+        return [sub.to_dict() for sub in subs]
+    return None
+
 # @subcrudit_routes.route('/<int:subcrudit_id>')
 # def get_subcrudit(subcrudit_id):
 #     subcrudit = Subcrudit.query.get(subcrudit_id)

@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { getAllPosts } from '../../store/post'
 
 import './HomePage.css'
+import { getAllSubsReal } from '../../store/subcrudit'
 
 function HomePage() {
 
@@ -13,6 +14,7 @@ function HomePage() {
 
     useEffect(async () => {
         await dispatch(getAllPosts())
+        await dispatch(getAllSubsReal())
     }, [])
 
     const user = useSelector((state) => state.session.user)

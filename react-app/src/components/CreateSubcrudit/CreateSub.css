@@ -45,3 +45,11 @@
     margin-left: 8rem;
     margin-top: 1rem;
 }
+.createButton:disabled {
+    background-color: lightgray;
+    color: gray;
+}
+.createButton:hover {
+    cursor: pointer;
+    background-color: darkorange;
+}

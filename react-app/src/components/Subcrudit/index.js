@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { NavLink, useHistory, useParams } from 'react-router-dom'
 import { deletePostFromSub, deleteSub, getOneSub } from '../../store/subcrudit'
-import { getAuthors } from '../../store/post'
+import { deletePost, getAuthors } from '../../store/post'
 import { getPostImages } from '../../store/post_image'
 
 import OpenModalButton from '../OpenModalButton'
@@ -61,6 +61,10 @@ function Subcrudit() {
 
     const handleDeleteClick = async (e) => {
         e.preventDefault()
+        for (let post of Object.values(sub.posts)) {
+            console.log('post', post)
+            await dispatch(deletePost(post.id))
+        }
         await dispatch(deleteSub(subName, sub.id))
         history.push('/')
     }
