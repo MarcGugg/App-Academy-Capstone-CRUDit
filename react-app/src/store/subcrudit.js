@@ -187,7 +187,7 @@ export default function subcruditReducer(state=initialState, action) {
         }
         case GET_ALL_SUBS: {
             // console.log('ALL SUBS REDUCER HIT')
-            const newState5 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+            const newState5 = {...state, allSubcrudits: [], oneSubcrudit: {...state.oneSubcrudit}}
 
             newState5.allSubcrudits = [...action.subs]
 
@@ -198,7 +198,7 @@ export default function subcruditReducer(state=initialState, action) {
         }
         case GET_ONE_SUB: {
             console.log('GET ONE SUB REDUCER HIT')
-            const newState = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+            const newState = {...state, allSubcrudits: [...state.allSubcrudits], oneSubcrudit: {...state.oneSubcrudit}}
 
             newState.oneSubcrudit = {...action.oneSub}
             newState.oneSubcrudit.posts = {}
