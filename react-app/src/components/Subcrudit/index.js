@@ -138,8 +138,10 @@ function Subcrudit() {
                                         {/* :''} */}
                                     </div>
                                     : ''}
-                                    <div className='subPostBody'>
+                                    <div className='subPostBodyParent'>
+                                        <p className='subPostBody'>
                                         {post.body}
+                                        </p>
                                     </div>
                                 </div>
                             </NavLink>
