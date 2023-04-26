@@ -1,16 +1,23 @@
 import { useModal } from "../../context/Modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import OpenModalButton from '../OpenModalButton'
 import { deletePostFromProfile } from "../../store/profile";
+import { deletePost } from "../../store/post";
+import { useHistory } from "react-router-dom";
 
 function DeletePost({postId}) {
     const {closeModal} = useModal()
     const dispatch = useDispatch()
+    const history = useHistory()
     console.log('DELETE POST MODAL', postId)
+    const user = useSelector((state) => state.session.user)
     
     const handleDeleteClick = async (e) => {
         e.preventDefault()
+        // await dispatch(deletePost(postId)).then(closeModal)
         await dispatch(deletePostFromProfile(postId)).then(closeModal)
+        // history.push(`/user/${user.username}/profile`)
+        window.location.reload();
     }
 
     return (

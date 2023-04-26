@@ -12,8 +12,9 @@ function DeletePostFromSub({postId}) {
 
     const handleDeleteClick = async (e) => {
         e.preventDefault()
-        await dispatch(deletePostFromSub(postId))
-        await dispatch(deletePost(postId)).then(closeModal)
+        await dispatch(deletePostFromSub(postId)).then(closeModal)
+        // await dispatch(deletePost(postId)).then(closeModal)
+        window.location.reload();
     }
 
     return (
