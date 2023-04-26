@@ -134,7 +134,13 @@ function Subcrudit() {
                                     <div className='image'>
                                         {/* {Object.keys(postImages).includes(post.id) ?  */}
                                         
-                                        <img src={postImages[post.id]?.url} className='postImageSrc-sub'/>
+                                        <img src={postImages[post.id]?.url} 
+                                                onError={(e) => {
+                                                    e.target.onerror = null
+                                                    e.target.src = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
+                                                }} 
+                                                alt = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
+                                        className='postImageSrc-sub'/>
                                         {/* :''} */}
                                     </div>
                                     : ''}
