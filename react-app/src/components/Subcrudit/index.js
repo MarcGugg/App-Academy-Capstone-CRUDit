@@ -90,7 +90,9 @@ function Subcrudit() {
                 {/* <h1>Subcrudit page</h1> */}
                 <div className='subNameAndDesc'>
                     <h1 className='subName' >{sub.name}</h1>
-                    <p>{sub.description}</p>
+                    <div className='subDescDisplayParent'>
+                    <p className='subDescDisplay'>{sub.description}</p>
+                    </div>
                 </div>
                 {user ? 
                     <div className='postButtonParent'>

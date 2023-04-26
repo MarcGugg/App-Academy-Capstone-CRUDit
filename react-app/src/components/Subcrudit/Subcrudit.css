@@ -8,10 +8,14 @@
 }
 
 .infoAndButtonBoxParent {
-    /* border: 3px solid red; */
     width: 20rem;
+    /* height: 30rem; */
+    /* display: flex; */
+    flex-direction: column;
+    border: 2px solid darkgray;
+    width: 15rem;
 }
-.infoAndButtonBox {
+/* .infoAndButtonBox {
     border: 1px solid darkgray;
     border-radius: 4px;
     width: 15rem;
@@ -19,7 +23,12 @@
     padding: 1rem;
     z-index: 1;
     background-color: white;
+} */
+
+.subNameAndDesc {
+    width: 200px;
 }
+
 .subName{
     display: flex;
     justify-content: center;
@@ -27,9 +36,23 @@
     border-bottom: 1px solid darkgray;
 }
 
+.subDescDisplayParent {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.subDescDisplay {
+
+    /* display: flex; */
+    width: 100%;
+    overflow-wrap: break-word;
+    /* flex-wrap: wrap; */
+    white-space: no-wrap;
+    /* max-width: 1rem; */
+}
 .subPagePostParent {
     margin: 3rem;
-    /* border: 3px solid red; */
+
 }
 .subPagePostLink {
     border: 1px solid darkgray;
@@ -37,6 +60,8 @@
     margin-bottom: 1rem;
     margin-left: 2rem;
     padding-left: 2rem;
+    /* max-width: 30rem; */
+    word-wrap: break-word;
     /* border: 3px solid blue; */
     z-index: 1;
     background-color: white;
@@ -69,10 +94,10 @@
     /* background-color: white; */
 }
 
-.subName {
-    margin-left: 3.5rem;
+/* .subName { */
+    /* margin-left: 3.5rem; */
     /* border-bottom: 2px solid darkgray; */
-}
+/* } */
 
 .postButton {
     background-color: blue;
