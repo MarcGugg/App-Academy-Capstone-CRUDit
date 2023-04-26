@@ -31,11 +31,11 @@ function Navigation({ isLoaded }){
 		history.push(`/subcrudits/${selectedOptions[0].value}`)
 	}
 
-	let optionsArr = []
+	// let optionsArr = []
 	
-	useEffect(async () => {
-		await dispatch(getAllSubs())
-	}, [dispatch, selectedOptions])
+	// useEffect(async () => {
+	// 	await dispatch(getAllSubs())
+	// }, [dispatch, selectedOptions, optionsArr])
 
 	// console.log('optionsArr', optionsArr)
 	
@@ -51,12 +51,17 @@ function Navigation({ isLoaded }){
 		// setSelectedOptions()
 	}
 
+	let optionsArr = []
 	if (subs && subs.length) {
 		for (let i = 0; i < subs.length; i++) {
 			optionsArr[i] = {value: subs[i], label: subs[i]}
 			// optionsArr[i] = subs[i]
 		}
 	}
+
+	useEffect(async () => {
+		await dispatch(getAllSubs())
+	}, [dispatch, selectedOptions, optionsArr])
 
 
 	console.log('optionsArr after assignment', optionsArr)
