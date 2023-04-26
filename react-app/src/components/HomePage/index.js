@@ -59,7 +59,12 @@ function HomePage() {
                 <h1 className='postHeader'>{post.header}</h1>
                 {Object.keys(post).includes('image') ? 
                     <div className='postImage'>
-                        <img src={post.image.url} 
+                        <img src={post.image.url}
+                            onError={(e) => {
+                                e.target.onerror = null
+                                e.target.src = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
+                            }} 
+                            alt = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
                         className='postImageSrc'
                         />
                     </div>
