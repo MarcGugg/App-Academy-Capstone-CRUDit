@@ -40,6 +40,13 @@ def get_all_subcrudits():
         return [sub.name for sub in subcrudits]
     return None
 
+@subcrudit_routes.route('/all/objects')
+def get_all_subs_real():
+    subs = Subcrudit.query.all()
+    if subs:
+        return [sub.to_dict() for sub in subs]
+    return None
+
 # @subcrudit_routes.route('/<int:subcrudit_id>')
 # def get_subcrudit(subcrudit_id):
 #     subcrudit = Subcrudit.query.get(subcrudit_id)
@@ -91,19 +98,19 @@ def edit_sub(sub_name):
             subcrudit.name = data['name']
             subcrudit.description = data['description']
             db.session.commit()
-            # print('')
-            # print('')
-            # print('')
-            # print('')
-            # print('')
-            # print('')
-            # print('edited sub', subcrudit.to_dict())
-            # print('')
-            # print('')
-            # print('')
-            # print('')
-            # print('')
-            # print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            print('edited sub', subcrudit.to_dict())
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
             return subcrudit.to_dict_inclusive()
 
         return {'Error': 'Validation Error'}, 401
@@ -143,3 +150,53 @@ def delete_sub(sub_name):
             return None
             
     return {'Error': 'Please sign in to delete a SubCRUDit.'}, 401
+
+@subcrudit_routes.route('/<int:sub_id>/add_mod', methods=['PUT'])
+@login_required
+def add_mod(sub_id):
+    print("")
+    print("")
+    print("")
+    print("")
+    print("BACKEND HIT")
+    print("")
+    print("")
+    print("")
+    print("")
+    print("")
+    data = request.get_json()
+    print("")
+    print("")
+    print("")
+    print("")
+    # print("data backend", data['userId'])
+    print("")
+    print("")
+    print("")
+    print("")
+    user = User.query.get(data['userId'])
+    sub = Subcrudit.query.get(sub_id)
+
+    if user and sub:
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("USER", user.to_dict())
+        print("SUB", sub.to_dict())
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print('add the append and commit now')
+        sub.mods.append(user)
+        db.session.add(sub)
+        db.session.commit()
+        return user.to_dict()
+    else :
+        return None

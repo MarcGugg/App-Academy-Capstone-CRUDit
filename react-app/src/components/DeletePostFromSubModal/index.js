@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import OpenModalButton from '../OpenModalButton'
 import { deletePostFromProfile } from "../../store/profile";
 import { deletePostFromSub } from "../../store/subcrudit";
+import { deletePost } from "../../store/post";
 
 function DeletePostFromSub({postId}) {
     console.log('POST ID', postId)
@@ -12,6 +13,8 @@ function DeletePostFromSub({postId}) {
     const handleDeleteClick = async (e) => {
         e.preventDefault()
         await dispatch(deletePostFromSub(postId)).then(closeModal)
+        // await dispatch(deletePost(postId)).then(closeModal)
+        window.location.reload();
     }
 
     return (

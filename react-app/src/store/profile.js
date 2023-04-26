@@ -1,3 +1,5 @@
+import { deletePost } from "./post"
+
 const GET_USER_PROFILE = 'user/getProfile'
 const DELETE_POST = 'post/Delete'
 
@@ -30,8 +32,10 @@ export const deletePostFromProfile = (postId) => async dispatch => {
         method: 'DELETE',
         headers: {'Content-Type': 'application/json'}
     })
+    // const res = await dispatch(deletePost(postId))
 
-    if (res.ok) {
+    if (res) {
+        console.log('DELETE FROM PROFILE RES OK', res)
         await dispatch(actionDeletePostFromProfile(postId))
     }
 }

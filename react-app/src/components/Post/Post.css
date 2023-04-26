@@ -3,17 +3,27 @@
     justify-content: center;
     /* border: 3px solid red; */
     z-index: 0;
+    /* word-wrap: break-word; */
     /* background-color: rgba(169, 169, 169, 0.568); */
 }
 
 .post {
+    width: 80vw;
     padding: 2rem;
     border: 1px solid darkgray;
     border-radius: 4px;
     /* border: 3px solid blue; */
     z-index: 1;
     background-color: white;
+    word-wrap: break-word;
 }
+
+/* .post {
+    word-wrap: break-word;
+}
+.subNameAndDesc {
+    word-wrap: break-word;
+} */
 
 .subAndAuthor {
     display: flex;
@@ -31,6 +41,7 @@
 
 .postBody {
     font-size: larger;
+    word-wrap: break-word;
 }
 
 /* .imageDiv {

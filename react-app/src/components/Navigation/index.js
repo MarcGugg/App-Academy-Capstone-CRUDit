@@ -21,6 +21,7 @@ function Navigation({ isLoaded }){
 	const history = useHistory()
 	const [params, setParams] = useState('')
 	const [selectedOptions, setSelectedOptions] = useState();
+	const [subsLoaded, setSubsLoaded] = useState(false)
 	
 	const handleSearchSubmit = async (e) => {
 		e.preventDefault()
@@ -31,11 +32,11 @@ function Navigation({ isLoaded }){
 		history.push(`/subcrudits/${selectedOptions[0].value}`)
 	}
 
-	let optionsArr = []
+	// let optionsArr = []
 	
-	useEffect(async () => {
-		await dispatch(getAllSubs())
-	}, [dispatch, selectedOptions])
+	// useEffect(async () => {
+	// 	await dispatch(getAllSubs())
+	// }, [dispatch, selectedOptions, optionsArr])
 
 	// console.log('optionsArr', optionsArr)
 	
@@ -51,12 +52,18 @@ function Navigation({ isLoaded }){
 		// setSelectedOptions()
 	}
 
-	if (subs && subs.length) {
+	let optionsArr = []
+	if (subs && subsLoaded) {
 		for (let i = 0; i < subs.length; i++) {
 			optionsArr[i] = {value: subs[i], label: subs[i]}
 			// optionsArr[i] = subs[i]
 		}
 	}
+
+	useEffect(async () => {
+		await dispatch(getAllSubs())
+		setSubsLoaded(true)
+	}, [dispatch, selectedOptions])
 
 
 	console.log('optionsArr after assignment', optionsArr)
