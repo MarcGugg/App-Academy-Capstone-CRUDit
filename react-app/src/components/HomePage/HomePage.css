@@ -62,6 +62,7 @@
     margin-left: 2rem;
     padding-left: 2rem;
     background-color: white;
+    max-width: 43rem;
     /* max-width: 60%; */
 }
 .homePagePostLink:hover {
@@ -87,12 +88,18 @@
     color: black;
 }
 
-.postBody {
+.postBodyParent {
     color: black;
+    max-width: 100%;
 }
 
+.postImage {
+    max-width: 100%;
+    margin-right: 1.5rem;
+}
 .postImageSrc {
     height: 30rem;
     width: 47rem;
     object-fit: fill;
+    max-width: 100%;
 }

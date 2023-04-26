@@ -64,8 +64,10 @@ function HomePage() {
                         />
                     </div>
                 : ''}
-                <div className='postBody'>
+                <div className='postBodyParent'>
+                    <p className='postBody'>
                     {post.body}
+                    </p>
                 </div>
             </div>
             </NavLink>
