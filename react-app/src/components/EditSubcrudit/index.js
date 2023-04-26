@@ -21,6 +21,7 @@ function EditSubcruditForm() {
 
     const [name, setName] = useState(subToEdit.name || '')
     const [description, setDescription] = useState(subToEdit.description || '')
+    const [valErrs, setValErrs] = useState([])
 
     useEffect(() => {
         if (Object.values(subToEdit).length) {
@@ -31,9 +32,27 @@ function EditSubcruditForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const edited = await dispatch(editSub(subName, name, description))
-        console.log('edited frontend', edited)
-        history.push(`/subcrudits/${edited.name}`)
+
+        let errs = []
+        if (name.length < 3) {
+            console.log('name too short')
+            errs.push('Name too short')
+            console.log('errs', errs)
+        }
+        if (!description.length) {
+            console.log('no description')
+            errs.push('Must have description')
+            console.log('errs', errs)
+        }
+        console.log('errs after conditionals', errs)
+        setValErrs(errs)
+        console.log('val errs', valErrs)
+
+        if (!errs.length) {
+            const edited = await dispatch(editSub(subName, name, description))
+            console.log('edited frontend', edited)
+            history.push(`/subcrudits/${edited.name}`)
+        }
     }
 
     if (!subToEdit) {
@@ -49,7 +68,9 @@ function EditSubcruditForm() {
         <div className='formParent'>
         <form onSubmit={handleSubmit} className='createSubForm'>
             <input type='text' className='subFormName' value={name} onChange={(e) => setName(e.target.value)} placeholder='Change the name of your SubCRUDit'></input>
+            {valErrs.length > 0 && name.length < 3 ? <p>Name must be at least 3 characters!</p> : ''}
             <textarea className='subDesc' value={description} onChange={(e) => setDescription(e.target.value)} placeholder='Change the description of your SubCRUDit'></textarea>
+            {valErrs.length > 0 && !description ? <p>Description is required!</p> : ''}
             <button type='submit' className='createButton'>Update</button>
         </form>
         </div>

@@ -20,6 +20,7 @@ function EditPostForm() {
 
     const [header, setHeader] = useState(postToEdit.header || '')
     const [body, setBody] = useState(postToEdit.body || '')
+    const [valErrs, setValErrs] = useState([])
 
     useEffect(() => {
         if (Object.values(postToEdit).length) {
@@ -32,12 +33,19 @@ function EditPostForm() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         
+        let errs = []
+        if (!header) errs.push('Header is Required') 
+        if (!body) errs.push('Body is Required')
+        // if (!image.contains)
+        setValErrs(errs)
         
-        await dispatch(editPost(postId, header, body))
-
-        // console.log('post dispatch', post)
-
-        history.push(`/posts/${postId}`)
+        if (!errs.length) {
+            await dispatch(editPost(postId, header, body))
+    
+            // console.log('post dispatch', post)
+    
+            history.push(`/posts/${postId}`)
+        }
     }
 
 
@@ -54,9 +62,11 @@ function EditPostForm() {
                 <div className="postHeaderParent">
                 <input type="text" value={header} onChange={(e) => setHeader(e.target.value)} placeholder="Change your posts' header" className="postHeaderInput"/>
                 </div>
+                {valErrs.length > 0 && !header ? <p>Header is Required</p> : ''}
                 <div className="postBodyInputParent">
                 <textarea value={body} onChange={(e) => setBody(e.target.value)} placeholder="Change the post body" className="postBodyInput">Body</textarea>
                 </div>
+                {valErrs.length > 0 && !body ? <p>Body is Required</p> : ''}
                 {/* <div className="postImageInputParent">
                 <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Inlcude an image to make your post stand out" className="postImageInput"/>
                 </div> */}
