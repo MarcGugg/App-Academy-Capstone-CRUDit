@@ -188,7 +188,7 @@ export default function subcruditReducer(state=initialState, action) {
         case GET_ALL_SUBS: {
             // console.log('ALL SUBS REDUCER HIT')
             const newState5 = {...state, allSubcrudits: [], oneSubcrudit: {...state.oneSubcrudit}}
-
+            //allSubcrudits only contains the names of the subs and is an array. it must be kept as an array for the options list
             newState5.allSubcrudits = [...action.subs]
 
             // action.subs.map(sub => newState5.allSubcrudits[sub.id] = {...sub})
@@ -199,7 +199,9 @@ export default function subcruditReducer(state=initialState, action) {
         case GET_ONE_SUB: {
             console.log('GET ONE SUB REDUCER HIT')
             const newState = {...state, allSubcrudits: [...state.allSubcrudits], oneSubcrudit: {...state.oneSubcrudit}}
-
+            //allSubcrudits only contains the names of the subs and is an array. it must be kept as an array for the options list.
+            //if it isn't, the options list breaks when visiting a single sub straight from the homepage, and search becomes useless
+            //as a result
             newState.oneSubcrudit = {...action.oneSub}
             newState.oneSubcrudit.posts = {}
             newState.oneSubcrudit.mods = {}
