@@ -91,9 +91,9 @@ function OnePost() {
                 {user && post.authorId == user.id ? 
                 <button onClick={handleEditClick}>Edit</button>
                 : ''}
-                {user && post.subcrudit.ownerId == user.id ? 
+                {/* {user && post.subcrudit.ownerId == user.id ? 
                 <button onClick={handleModClick}>Make User a Mod</button>
-                :''}
+                :''} */}
             </div>
         </div>
         </div>
