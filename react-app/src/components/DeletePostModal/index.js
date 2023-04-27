@@ -5,6 +5,8 @@ import { deletePostFromProfile, getUserProfile } from "../../store/profile";
 import { deletePost } from "../../store/post";
 import { useHistory } from "react-router-dom";
 
+import './DeletePost.css'
+
 function DeletePost({postId, username}) {
     const {closeModal} = useModal()
     const dispatch = useDispatch()
@@ -16,7 +18,7 @@ function DeletePost({postId, username}) {
         e.preventDefault()
         // await dispatch(deletePost(postId)).then(closeModal)
         await dispatch(deletePostFromProfile(postId)).then(closeModal)
-        dispatch(getUserProfile(username))
+        await dispatch(getUserProfile(username))
         // history.push(`/user/${user.username}/profile`)
         window.location.reload();
     }
@@ -24,8 +26,12 @@ function DeletePost({postId, username}) {
     return (
         <>
         <h1>Delete Post?</h1>
-        <button onClick={handleDeleteClick}>Yes</button>
-        <button onClick={closeModal}>No</button>
+        <div className="deletePostButtonsParent">
+            <div className="deletePostButtons">
+                <button onClick={handleDeleteClick} className="yes">Yes</button>
+                <button onClick={closeModal} className="no">No</button>
+            </div>
+        </div>
         </>
     )
 }

@@ -1,0 +1,28 @@
+.deletePostButtons {
+    display: flex;
+    justify-content: center;
+}
+
+.yes {
+    background-color: red;
+    color: white;
+    height: 3rem;
+    width: 4rem;
+    font-weight: bold;
+    margin: 0.5rem;
+}
+.yes:hover {
+    background-color: darkred;
+    cursor: pointer;
+}
+
+.no {
+    background-color: white;
+    width: 4rem;
+    height: 3rem;
+    margin: 0.5rem;
+}
+.no:hover {
+    background-color: darkgray;
+    cursor: pointer;
+}

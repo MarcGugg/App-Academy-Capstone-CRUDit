@@ -25,9 +25,13 @@ function DeletePostFromSub({postId, subName}) {
 
     return (
         <>
-        <h1>Delete Post</h1>
-        <button onClick={handleDeleteClick}>Yes</button>
-        <button onClick={closeModal}>No</button>
+        <h1>Delete Post?</h1>
+        <div className="deletePostButtonsParent">
+            <div className="deletePostButtons">
+                <button onClick={handleDeleteClick} className="yes">Yes</button>
+                <button onClick={closeModal} className="no">No</button>
+            </div>
+        </div>
         </>
     )
 }

@@ -149,7 +149,7 @@ export const deletePostFromSub = (postId) => async dispatch => {
     if (res.ok) {
         console.log('DELETE POST FROM SUB RES OK')
         await dispatch(actionDeletePostFromSub(postId))
-        await dispatch(getAllPosts())
+        // await dispatch(getAllPosts())
     }
 }
 
