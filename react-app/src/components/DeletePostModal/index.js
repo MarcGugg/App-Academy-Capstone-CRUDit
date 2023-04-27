@@ -2,7 +2,7 @@ import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import OpenModalButton from '../OpenModalButton'
 import { deletePostFromProfile, getUserProfile } from "../../store/profile";
-import { deletePost } from "../../store/post";
+import { deletePost, getAllPosts } from "../../store/post";
 import { useHistory } from "react-router-dom";
 
 import './DeletePost.css'
@@ -17,10 +17,12 @@ function DeletePost({postId, username}) {
     const handleDeleteClick = async (e) => {
         e.preventDefault()
         // await dispatch(deletePost(postId)).then(closeModal)
-        await dispatch(deletePostFromProfile(postId)).then(closeModal)
-        await dispatch(getUserProfile(username))
+        await dispatch(deletePost(postId))
+        await dispatch(getAllPosts())
+        // await dispatch(getUserProfile())
+        await dispatch(getUserProfile(username)).then(closeModal)
         // history.push(`/user/${user.username}/profile`)
-        window.location.reload();
+        // window.location.reload();
     }
 
     return (

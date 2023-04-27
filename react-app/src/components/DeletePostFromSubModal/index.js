@@ -18,8 +18,8 @@ function DeletePostFromSub({postId, subName}) {
         e.preventDefault()
         // await dispatch(deletePostFromSub(postId)).then(closeModal)
         await dispatch(deletePost(postId))
-        dispatch(getOneSub()).then(closeModal)
-        await dispatch(getOneSub(subName))
+        dispatch(getOneSub())
+        await dispatch(getOneSub(subName)).then(closeModal)
         // window.location.reload();
     }
 

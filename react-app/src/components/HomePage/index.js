@@ -19,6 +19,7 @@ function HomePage() {
     useEffect(async () => {
         await dispatch(getAllPosts())
         await dispatch(getAllSubsReal())
+        await dispatch(getAllPosts())
     }, [dispatch])
     // console.log('posts', posts)
 
