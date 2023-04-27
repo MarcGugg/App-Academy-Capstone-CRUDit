@@ -46,10 +46,10 @@ function OnePost() {
     if (!Object.values(post).length) {
         return null
     }
-    const handleRedirect = (e) => {
-        e.preventDefault()
-        history.goBack()
-    }
+    // const handleRedirect = (e) => {
+    //     e.preventDefault()
+    //     history.goBack()
+    // }
 
     return (
         <>
@@ -85,9 +85,9 @@ function OnePost() {
                 </div>  
             : ''}
             <p className='postBody'>{post.body}</p>
-            <button onClick={handleRedirect}>
+            {/* <button onClick={handleRedirect}>
                                                 go back
-                                        </button>
+                                        </button> */}
             <div className='editAndDeleteButtons'>
                 {/* {user ? post.authorId == user.id || post.subcrudit.ownerId == user.id ? 
                 <div>
