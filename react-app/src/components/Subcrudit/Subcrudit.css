@@ -12,10 +12,10 @@
     /* height: 30rem; */
     /* display: flex; */
     flex-direction: column;
-    border: 2px solid darkgray;
+    /* border: 2px solid darkgray; */
     width: 15rem;
 }
-/* .infoAndButtonBox {
+.infoAndButtonBox {
     border: 1px solid darkgray;
     border-radius: 4px;
     width: 15rem;
@@ -23,7 +23,7 @@
     padding: 1rem;
     z-index: 1;
     background-color: white;
-} */
+}
 
 .subNameAndDesc {
     width: 200px;
@@ -92,9 +92,9 @@
 }
 
 
-.postButtonParent {
-    /* background-color: white; */
-}
+/* .postButtonParent {
+    background-color: white;
+} */
 
 /* .subName { */
     /* margin-left: 3.5rem; */

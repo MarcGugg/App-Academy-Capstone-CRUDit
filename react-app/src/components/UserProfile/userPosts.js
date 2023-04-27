@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom"
 import { deletePostFromProfile } from "../../store/profile"
 import DeletePost from "../DeletePostModal"
 import OpenModalButton from '../OpenModalButton'
+import { useParams } from "react-router-dom"
 
 import './Profile.css'
 
@@ -10,6 +11,7 @@ function UserPosts(user={user}) {
     console.log('HELLO FROM POSTS')
     console.log('user posts',user.user)
     // const {user} = user
+    const {username} = useParams()
     const currUser = useSelector((state) => state.session.user)
 
     // const handleDeleteClick = (e) => {
@@ -35,7 +37,7 @@ function UserPosts(user={user}) {
                         </NavLink>
                         {currUser && post.authorId == currUser.id ?
                         <div className="modalDeleteButton">
-                            <OpenModalButton modalComponent={<DeletePost postId={post.id}/>} buttonText={'Delete'}/>
+                            <OpenModalButton modalComponent={<DeletePost postId={post.id} username={username}/>} buttonText={'Delete'}/>
                         </div> 
                         : ''}
                     </div>

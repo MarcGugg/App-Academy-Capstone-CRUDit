@@ -15,15 +15,37 @@ function SignupFormPage() {
 
   if (sessionUser) return <Redirect to="/" />;
 
+  //my code
+  let errs = []
+//   function ValidateEmail(mail) {
+//  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+//   {
+//     return (true)
+//   }
+//     alert("You have entered an invalid email address!")
+//     return (false)
+//   }
+function isValidEmail(email) {
+  // regular expression for validating an email address
+  const emailRegex = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
+
+  // test if the email matches the regex
+  return emailRegex.test(email);
+}
+  //-------
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
+    console.log('email test result', isValidEmail(email))
+    if ((password === confirmPassword) && isValidEmail(email)) {
         const data = await dispatch(signUp(username, email, password));
         if (data) {
           setErrors(data)
         }
+    //my code
+    //---------
     } else {
-        setErrors(['Confirm Password field must be the same as the Password field']);
+        setErrors(['Confirm Password field must be the same as the Password field'], ['Invalid Email']);
     }
   };
 
@@ -37,7 +59,7 @@ function SignupFormPage() {
         <label>
           Email
           <input
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

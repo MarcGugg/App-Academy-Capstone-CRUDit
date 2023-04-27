@@ -12,10 +12,18 @@ function SignupFormModal() {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
 	const { closeModal } = useModal();
+	
+	function isValidEmail(email) {
+		// regular expression for validating an email address
+		const emailRegex = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
+	  
+		// test if the email matches the regex
+		return emailRegex.test(email);
+	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (password === confirmPassword) {
+		if (password === confirmPassword && isValidEmail(email)) {
 			const data = await dispatch(signUp(username, email, password));
 			if (data) {
 				setErrors(data);
@@ -25,6 +33,7 @@ function SignupFormModal() {
 		} else {
 			setErrors([
 				"Confirm Password field must be the same as the Password field",
+				"Email must be valid"
 			]);
 		}
 	};

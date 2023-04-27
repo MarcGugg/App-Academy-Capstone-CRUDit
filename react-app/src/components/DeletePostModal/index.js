@@ -1,11 +1,13 @@
 import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import OpenModalButton from '../OpenModalButton'
-import { deletePostFromProfile } from "../../store/profile";
-import { deletePost } from "../../store/post";
+import { deletePostFromProfile, getUserProfile } from "../../store/profile";
+import { deletePost, getAllPosts } from "../../store/post";
 import { useHistory } from "react-router-dom";
 
-function DeletePost({postId}) {
+import './DeletePost.css'
+
+function DeletePost({postId, username}) {
     const {closeModal} = useModal()
     const dispatch = useDispatch()
     const history = useHistory()
@@ -15,16 +17,23 @@ function DeletePost({postId}) {
     const handleDeleteClick = async (e) => {
         e.preventDefault()
         // await dispatch(deletePost(postId)).then(closeModal)
-        await dispatch(deletePostFromProfile(postId)).then(closeModal)
+        await dispatch(deletePost(postId))
+        await dispatch(getAllPosts())
+        // await dispatch(getUserProfile())
+        await dispatch(getUserProfile(username)).then(closeModal)
         // history.push(`/user/${user.username}/profile`)
-        window.location.reload();
+        // window.location.reload();
     }
 
     return (
         <>
         <h1>Delete Post?</h1>
-        <button onClick={handleDeleteClick}>Yes</button>
-        <button onClick={closeModal}>No</button>
+        <div className="deletePostButtonsParent">
+            <div className="deletePostButtons">
+                <button onClick={handleDeleteClick} className="yes">Yes</button>
+                <button onClick={closeModal} className="no">No</button>
+            </div>
+        </div>
         </>
     )
 }

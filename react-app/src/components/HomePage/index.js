@@ -12,14 +12,15 @@ function HomePage() {
 
     const dispatch = useDispatch()
 
+    
+    const user = useSelector((state) => state.session.user)
+    const posts = useSelector((state) => state.posts.allPosts)
+    
     useEffect(async () => {
         await dispatch(getAllPosts())
         await dispatch(getAllSubsReal())
-    }, [])
-
-    const user = useSelector((state) => state.session.user)
-    const posts = useSelector((state) => state.posts.allPosts)
-
+        await dispatch(getAllPosts())
+    }, [dispatch])
     // console.log('posts', posts)
 
     if (!Object.values(posts).length) {

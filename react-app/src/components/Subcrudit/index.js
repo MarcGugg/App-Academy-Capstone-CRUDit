@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { NavLink, useHistory, useParams } from 'react-router-dom'
-import { deletePostFromSub, deleteSub, getOneSub } from '../../store/subcrudit'
-import { deletePost, getAuthors } from '../../store/post'
+import { deletePostFromSub, deleteSub, getAllSubs, getOneSub } from '../../store/subcrudit'
+import { deletePost, getAllPosts, getAuthors } from '../../store/post'
 import { getPostImages } from '../../store/post_image'
 
 import OpenModalButton from '../OpenModalButton'
@@ -36,6 +36,7 @@ function Subcrudit() {
             // }
             await dispatch(getAuthors(authorIdArr))
             await dispatch(getPostImages(postIdArr))
+            await dispatch(getAllPosts())
         }
     }, [sub, dispatch])
 
@@ -80,7 +81,10 @@ function Subcrudit() {
     // if (postImages && !Object.values(postImages).length) {
     //     return null
     // }
-
+    // const handleRedirect = (e) => {
+    //     e.preventDefault()
+    //     history.push(-1)
+    // }
 
     return (
         <>
@@ -148,10 +152,13 @@ function Subcrudit() {
                                         <p className='subPostBody'>
                                         {post.body}
                                         </p>
+                                        {/* <button onClick={handleRedirect}>
+                                                go back
+                                        </button> */}
                                     </div>
                                 </div>
                             </NavLink>
-                            {user ? post.authorId == user.id || sub.ownerId == user.id ? <OpenModalButton modalComponent={<DeletePostFromSub postId={post.id}/>} buttonText={'Delete'}/> : '' : ''}
+                            {user ? post.authorId == user.id || sub.ownerId == user.id ? <OpenModalButton modalComponent={<DeletePostFromSub postId={post.id} subName={subName}/>} buttonText={'Delete'}/> : '' : ''}
                             </div>
                         ))}
                     </div>

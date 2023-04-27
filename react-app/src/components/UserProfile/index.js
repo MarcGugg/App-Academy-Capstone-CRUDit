@@ -20,8 +20,8 @@ function UserProfile() {
     const userProfile = useSelector((state) => state.userProfiles.oneProfile)
     console.log('user profile', userProfile)
 
-    const [details, setDetails] = useState(true)
-    const [postsShow, setPostsShow] = useState(false)
+    const [details, setDetails] = useState(false)
+    const [postsShow, setPostsShow] = useState(true)
     const [subsShow, setSubsShow] = useState(false)
 
     const handleDetailsClick = () => {
@@ -49,15 +49,22 @@ function UserProfile() {
         <button>
         <NavLink to={'/'}>SubCRUDits</NavLink>
         </button> */}
+        <div className="userProfileInfo">
+            {/* <UserDetails user={userProfile}/> */}
+            <h1>{userProfile.username}</h1>
+            <h3>{userProfile.bio}</h3>
+        </div>
         <div className="buttons">
-            <button onClick={handleDetailsClick} className="detailsButton">User Details</button>
+            {/* <button onClick={handleDetailsClick} className="detailsButton">User Details</button> */}
             <button onClick={handlePostsClick} className="userPostsButton">User Posts</button>
             <button onClick={handleSubsClick} className="userSubsButton">User SubCRUDits</button>
         </div>
         <div className="propCompenents">
-            {details ? 
-            <UserDetails user={userProfile}/>
-            : postsShow ? 
+            {
+            // details ? 
+            // <UserDetails user={userProfile}/>
+            // : 
+            postsShow ? 
             <UserPosts user={userProfile.posts}/>
             : subsShow ? 
             <UserSubs user={userProfile} />

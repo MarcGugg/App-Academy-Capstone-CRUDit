@@ -1,3 +1,5 @@
+import { getAllPosts } from "./post"
+
 const GET_ONE_SUB = 'subs/getOne'
 const CREATE_SUB = 'subs/Create'
 const EDIT_SUB = 'subs/Edit'
@@ -146,7 +148,8 @@ export const deletePostFromSub = (postId) => async dispatch => {
 
     if (res.ok) {
         console.log('DELETE POST FROM SUB RES OK')
-        dispatch(actionDeletePostFromSub(postId))
+        await dispatch(actionDeletePostFromSub(postId))
+        // await dispatch(getAllPosts())
     }
 }
 

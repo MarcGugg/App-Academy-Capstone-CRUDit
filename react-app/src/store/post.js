@@ -226,7 +226,7 @@ export default function postReducer(state=initialState, action) {
             const newState6 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
 
             delete newState6.allPosts[action.postId]
-
+            console.log('new state 6', newState6)
             return newState6
         }
         default:
