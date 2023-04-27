@@ -39,6 +39,9 @@ function EditSubcruditForm() {
             errs.push('Name too short')
             console.log('errs', errs)
         }
+        if (name.includes('/')) {
+            errs.push('subcrudit name cannot include \'/\'')
+        }
         if (!description.length) {
             console.log('no description')
             errs.push('Must have description')
@@ -69,6 +72,8 @@ function EditSubcruditForm() {
         <form onSubmit={handleSubmit} className='createSubForm'>
             <input type='text' className='subFormName' value={name} onChange={(e) => setName(e.target.value)} placeholder='Change the name of your SubCRUDit'></input>
             {valErrs.length > 0 && name.length < 3 ? <p>Name must be at least 3 characters!</p> : ''}
+            {valErrs.length > 0 && name.includes('/') ? <p>SubCRUDit name cannot include a '/' character.</p> : ''}
+            {valErrs.length > 0 && name.includes(' ') ? <p>SubCRUDit name cannot have empty spaces.</p> : ''}
             <textarea className='subDesc' value={description} onChange={(e) => setDescription(e.target.value)} placeholder='Change the description of your SubCRUDit'></textarea>
             {valErrs.length > 0 && !description ? <p>Description is required!</p> : ''}
             <button type='submit' className='createButton'>Update</button>
