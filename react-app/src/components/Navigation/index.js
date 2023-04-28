@@ -30,6 +30,9 @@ function Navigation({ isLoaded }){
 		// history.push(`/search/${params}`)
 		// setSelectedOptions(params)
 		history.push(`/subcrudits/${selectedOptions[0].value}`)
+		setSelectedOptions('')
+		//await dispatch(getOneSub(params.value))
+		// history.push(`/subcrudits/${params.value}`)
 	}
 
 	// let optionsArr = []
@@ -63,7 +66,7 @@ function Navigation({ isLoaded }){
 	useEffect(async () => {
 		await dispatch(getAllSubs())
 		setSubsLoaded(true)
-	}, [dispatch, selectedOptions])
+	}, [dispatch])
 
 
 	console.log('optionsArr after assignment', optionsArr)
