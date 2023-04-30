@@ -95,7 +95,7 @@ function OnePost() {
                 </div>            
                 : '': ''} */}
                 {user && post.authorId == user.id ? 
-                <button onClick={handleEditClick}>Edit</button>
+                <button onClick={handleEditClick} className='postEditButton'>Edit</button>
                 : ''}
                 {/* {user && post.subcrudit.ownerId == user.id ? 
                 <button onClick={handleModClick}>Make User a Mod</button>

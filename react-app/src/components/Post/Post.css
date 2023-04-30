@@ -58,3 +58,15 @@
     display: flex;
     flex-direction: row;
 }
+
+.postEditButton {
+    background-color: gray;
+    color: white;
+    height: 2rem;
+    width: 3rem;
+}
+.postEditButton:hover {
+    background-color: rgb(95, 94, 94);
+    cursor: pointer;
+    box-shadow: 1px 1px 1px darkgray;
+}
