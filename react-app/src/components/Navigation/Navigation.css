@@ -59,3 +59,14 @@
 .searchInput {
   z-index: 3;
 }
+
+.profileButtonClass {
+  background-color: rgb(240, 228, 228);
+  width: 3rem;
+  border-radius: 10px;
+}
+.profileButtonClass:hover {
+  background-color: rgb(219, 209, 209);
+  cursor: pointer;
+  box-shadow: 1px 1px 1px darkgray;
+}
