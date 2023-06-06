@@ -22,6 +22,8 @@ class User(db.Model, UserMixin):
 
     modded_subs = db.relationship('Subcrudit', secondary='subs_mods', back_populates='mods')
 
+    followed_subs = db.relationship('Subcrudit', secondary='subs_users', back_populates='users')
+
     @property
     def password(self):
         return self.hashed_password
