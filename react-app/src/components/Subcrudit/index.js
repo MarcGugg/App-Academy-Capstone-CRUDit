@@ -117,10 +117,12 @@ function Subcrudit() {
                         Join Community
                     </button>
                 </div>
-                : 
+                :
+                <div>
                 <button className='unfollowButton'>
                     Leave Community
                 </button>
+                </div> 
                 }
                 {user && user.id === sub.ownerId ? 
                 <div className='subEditAndDeleteButtons'>

@@ -281,7 +281,7 @@ export default function subcruditReducer(state=initialState, action) {
             return newState6
         }
         case FOLLOW_SUB: {
-            console.log('ADD MOD REDUCER HIT')
+            console.log('FOLLOW SUB REDUCER HIT')
             console.log('action user', action.user)
             const newState7 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
 

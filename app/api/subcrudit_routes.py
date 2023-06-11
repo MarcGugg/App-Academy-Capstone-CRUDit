@@ -195,7 +195,7 @@ def add_mod(sub_id):
         print("")
         print('add the append and commit now')
         sub.mods.append(user)
-        db.session.add(sub)
+        # db.session.add(sub)
         db.session.commit()
         return user.to_dict()
     else :
@@ -213,7 +213,7 @@ def follow_sub(sub_id):
         current_user.followed_subs.append(sub)
         # db.session.add(sub)
         db.session.commit()
-        return sub
+        return sub.to_dict_inclusive()
     
     
     return {'User must log in'}
@@ -228,7 +228,7 @@ def unfollow_sub(sub_id):
         current_user.followed_subs.remove(sub)
         # db.session.add(sub)
         db.session.commit()
-        return sub
+        return sub.to_dict_inclusive()
     
     
     return {'User must log in'}
