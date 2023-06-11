@@ -36,5 +36,6 @@ class Subcrudit(db.Model):
             'ownerId': self.owner_id,
             'owner': self.owner.to_dict(),
             'mods': [mod.to_dict() for mod in self.mods],
-            'posts': [post.to_dict() for post in self.posts]
+            'posts': [post.to_dict() for post in self.posts],
+            'users': [user.to_dict() for user in self.users]
         }

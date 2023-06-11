@@ -200,3 +200,35 @@ def add_mod(sub_id):
         return user.to_dict()
     else :
         return None
+    
+@subcrudit_routes.route('/<int:sub_id>/follow', methods=['PUT'])
+def follow_sub(sub_id):
+    # data = request.get_json()
+    # user = User.query.get(data['userId'])
+    sub = Subcrudit.query.get(sub_id)
+
+    if current_user.is_authenticated:
+    
+        sub.users.append(current_user)
+        current_user.followed_subs.append(sub)
+        # db.session.add(sub)
+        db.session.commit()
+        return sub
+    
+    
+    return {'User must log in'}
+
+@subcrudit_routes.route('/<int:sub_id>/unfollow', methods=['PUT'])
+def unfollow_sub(sub_id):
+    sub = Subcrudit.query.get(sub_id)
+
+    if current_user.is_authenticated:
+    
+        sub.users.remove(current_user)
+        current_user.followed_subs.remove(sub)
+        # db.session.add(sub)
+        db.session.commit()
+        return sub
+    
+    
+    return {'User must log in'}

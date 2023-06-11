@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { NavLink, useHistory, useParams } from 'react-router-dom'
-import { deletePostFromSub, deleteSub, getAllSubs, getOneSub } from '../../store/subcrudit'
+import { deletePostFromSub, deleteSub, followSub, getAllSubs, getOneSub } from '../../store/subcrudit'
 import { deletePost, getAllPosts, getAuthors } from '../../store/post'
 import { getPostImages } from '../../store/post_image'
 
@@ -70,6 +70,10 @@ function Subcrudit() {
         history.push('/')
     }
 
+    const handleFollow = async (e) => {
+        e.preventDefault()
+        await dispatch(followSub(sub.id, user.id))
+    }
 
     if (!sub || !Object.values(sub).length ) {
         return null
@@ -107,6 +111,17 @@ function Subcrudit() {
                             </NavLink>
                     </div>
                 : ''}
+                {user && !sub.users.includes(user) ? 
+                <div className='followButtonDiv'>
+                    <button className='followButton' onClick={handleFollow}>
+                        Join Community
+                    </button>
+                </div>
+                : 
+                <button className='unfollowButton'>
+                    Leave Community
+                </button>
+                }
                 {user && user.id === sub.ownerId ? 
                 <div className='subEditAndDeleteButtons'>
                     <button className='subEditButton'>

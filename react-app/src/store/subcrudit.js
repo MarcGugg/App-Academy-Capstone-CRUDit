@@ -7,6 +7,7 @@ const DELETE_SUB = 'subs/Delete'
 const GET_ALL_SUBS = 'subs/getAll'
 const GET_ALL_SUBS_REAL = 'subs/getAllReal'
 const DELETE_POST_FROM_SUB = 'subs/deletePost'
+const FOLLOW_SUB = 'subs/followSub'
 const ADD_MOD = 'subs/addMod'
 
 const actionGetAllSubs = (subs) => ({
@@ -41,6 +42,11 @@ const actionDeleteSub = (subcruditId) => ({
 const actionDeletePostFromSub = (postId) => ({
     type: DELETE_POST_FROM_SUB,
     postId
+})
+
+const actionFollowSub = (user) => ({
+    type: FOLLOW_SUB,
+    user
 })
 
 const actionAddMod = (user) => ({
@@ -153,6 +159,16 @@ export const deletePostFromSub = (postId) => async dispatch => {
     }
 }
 
+export const followSub = (subId, userId) => async dispatch => {
+    const res = await fetch(`/api/subcrudits/${subId}/follow`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            'userId': userId
+        })
+    })
+}
+
 export const addMod = (subId, userId) => async dispatch => {
     console.log('ADD MOD THUNK HIT')
     console.log('userId', userId)
@@ -178,7 +194,8 @@ const initialState = {
     allSubsReal: {},
     oneSubcrudit: {},
     newSubcrudit: {},
-    editedSubcrudit: {}
+    editedSubcrudit: {},
+    users: {}
 }
 export default function subcruditReducer(state=initialState, action) {
     switch (action.type) {
@@ -201,7 +218,7 @@ export default function subcruditReducer(state=initialState, action) {
         }
         case GET_ONE_SUB: {
             console.log('GET ONE SUB REDUCER HIT')
-            const newState = {...state, oneSubcrudit: {...state.oneSubcrudit}}
+            const newState = {...state, oneSubcrudit: {...state.oneSubcrudit}, users: {...state.users}}
             //allSubcrudits only contains the names of the subs and is an array. it must be kept as an array for the options list.
             //if it isn't, the options list breaks when visiting a single sub straight from the homepage, and search becomes useless
             //as a result
@@ -262,6 +279,16 @@ export default function subcruditReducer(state=initialState, action) {
             newState6.oneSubcrudit[action.user.id] = {...action.user}
 
             return newState6
+        }
+        case FOLLOW_SUB: {
+            console.log('ADD MOD REDUCER HIT')
+            console.log('action user', action.user)
+            const newState7 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+
+            // Object.values(newState6.oneSubcrudit).append(action.user)
+            newState7.oneSubcrudit[action.user.id] = {...action.user}
+
+            return newState7
         }
         default:
             return state
