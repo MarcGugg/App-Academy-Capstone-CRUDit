@@ -25,6 +25,7 @@ function Subcrudit() {
 
     const user = useSelector((state) => state.session.user)
     const sub = useSelector((state) => state.subcrudits.oneSubcrudit)
+    // let following = false
     
     useEffect(async () => {
         if (Object.values(sub).length) {
@@ -37,6 +38,15 @@ function Subcrudit() {
             await dispatch(getAuthors(authorIdArr))
             await dispatch(getPostImages(postIdArr))
             await dispatch(getAllPosts())
+
+            // for (let key of Object.keys(sub.users)) {
+            //     if (parseInt(key) === user.id) {
+            //         following = true
+            //         break
+            //     }
+            // }
+            // // console.log('does this user follow the sub: ',user ? Object.keys(sub.users).includes(String(user.id)): '')
+            // console.log('does this user follow the sub: ', following)
         }
     }, [sub, dispatch])
 
@@ -72,6 +82,7 @@ function Subcrudit() {
 
     const handleFollow = async (e) => {
         e.preventDefault()
+        console.log('HANDLE FOLLOW')
         await dispatch(followSub(sub.id, user.id))
     }
 
@@ -111,7 +122,7 @@ function Subcrudit() {
                             </NavLink>
                     </div>
                 : ''}
-                {user && !sub.users.includes(user) ? 
+                {user ? !Object.keys(sub.users).includes(String(user.id)) ? 
                 <div className='followButtonDiv'>
                     <button className='followButton' onClick={handleFollow}>
                         Join Community
@@ -123,6 +134,7 @@ function Subcrudit() {
                     Leave Community
                 </button>
                 </div> 
+                : ''
                 }
                 {user && user.id === sub.ownerId ? 
                 <div className='subEditAndDeleteButtons'>

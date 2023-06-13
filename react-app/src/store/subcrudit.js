@@ -167,6 +167,13 @@ export const followSub = (subId, userId) => async dispatch => {
             'userId': userId
         })
     })
+
+    if (res.ok) {
+        console.log('FOLLOW SUB RES OK')
+        const user = await res.json()
+        console.log('USER RES JSON', user)
+        dispatch(actionFollowSub(user))
+    }
 }
 
 export const addMod = (subId, userId) => async dispatch => {
@@ -218,13 +225,21 @@ export default function subcruditReducer(state=initialState, action) {
         }
         case GET_ONE_SUB: {
             console.log('GET ONE SUB REDUCER HIT')
-            const newState = {...state, oneSubcrudit: {...state.oneSubcrudit}, users: {...state.users}}
+            // const newState = {...state, oneSubcrudit: {...state.oneSubcrudit}, users: {...state.users}}
+            const newState = {...state, oneSubcrudit: {...state.oneSubcrudit}}
+            
+            // state.oneSubcrudit.users = {...state.users} //if commenting in line 228, comment this out
+
             //allSubcrudits only contains the names of the subs and is an array. it must be kept as an array for the options list.
             //if it isn't, the options list breaks when visiting a single sub straight from the homepage, and search becomes useless
             //as a result
             newState.oneSubcrudit = {...action.oneSub}
             newState.oneSubcrudit.posts = {}
             newState.oneSubcrudit.mods = {}
+            const users = [...newState.oneSubcrudit.users]
+            newState.oneSubcrudit.users = {}
+            users.map(user => newState.oneSubcrudit.users[user.id] = user)
+            console.log('ONE SUB USERS',newState.oneSubcrudit.users)
             console.log('GET ONE SUB STATE allSubcrudits', state.allSubcrudits)
             // newState.allSubcrudits = [...state.allSubcrudits]
 
@@ -283,10 +298,15 @@ export default function subcruditReducer(state=initialState, action) {
         case FOLLOW_SUB: {
             console.log('FOLLOW SUB REDUCER HIT')
             console.log('action user', action.user)
-            const newState7 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+            const newState7 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}} //need to normalize single sub users?
 
             // Object.values(newState6.oneSubcrudit).append(action.user)
-            newState7.oneSubcrudit[action.user.id] = {...action.user}
+            // newState7.oneSubcrudit[action.user.id] = {...action.user}
+            action.user.users.map(user => console.log('FOLLOW SUB USER MAP', user))
+            // action.user.users.map(user => newState7.oneSubcrudit.users[user.id] = user)
+            // newState7.oneSubcrudit.users = action.user.users
+            // newState7.oneSubcrudit.users = {}
+            // newState7.oneSubcrudit.users[action.user.id] = {...action.user}
 
             return newState7
         }
