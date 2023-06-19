@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { NavLink, useHistory, useParams } from 'react-router-dom'
-import { deletePostFromSub, deleteSub, followSub, getAllSubs, getOneSub } from '../../store/subcrudit'
+import { deletePostFromSub, deleteSub, followSub, getAllSubs, getOneSub, unfollowSub } from '../../store/subcrudit'
 import { deletePost, getAllPosts, getAuthors } from '../../store/post'
 import { getPostImages } from '../../store/post_image'
 
@@ -86,6 +86,12 @@ function Subcrudit() {
         await dispatch(followSub(sub.id, user.id))
     }
 
+    const handleUnfollow = async (e) => {
+        e.preventDefault()
+        console.log('HANDLE UNFOLLOW')
+        await dispatch(unfollowSub(sub.id, user.id))
+    }
+
     if (!sub || !Object.values(sub).length ) {
         return null
     }
@@ -130,7 +136,7 @@ function Subcrudit() {
                 </div>
                 :
                 <div>
-                <button className='unfollowButton'>
+                <button className='unfollowButton' onClick={handleUnfollow}>
                     Leave Community
                 </button>
                 </div> 

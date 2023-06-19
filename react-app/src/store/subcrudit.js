@@ -8,6 +8,7 @@ const GET_ALL_SUBS = 'subs/getAll'
 const GET_ALL_SUBS_REAL = 'subs/getAllReal'
 const DELETE_POST_FROM_SUB = 'subs/deletePost'
 const FOLLOW_SUB = 'subs/followSub'
+const UNFOLLOW_SUB = 'subs/unfollowSub'
 const ADD_MOD = 'subs/addMod'
 
 const actionGetAllSubs = (subs) => ({
@@ -46,6 +47,10 @@ const actionDeletePostFromSub = (postId) => ({
 
 const actionFollowSub = (user) => ({
     type: FOLLOW_SUB,
+    user
+})
+const actionUnfollowSub = (user) => ({
+    type: UNFOLLOW_SUB,
     user
 })
 
@@ -173,6 +178,22 @@ export const followSub = (subId, userId) => async dispatch => {
         const user = await res.json()
         console.log('USER RES JSON', user)
         dispatch(actionFollowSub(user))
+    }
+}
+
+export const unfollowSub = (subId, userId) => async dispatch => {
+    const res = await fetch(`/api/subcrudits/${subId}/unfollow`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            'userId': userId
+        })
+    })
+
+    if (res.ok) {
+        console.log('UNFOLLOW SUB RES OK')
+        const user = await res.json()
+        dispatch(actionUnfollowSub(user))
     }
 }
 
@@ -309,6 +330,21 @@ export default function subcruditReducer(state=initialState, action) {
             // newState7.oneSubcrudit.users[action.user.id] = {...action.user}
 
             return newState7
+        }
+        case UNFOLLOW_SUB: {
+            console.log('UNFOLLOW SUB REDUCER HIT')
+            console.log('action user', action.user)
+            const newState8 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}} //need to normalize single sub users?
+
+            // Object.values(newState6.oneSubcrudit).append(action.user)
+            // newState7.oneSubcrudit[action.user.id] = {...action.user}
+            // action.user.users.map(user => console.log('UNFOLLOW SUB USER MAP', user))
+            // action.user.users.map(user => newState7.oneSubcrudit.users[user.id] = user)
+            // newState7.oneSubcrudit.users = action.user.users
+            // newState7.oneSubcrudit.users = {}
+            // newState7.oneSubcrudit.users[action.user.id] = {...action.user}
+
+            return newState8
         }
         default:
             return state

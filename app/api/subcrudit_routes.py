@@ -233,10 +233,36 @@ def unfollow_sub(sub_id):
     sub = Subcrudit.query.get(sub_id)
 
     if current_user.is_authenticated:
-    
-        sub.users.remove(current_user)
-        current_user.followed_subs.remove(sub)
+        curr_user = User.query.get(current_user.id)
+        print('')
+        print('')
+        print('')
+        print('')
+        print('CURRENT USER', curr_user.to_dict())
+        print('')
+        print('')
+        print('')
+        print('')
+        # user = user.to_dict()
+        print('')
+        print('')
+        print('')
+        print('')
+        print('SUB USERS', sub.users)
+        print('SUB USERS', sub.users[0].id)
+        print('')
+        print('')
+        print('')
+        for user in sub.users:
+            if user.id == curr_user.id:
+                sub.users.remove(user)
+                # user.followed_subs.remove(sub)
+                break
         # db.session.add(sub)
+        for sub in curr_user.followed_subs:
+            if sub.id == sub.id:
+                curr_user.followed_subs.remove(sub)
+                break
         db.session.commit()
         return sub.to_dict_inclusive()
     
