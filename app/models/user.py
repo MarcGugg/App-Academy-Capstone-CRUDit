@@ -2,6 +2,9 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app.models.subs_mods import subs_mods
+from app.models.comment import Comment
+from app.models.comments_upvotes import comments_upvotes
+from app.models.comments_downvotes import comments_downvotes
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -24,6 +27,10 @@ class User(db.Model, UserMixin):
 
     followed_subs = db.relationship('Subcrudit', secondary='subs_users', back_populates='users')
 
+    comments = db.relationship('Comment', back_populates='author')
+    comment_upvotes = db.relationship('Comment', secondary='comments_upvotes', back_populates='upvotes')
+    comment_downvotes = db.relationship('Comment', secondary='comments_downvotes', back_populates='downvotes')
+    
     @property
     def password(self):
         return self.hashed_password
@@ -50,5 +57,6 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             'allSubcruddits': [sub.to_dict() for sub in self.all_subcrudits],
             'posts': [post.to_dict() for post in self.posts],
-            'moddedSubs': [modded_sub.to_dict() for modded_sub in self.modded_subs]
+            'moddedSubs': [modded_sub.to_dict() for modded_sub in self.modded_subs],
+            'comments': [comment.to_dict() for comment in self.comments]
         }

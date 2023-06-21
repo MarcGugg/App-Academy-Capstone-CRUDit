@@ -1,19 +1,16 @@
-"""migration
+"""empty message
 
-Revision ID: dc21655123e6
+Revision ID: 3b5159364c36
 Revises: 
-Create Date: 2023-04-18 20:27:03.614405
+Create Date: 2023-06-21 12:03:54.326882
 
 """
 from alembic import op
 import sqlalchemy as sa
 
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = 'dc21655123e6'
+revision = '3b5159364c36'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,6 +28,13 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    op.create_table('comments',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('text', sa.Text(), nullable=False),
+    sa.Column('author_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['author_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('subcrudits',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
@@ -39,6 +43,20 @@ def upgrade():
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
+    )
+    op.create_table('comments_downvotes',
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('comment_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['comment_id'], ['comments.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('user_id', 'comment_id')
+    )
+    op.create_table('comments_upvotes',
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('comment_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['comment_id'], ['comments.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('user_id', 'comment_id')
     )
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -71,9 +89,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['post_id'], ['posts.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
@@ -83,6 +98,9 @@ def downgrade():
     op.drop_table('subs_users')
     op.drop_table('subs_mods')
     op.drop_table('posts')
+    op.drop_table('comments_upvotes')
+    op.drop_table('comments_downvotes')
     op.drop_table('subcrudits')
+    op.drop_table('comments')
     op.drop_table('users')
     # ### end Alembic commands ###
