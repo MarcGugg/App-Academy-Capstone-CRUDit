@@ -54,7 +54,7 @@ def get_comment_by_id(comment_id):
         if request.method == 'DELETE':
             db.session.delete(comment)
             db.session.commit()
-            return {'Comment Deleted'}
+            return {'Success': 'Comment Deleted'}
         
     return None
 
