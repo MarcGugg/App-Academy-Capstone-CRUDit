@@ -68,7 +68,7 @@ def get_comment_by_id(comment_id):
     return None
 
 
-@comment_routes.route('/<int:post_id>', methods=['GET', 'POST'])
+@comment_routes.route('/from_post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def get_comments_by_post_id(post_id):
     if request.method == 'GET':
