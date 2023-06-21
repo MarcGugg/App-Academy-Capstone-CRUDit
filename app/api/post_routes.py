@@ -54,10 +54,14 @@ def get_post(post_id):
     post = Post.query.get(post_id)
 
     if post:
-        if post.image:
+        if post.image and post.comments:
             return post.to_dict_inclusive()
-        else:
+        elif post.image and not post.comments:
+            return post.to_dict_no_comments()
+        elif post.comments and not post.image:
             return post.to_dict_no_image()
+        else: #no comments and no image
+            return post.to_dict_no_comments_no_image()
     return None
 
 @post_routes.route('/authors/<int:author_id>')
