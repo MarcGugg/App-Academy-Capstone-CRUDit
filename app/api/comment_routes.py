@@ -52,9 +52,18 @@ def get_comment_by_id(comment_id):
             return {'User must log in', 400}
         
         if request.method == 'DELETE':
-            db.session.delete(comment)
-            db.session.commit()
-            return {'Success': 'Comment Deleted'}
+            
+            if current_user.is_authenticated:
+            
+                if comment.author_id == current_user.id:
+            
+                    db.session.delete(comment)
+                    db.session.commit()
+                    return {'Success': 'Comment Deleted'}
+            
+                return {'User did not write this comment', 400}
+            
+            return {'User must log in', 400}
         
     return None
 
