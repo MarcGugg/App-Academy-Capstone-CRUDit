@@ -14,6 +14,7 @@ from .api.subcrudit_routes import subcrudit_routes
 from .api.post_routes import post_routes
 from .api.post_image_routes import post_image_routes
 from .api.search_routes import search_routes
+from .api.comment_routes import comment_routes
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
@@ -37,6 +38,7 @@ app.register_blueprint(subcrudit_routes, url_prefix='/api/subcrudits')
 app.register_blueprint(post_routes, url_prefix='/api/posts')
 app.register_blueprint(post_image_routes, url_prefix='/api/post_images')
 app.register_blueprint(search_routes, url_prefix='/api/search')
+app.register_blueprint(comment_routes, url_prefix='/api/comments')
 
 
 db.init_app(app)
