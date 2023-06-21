@@ -15,6 +15,7 @@ class Post(db.Model):
     author = db.relationship('User', back_populates='posts')
     subcrudit = db.relationship('Subcrudit', back_populates='posts')
     image = db.relationship('PostImage', back_populates='post', uselist=False)
+    comments = db.relationship('Comment', back_populates='post')
     
 
     def to_dict(self):
@@ -34,7 +35,8 @@ class Post(db.Model):
             'body': self.body,
             'author': self.author.to_dict(),
             'subcrudit': self.subcrudit.to_dict(),
-            'image': self.image.to_dict()
+            'image': self.image.to_dict(),
+            'comments': [comment.to_dict() for comment in self.comments]
         }
     def to_dict_no_image(self):
         # print('POST AUTHOR', self.author)
@@ -45,5 +47,6 @@ class Post(db.Model):
             'header': self.header,
             'body': self.body,
             'author': self.author.to_dict(),
-            'subcrudit': self.subcrudit.to_dict()
+            'subcrudit': self.subcrudit.to_dict(),
+            'comments': [comment.to_dict() for comment in self.comments]
         }
