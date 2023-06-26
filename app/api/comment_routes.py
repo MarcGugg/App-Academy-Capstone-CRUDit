@@ -70,7 +70,7 @@ def get_comment_by_id(comment_id):
 
 @comment_routes.route('/from_post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
-def get_comments_by_post_id(post_id):
+def comment_by_post_id(post_id):
     if request.method == 'GET':
         comments = Comment.query.filter(post_id == post_id).all()
 

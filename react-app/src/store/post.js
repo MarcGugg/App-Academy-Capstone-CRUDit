@@ -5,7 +5,9 @@ const CREATE_POST = 'posts/Create'
 const EDIT_POST = 'posts/Edit'
 const DELETE_POST = 'posts/Delete'
 
+const MAKE_COMMENT = 'comments/Make'
 
+//posts
 const actionGetAllPosts =(allPosts) => ({
     type: GET_ALL_POSTS,
     allPosts
@@ -35,6 +37,31 @@ const actionDeletePost = (postId) => ({
     type: DELETE_POST,
     postId
 })
+
+//comments actions
+const actionMakeComment = (newComment) => ({
+    type: MAKE_COMMENT,
+    newComment
+})
+
+//comments thunks
+export const makeComment = (postId, text) => async dispatch => {
+    const res = await fetch(`/api/comments/from_post/${postId}`, {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            'post_id': postId,
+            'text': text
+        })
+    })
+
+    if (res.ok) {
+        let newComment = await res.json()
+        dispatch(actionMakeComment(newComment))
+    }
+}
+
+//posts
 
 export const deletePost = (postId) => async dispatch => {
     console.log('DELETE POST THUNK HIT')
@@ -228,6 +255,11 @@ export default function postReducer(state=initialState, action) {
             delete newState6.allPosts[action.postId]
             console.log('new state 6', newState6)
             return newState6
+        }
+        //COMMENT STARTS HERE
+        case MAKE_COMMENT: {
+            const newState7 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+            return newState7
         }
         default:
             return state

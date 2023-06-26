@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { NavLink, useParams, useHistory } from 'react-router-dom'
-import { deletePost, getOnePost } from '../../store/post'
+import { deletePost, getOnePost, makeComment } from '../../store/post'
 
 import './Post.css'
 import { addMod } from '../../store/subcrudit'
@@ -25,10 +25,24 @@ function OnePost() {
 
     //for dropdown menu
     // const [clicked, setClicked] = useState(false)
+    const [commentFormShow, setCommentFormShow] = useState('')
+    const [commentText, setCommentText] = useState(false)
 
     const handleEditClick = async (e) => {
         e.preventDefault()
         history.push(`/posts/${postId}/edit`)
+    }
+
+    const handleCommentPost = async (e) => {
+        e.preventDefault()
+        await dispatch(makeComment(postId, commentText))
+        //WRITE COMMENT THUNK AND PUT DISPATCH HERE
+        //WRITE COMMENT THUNK AND PUT DISPATCH HERE
+        //WRITE COMMENT THUNK AND PUT DISPATCH HERE
+        //WRITE COMMENT THUNK AND PUT DISPATCH HERE
+        //WRITE COMMENT THUNK AND PUT DISPATCH HERE
+        //WRITE COMMENT THUNK AND PUT DISPATCH HERE
+        //WRITE COMMENT THUNK AND PUT DISPATCH HERE
     }
 
     const handeDeleteClick = async (e) => {
@@ -101,8 +115,42 @@ function OnePost() {
                 <button onClick={handleModClick}>Make User a Mod</button>
                 :''} */}
             </div>
+            
+            {/* COMMENT BUTTON BELOW */}
+            {user ? 
+            <div className='commentButton'>
+                <button onClick={() => setCommentFormShow(!commentFormShow)}>
+                    Comment
+                    {/* MAKE A FORM DISPLAY HERE ON CLICK */}
+                    {/* USE A BOOLEAN TO TOGGLE DISPLAY ON AND OFF */}
+                    {/* THEN PUT A BUTTON ON THE FORM TO HANDLE SUBMISSION */}
+                </button>
+
+                {commentFormShow ?
+                <div>
+                    <input type='text' name='commentText' value={commentText} onChange={(e) => setCommentText(e.target.value)}/>
+                    <button className='submitComment' onClick={handleCommentPost}>
+                        Submit
+                    </button>
+                </div>
+                : ''}
+                
+            </div>
+            : ''}
         </div>
         </div>
+
+        {/* COMMENTS BELOW */}
+        {post.comments && Object.values(post.comments).length ?
+        <div className='commentsParent'>
+            {Object.values(post.comments).map(comment => (
+                <div className='comment'>
+                    <p>{comment.text}</p>
+                </div>
+            ))}
+        </div>
+        : ''}
+
         </>
     )
 }
