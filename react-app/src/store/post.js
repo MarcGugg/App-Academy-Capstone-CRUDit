@@ -221,6 +221,11 @@ export default function postReducer(state=initialState, action) {
             const newState2 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
 
             newState2.singlePost = {...action.singlePost}
+            console.log('action single post', action.singlePost)
+
+            newState2.singlePost.comments = {}
+
+            action.singlePost.comments.map(comment => (newState2.singlePost.comments[comment.id] = comment))
 
             return newState2
         }
@@ -259,20 +264,10 @@ export default function postReducer(state=initialState, action) {
         //COMMENT STARTS HERE
         case MAKE_COMMENT: {
             const newState7 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
-            console.log('')
-            console.log('')
-            console.log('')
-            console.log('MAKE COMMENT STATE', state.singlePost.comments)
-            console.log('')
-            console.log('')
-            let comments = [...state.singlePost.comments]
-            console.log('comments', comments)
-            state.singlePost.comments = {}
-            console.log('comments', comments)
-            for (let i = 0; i < comments; i++) {
-                newState7.singlePost.comments[comments[i].id] = {...comments[i]}
-            }
-            console.log('MAKE COMMENT STATE AFTER LOOP', state.singlePost.comments)
+            console.log('state single post make comment', newState7.singlePost)
+            // newState7.singlePost = {...action.newComment} only the comment
+            newState7.singlePost.comments[action.newComment.id] = {...action.newComment}
+            console.log('state single post make comment after action reassignment', newState7.singlePost)
             return newState7
         }
         default:

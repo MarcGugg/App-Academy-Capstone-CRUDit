@@ -25,8 +25,8 @@ function OnePost() {
 
     //for dropdown menu
     // const [clicked, setClicked] = useState(false)
-    const [commentFormShow, setCommentFormShow] = useState('')
-    const [commentText, setCommentText] = useState(false)
+    const [commentFormShow, setCommentFormShow] = useState(false)
+    const [commentText, setCommentText] = useState('')
 
     const handleEditClick = async (e) => {
         e.preventDefault()
@@ -36,6 +36,7 @@ function OnePost() {
     const handleCommentPost = async (e) => {
         e.preventDefault()
         await dispatch(makeComment(postId, commentText))
+        setCommentText('')
         //WRITE COMMENT THUNK AND PUT DISPATCH HERE
         //WRITE COMMENT THUNK AND PUT DISPATCH HERE
         //WRITE COMMENT THUNK AND PUT DISPATCH HERE
