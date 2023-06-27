@@ -96,6 +96,7 @@ def comment_by_post_id(post_id):
 
                 db.session.add(new_comment)
                 db.session.commit()
+                return new_comment.to_dict()
             
             return {'Form validation failed', 400}
         
