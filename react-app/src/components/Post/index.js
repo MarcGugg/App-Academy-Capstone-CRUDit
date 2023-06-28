@@ -6,6 +6,7 @@ import { deletePost, getOnePost, makeComment } from '../../store/post'
 
 import './Post.css'
 import { addMod } from '../../store/subcrudit'
+import {CommentDeleteButton} from '../CommentDelete'
 
 function OnePost() {
 
@@ -45,6 +46,7 @@ function OnePost() {
         //WRITE COMMENT THUNK AND PUT DISPATCH HERE
         //WRITE COMMENT THUNK AND PUT DISPATCH HERE
     }
+
 
     const handeDeleteClick = async (e) => {
         e.preventDefault()
@@ -147,6 +149,12 @@ function OnePost() {
             {Object.values(post.comments).map(comment => (
                 <div className='comment'>
                     <p>{comment.text}</p>
+                    <div>
+                        {user ? user.id === comment.authorId ? 
+                        // <button onClick={handleCommentDelete}>Delete</button> //RENDER THIS BUTTON IN A CONTEXT COMPONENT. PASS IN COMMENT ID
+                        <CommentDeleteButton comment={comment} />
+                        : '' : ''}
+                    </div>
                 </div>
             ))}
         </div>

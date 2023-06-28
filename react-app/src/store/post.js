@@ -6,6 +6,7 @@ const EDIT_POST = 'posts/Edit'
 const DELETE_POST = 'posts/Delete'
 
 const MAKE_COMMENT = 'comments/Make'
+const DELETE_COMMENT = 'comments/Delete'
 
 //posts
 const actionGetAllPosts =(allPosts) => ({
@@ -44,6 +45,11 @@ const actionMakeComment = (newComment) => ({
     newComment
 })
 
+const actionDeleteComment = (commentId) => ({
+    type: DELETE_COMMENT,
+    commentId
+})
+
 //comments thunks
 export const makeComment = (postId, text) => async dispatch => {
     const res = await fetch(`/api/comments/from_post/${postId}`, {
@@ -58,6 +64,17 @@ export const makeComment = (postId, text) => async dispatch => {
     if (res.ok) {
         let newComment = await res.json()
         dispatch(actionMakeComment(newComment))
+    }
+}
+
+export const deleteComment = (commentId) => async dispatch => {
+    const res = await fetch(`/api/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: {"Content-Type": "application/json"}  
+    })
+
+    if (res.ok) {
+        dispatch(actionDeleteComment(commentId))
     }
 }
 
@@ -269,6 +286,13 @@ export default function postReducer(state=initialState, action) {
             newState7.singlePost.comments[action.newComment.id] = {...action.newComment}
             console.log('state single post make comment after action reassignment', newState7.singlePost)
             return newState7
+        }
+        case DELETE_COMMENT: {
+            const newState8 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+
+            delete newState8.singlePost.comments[action.commentId]
+
+            return newState8
         }
         default:
             return state
