@@ -8,7 +8,7 @@ function CommentDeleteButton({comment}) {
 
     const handleCommentDelete = async (e) => {
         e.preventDefault()
-        await dispatch(deleteComment(comment.id)) //USE CONTEXT TO PASS COMMENT ID TO SEPERATE COMPONENT. DO NOT IMPLEMNENT COMMENT DELETION AS IS
+        await dispatch(deleteComment(comment.id)) 
     }
 
     return (
