@@ -8,6 +8,7 @@ function CommentDeleteButton({comment}) {
 
     const handleCommentDelete = async (e) => {
         e.preventDefault()
+        console.log('COMMENT PROP', comment)
         await dispatch(deleteComment(comment.id)) 
     }
 

@@ -7,6 +7,8 @@ const DELETE_POST = 'posts/Delete'
 
 const MAKE_COMMENT = 'comments/Make'
 const DELETE_COMMENT = 'comments/Delete'
+const GET_COMMENT = 'comment/Get'
+const EDIT_COMMENT = 'comment/Edit'
 
 //posts
 const actionGetAllPosts =(allPosts) => ({
@@ -50,6 +52,16 @@ const actionDeleteComment = (commentId) => ({
     commentId
 })
 
+const actionGetOneComment = (comment) => ({
+    type: GET_COMMENT,
+    comment
+})
+
+const actionEditComment = (editedComment) => ({
+    type: EDIT_COMMENT,
+    editedComment
+})
+
 //comments thunks
 export const makeComment = (postId, text) => async dispatch => {
     const res = await fetch(`/api/comments/from_post/${postId}`, {
@@ -75,6 +87,30 @@ export const deleteComment = (commentId) => async dispatch => {
 
     if (res.ok) {
         dispatch(actionDeleteComment(commentId))
+    }
+}
+
+export const editComment = (commentId, text) => async dispatch => {
+    const res = await fetch(`/comments/${commentId}`, {
+        method: 'PUT',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            'text': text
+        }) 
+    })
+
+    if (res.ok) {
+        let commentToEdit = await res.json()
+        dispatch(actionEditComment(commentToEdit))
+    }
+}
+
+export const getOneComment = (commentId) => async dispatch => {
+    const res = await fetch(`/api/comments/${commentId}`)
+
+    if (res.ok) {
+        let comment = await res.json()
+        dispatch(actionGetOneComment(comment))
     }
 }
 
@@ -224,7 +260,8 @@ export const editPost = (postId, header, body) => async dispatch => {
 let initialState = {
     allPosts: {},
     singlePost: {},
-    newPost: {}
+    newPost: {},
+    singleComment: {}
 }
 export default function postReducer(state=initialState, action) {
     switch (action.type) {
@@ -293,6 +330,20 @@ export default function postReducer(state=initialState, action) {
             delete newState8.singlePost.comments[action.commentId]
 
             return newState8
+        }
+        case GET_COMMENT: {
+            const newState9 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, singleComment: {...state.singleComment}}
+
+            newState9.singleComment = {...action.singleComment}
+
+            return newState9
+        }
+        case EDIT_COMMENT: {
+            const newState10 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, singleComment: {...state.singleComment}}
+
+            newState10.editedComment = {...action.editedComment}
+
+            return newState10
         }
         default:
             return state
