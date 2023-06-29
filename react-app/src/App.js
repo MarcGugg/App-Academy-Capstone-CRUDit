@@ -61,7 +61,7 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path='comments/:commentId/edit'>
+          <Route path='/comments/:commentId/edit'>
             <EditComment />
           </Route>
         </Switch>

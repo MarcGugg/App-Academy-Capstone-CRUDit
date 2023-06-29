@@ -6,7 +6,7 @@ import { deletePost, getOnePost, makeComment } from '../../store/post'
 
 import './Post.css'
 import { addMod } from '../../store/subcrudit'
-import {CommentDeleteButton} from '../CommentDelete'
+import CommentDeleteButton from '../CommentDelete'
 
 function OnePost() {
 
@@ -155,7 +155,7 @@ function OnePost() {
                         <CommentDeleteButton comment={comment} />
                         : '' : ''}
                     </div>
-                    <NavLink to={`/comments/${comment.id}/edit`}></NavLink>
+                    <NavLink to={`/comments/${comment.id}/edit`}>Edit</NavLink>
                 </div>
             ))}
         </div>

@@ -5,6 +5,7 @@ import { NavLink, useParams, useHistory } from 'react-router-dom'
 import { deletePost, getOnePost, makeComment, deleteComment } from '../../store/post'
 
 function CommentDeleteButton({comment}) {
+    const dispatch = useDispatch()
 
     const handleCommentDelete = async (e) => {
         e.preventDefault()

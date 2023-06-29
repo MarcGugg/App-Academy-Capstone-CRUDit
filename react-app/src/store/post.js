@@ -101,6 +101,11 @@ export const editComment = (commentId, text) => async dispatch => {
 
     if (res.ok) {
         let commentToEdit = await res.json()
+        console.log('')
+        console.log('')
+        console.log('COMMENT TO EDIT', commentToEdit)
+        console.log('')
+        console.log('')
         dispatch(actionEditComment(commentToEdit))
     }
 }
@@ -110,6 +115,11 @@ export const getOneComment = (commentId) => async dispatch => {
 
     if (res.ok) {
         let comment = await res.json()
+        console.log('')
+        console.log('')
+        console.log('ONE COMMENT', comment)
+        console.log('')
+        console.log('')
         dispatch(actionGetOneComment(comment))
     }
 }
@@ -334,7 +344,10 @@ export default function postReducer(state=initialState, action) {
         case GET_COMMENT: {
             const newState9 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, singleComment: {...state.singleComment}}
 
-            newState9.singleComment = {...action.singleComment}
+            console.log('NEW STATE 9')
+            console.log('action single comment', action.comment)
+
+            newState9.singleComment = {...action.comment}
 
             return newState9
         }

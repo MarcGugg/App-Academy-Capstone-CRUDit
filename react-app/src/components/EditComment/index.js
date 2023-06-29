@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
 import { getOneComment, editComment } from "../../store/post"
-import { useDispatch, useHistory } from "react-redux"
+import { useSelector } from "react-redux"
 // import { createPost } from "../../store/post"
 
 function EditComment() {
@@ -12,6 +12,7 @@ function EditComment() {
     const {commentId} = useParams()
 
     useEffect(async () => {
+        console.log('USE EFFECT')
         await dispatch(getOneComment(commentId))
     }, [dispatch])
 
@@ -23,6 +24,7 @@ function EditComment() {
     useEffect(() => {
         if (Object.values(commentToEdit).length) {
             setText(commentToEdit.text)
+            console.log('COMMENT TO EDIT', commentToEdit.text)
         }
     }, [commentToEdit, dispatch])
     
@@ -31,11 +33,15 @@ function EditComment() {
         dispatch(editComment(commentId, text))
     }
 
+    // if (!Object.values(commentToEdit)) {
+    //     return null
+    // }
+
     return (
         <>
         <form onSubmit={handleSubmit}>
         <h1>Edit Comment</h1>
-        <input type="text" value={text} onChange={setText(e.target.value)}></input>
+        <input type="text" value={text} onChange={(e) => setText(e.target.value)}></input>
         <button type="submit">Update</button>
         </form>
         </>
