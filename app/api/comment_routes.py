@@ -29,15 +29,47 @@ def get_comment_by_id(comment_id):
             return comment.to_dict_inclusive()
     
         if request.method == 'PUT':
+            print('')
+            print('')
+            print('')
+            print('')
+            print('COMMENT', comment.to_dict())
+            print('')
+            print('')
+            print('')
             form = EditCommentForm()
 
             form['csrf_token'].data = request.cookies['csrf_token']
 
             if current_user.is_authenticated:
+                print("")
+                print("")
+                print("")
+                print("")
+                print("USER AUTHENTICATED")
+                print("")
+                print("")
+                print("")
+                print("")
 
                 if comment.author_id == current_user.id:
+                    print('')
+                    print('')
+                    print('')
+                    print('CORRECT USER')
+                    print('')
+                    print('')
+                    print('')
+                    print('')
 
                     if form.validate_on_submit():
+                        print('')
+                        print('')
+                        print('')
+                        print('FORM VALIDATED')
+                        print('')
+                        print('')
+                        print('')
 
                         data = form.data
 

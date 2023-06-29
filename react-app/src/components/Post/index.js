@@ -155,7 +155,9 @@ function OnePost() {
                         <CommentDeleteButton comment={comment} />
                         : '' : ''}
                     </div>
+                    {user ? user.id === comment.authorId ?
                     <NavLink to={`/comments/${comment.id}/edit`}>Edit</NavLink>
+                    : '' : ''}
                 </div>
             ))}
         </div>

@@ -91,7 +91,7 @@ export const deleteComment = (commentId) => async dispatch => {
 }
 
 export const editComment = (commentId, text) => async dispatch => {
-    const res = await fetch(`/comments/${commentId}`, {
+    const res = await fetch(`/api/comments/${commentId}`, {
         method: 'PUT',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -289,7 +289,7 @@ export default function postReducer(state=initialState, action) {
 
             newState2.singlePost.comments = {}
 
-            action.singlePost.comments.map(comment => (newState2.singlePost.comments[comment.id] = comment))
+            action.singlePost.comments?.map(comment => (newState2.singlePost.comments[comment.id] = comment))
 
             return newState2
         }

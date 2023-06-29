@@ -30,7 +30,8 @@ function EditComment() {
     
     const handleSubmit = async (e) => {
         e.preventDefault()
-        dispatch(editComment(commentId, text))
+        await dispatch(editComment(commentId, text))
+        history.push(`/posts/${commentToEdit.postId}`)
     }
 
     // if (!Object.values(commentToEdit)) {
