@@ -46,32 +46,32 @@ def seed_comments():
         post_id = 6
     )
     comment9 = Comment(
-        author_id = 6,
+        author_id = 1,
         text = 'very cool',
         post_id = 7
     )
     comment10 = Comment(
-        author_id = 7,
+        author_id = 3,
         text = 'very cool',
         post_id = 7
     )
     comment11 = Comment(
-        author_id = 6,
+        author_id = 5,
         text = 'very cool',
         post_id = 8
     )
     comment12 = Comment(
-        author_id = 7,
+        author_id = 4,
         text = 'very cool',
         post_id = 8
     )
     comment13 = Comment(
-        author_id = 9,
+        author_id = 2,
         text = 'very cool',
         post_id = 9
     )
     comment14 = Comment(
-        author_id = 10,
+        author_id = 3,
         text = 'very cool',
         post_id = 9
     )

@@ -16,6 +16,9 @@
     z-index: 1;
     background-color: white;
     word-wrap: break-word;
+    
+    /* new */
+    margin: 1rem;
 }
 
 /* .post {
@@ -69,4 +72,16 @@
     background-color: rgb(95, 94, 94);
     cursor: pointer;
     box-shadow: 1px 1px 1px darkgray;
+}
+
+/* comments */
+.comment {
+    border: 1px solid gray;
+    margin: 1rem;
+    padding: 1rem;
+}
+.commentText {
+    /* border: 3px solid red; */
+    display: flex;
+    justify-content: center;
 }

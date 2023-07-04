@@ -145,10 +145,11 @@ function OnePost() {
 
         {/* COMMENTS BELOW */}
         {post.comments && Object.values(post.comments).length ?
-        <div className='commentsParent'>
+        <div className='commentsSection'>
             {Object.values(post.comments).map(comment => (
                 <div className='comment'>
-                    <p>{comment.text}</p>
+                    <p className='commentAuthor'>by {comment.author.username}</p>
+                    <p className='commentText'>{comment.text}</p>
                     <div>
                         {user ? user.id === comment.authorId ? 
                         // <button onClick={handleCommentDelete}>Delete</button> //RENDER THIS BUTTON IN A CONTEXT COMPONENT. PASS IN COMMENT ID
