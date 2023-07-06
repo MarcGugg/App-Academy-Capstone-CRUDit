@@ -120,6 +120,8 @@ function OnePost() {
             </div>
             
             {/* COMMENT BUTTON BELOW */}
+        </div>
+        </div>
             {user ? 
             <div className='commentButton'>
                 <button onClick={() => setCommentFormShow(!commentFormShow)}>
@@ -131,7 +133,9 @@ function OnePost() {
 
                 {commentFormShow ?
                 <div>
-                    <input type='text' name='commentText' value={commentText} onChange={(e) => setCommentText(e.target.value)}/>
+                    <div className='commentInputParent'>
+                    <textarea type='text' class='commentInput' placeholder='What are your thoughts?' value={commentText} onChange={(e) => setCommentText(e.target.value)}>Text</textarea>
+                    </div>
                     <button className='submitComment' onClick={handleCommentPost}>
                         Submit
                     </button>
@@ -140,8 +144,6 @@ function OnePost() {
                 
             </div>
             : ''}
-        </div>
-        </div>
 
         {/* COMMENTS BELOW */}
         {post.comments && Object.values(post.comments).length ?

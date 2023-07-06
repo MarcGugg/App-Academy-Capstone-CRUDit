@@ -8,7 +8,7 @@
 }
 
 .post {
-    width: 80vw;
+    width: 40vw;
     padding: 2rem;
     border: 1px solid darkgray;
     border-radius: 4px;
@@ -75,6 +75,22 @@
 }
 
 /* comments */
+.commentButton {
+    margin-left: 5.4rem;
+}
+.commentInputParent {
+    display: flex;
+    justify-content: center;
+    height: 15rem;
+    border: 3px solid red;
+}
+.commentInput {
+    /* width: 30rem;
+    border: 3px solid blue; */
+    width: 53rem;
+    margin-right: 4rem;
+}
+
 .comment {
     border: 1px solid gray;
     margin: 1rem;
