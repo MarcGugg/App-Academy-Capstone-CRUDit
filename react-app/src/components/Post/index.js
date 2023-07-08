@@ -38,6 +38,7 @@ function OnePost() {
         e.preventDefault()
         await dispatch(makeComment(postId, commentText))
         setCommentText('')
+        await dispatch(getOnePost(postId))
         //WRITE COMMENT THUNK AND PUT DISPATCH HERE
         //WRITE COMMENT THUNK AND PUT DISPATCH HERE
         //WRITE COMMENT THUNK AND PUT DISPATCH HERE
@@ -71,6 +72,8 @@ function OnePost() {
     return (
         <>
         {/* <h1>Single Post</h1> */}
+        <div className='wholePostPageParent'>
+        <div className='wholePostPage'>
         <div className='postParent'>
         <div className='post'>
             <div className='subAndAuthor'>
@@ -148,9 +151,9 @@ function OnePost() {
         {/* COMMENTS BELOW */}
         {post.comments && Object.values(post.comments).length ?
         <div className='commentsSection'>
-            {Object.values(post.comments).map(comment => (
+            {Object.values(post.comments).slice(0).reverse().map(comment => (
                 <div className='comment'>
-                    <p className='commentAuthor'>by {comment.author.username}</p>
+                    <p className='commentAuthor'>by {comment.author?.username}</p>
                     <p className='commentText'>{comment.text}</p>
                     <div>
                         {user ? user.id === comment.authorId ? 
@@ -165,6 +168,8 @@ function OnePost() {
             ))}
         </div>
         : ''}
+        </div>
+        </div>
 
         </>
     )
