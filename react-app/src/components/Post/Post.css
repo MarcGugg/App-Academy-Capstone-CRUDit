@@ -1,7 +1,8 @@
 .wholePostPageParent {
-    border: 3px solid red;
-    height: 100vw;
+    /* border: 3px solid red; */
+    height: 100%;
     background-color: rgba(169, 169, 169, 0.568);
+    /* overflow-y: scroll; */
 }
 .wholePostPage {
     /* border: 3px solid blue;
@@ -15,12 +16,12 @@
     padding-top: none; */
     /* ignore */
 
-    border: 3px solid blue;
+    /* border: 3px solid blue; */
     display: flex;
     justify-content: center;
     flex-direction: column;
     width: 814px;
-    margin-left: 589px;
+    margin-left: 50rem;
     background-color: white;
 }
 
@@ -103,12 +104,15 @@
 /* comments */
 .commentsSection {
     /* background-color: white; */
-    margin: none;
-    padding: none;
+    /* margin: none; */
+    /* padding: none; */
     /* width: 30vw;
     display: flex;
     flex-direction: column;
     justify-content: center; */
+
+    margin-left: -34rem;
+    /* border: 3px solid pink; */
 }
 .commentButton {
     margin-left: 5.4rem;
@@ -128,7 +132,7 @@
 
 .comment {
     /* background-color: white; */
-    border-left: 3px solid gray;
+    border-left: 2px solid rgb(238, 235, 235);
     margin: 1rem;
     padding: 1rem;
     width: 41vw;
