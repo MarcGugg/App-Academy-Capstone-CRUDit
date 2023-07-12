@@ -165,10 +165,10 @@ function OnePost() {
                         // <button onClick={handleCommentDelete}>Delete</button> //RENDER THIS BUTTON IN A CONTEXT COMPONENT. PASS IN COMMENT ID
                         <CommentDeleteButton comment={comment} />
                         : '' : ''}
-                    </div>
                     {user ? user.id === comment.authorId ?
-                    <NavLink to={`/comments/${comment.id}/edit`}>Edit</NavLink>
+                    <NavLink to={`/comments/${comment.id}/edit`} style={{textDecoration: 'none' , color: 'darkgray', fontWeight: '500'}}>Edit</NavLink>
                     : '' : ''}
+                    </div>
                 </div>
             ))}
         </div>

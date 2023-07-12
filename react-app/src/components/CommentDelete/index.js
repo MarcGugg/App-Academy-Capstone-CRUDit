@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams, useHistory } from 'react-router-dom'
 import { deletePost, getOnePost, makeComment, deleteComment } from '../../store/post'
 
+import './CommentDelete.css'
+
 function CommentDeleteButton({comment}) {
     const dispatch = useDispatch()
 
@@ -15,7 +17,7 @@ function CommentDeleteButton({comment}) {
 
     return (
         <>
-        <button onClick={handleCommentDelete}>Delete</button>
+        <button onClick={handleCommentDelete} className='deleteButton'>Delete</button>
         </>
     )
 }
