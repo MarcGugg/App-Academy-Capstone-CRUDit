@@ -1,8 +1,19 @@
+.blackBorder {
+    background-color: black;
+}
 .wholePostPageParent {
     /* border: 3px solid red; */
-    height: 100%;
-    background-color: rgba(169, 169, 169, 0.568);
+    /* height: 100%;
+    background-color: rgba(169, 169, 169, 0.568); */
     /* overflow-y: scroll; */
+    min-height: 100vw;
+    /* background-color: rgba(169, 169, 169, 0.568); */
+    background-color: rgb(169 169 169 / 83%);
+    width: 69rem;
+    padding-right: 16rem;
+    padding-left: 16rem;
+    margin-left: 23rem;
+    clear:both;
 }
 .wholePostPage {
     /* border: 3px solid blue;
@@ -17,12 +28,20 @@
     /* ignore */
 
     /* border: 3px solid blue; */
-    display: flex;
+    /* display: flex;
     justify-content: center;
     flex-direction: column;
     width: 814px;
     margin-left: 50rem;
+    background-color: white; */
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 814px;
+    margin-left: 9rem;
     background-color: white;
+    clear: both;
 }
 
 .postParent {
@@ -121,7 +140,7 @@
     display: flex;
     justify-content: center;
     height: 15rem;
-    border: 3px solid red;
+    /* border: 3px solid red; */
 }
 .commentInput {
     /* width: 30rem;
@@ -143,4 +162,20 @@
     /* border: 3px solid red; */
     display: flex;
     /* justify-content: center; */
+}
+
+.submitButtonParent {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submitComment {
+    color: white;
+    background-color: blue;
+    margin-right: 4.1rem;
+    font-size: large;
+    font-weight: bold;
+    margin-top: 0.1rem;
+    height: 2rem;
+    width: 5.5rem;
 }

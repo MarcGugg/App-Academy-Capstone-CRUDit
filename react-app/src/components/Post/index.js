@@ -72,6 +72,8 @@ function OnePost() {
     return (
         <>
         {/* <h1>Single Post</h1> */}
+        <div className='blackBorder'>
+
         <div className='wholePostPageParent'>
         <div className='wholePostPage'>
         <div className='postParent'>
@@ -127,23 +129,26 @@ function OnePost() {
         </div>
             {user ? 
             <div className='commentButton'>
-                <button onClick={() => setCommentFormShow(!commentFormShow)}>
-                    Comment
+                {/* <button onClick={() => setCommentFormShow(!commentFormShow)}> */}
+                    {/* Comment */}
                     {/* MAKE A FORM DISPLAY HERE ON CLICK */}
                     {/* USE A BOOLEAN TO TOGGLE DISPLAY ON AND OFF */}
                     {/* THEN PUT A BUTTON ON THE FORM TO HANDLE SUBMISSION */}
-                </button>
+                {/* </button> */}
 
-                {commentFormShow ?
+                {/* {commentFormShow ? */}
                 <div>
+                    <p>Comment as <NavLink to={`/users/${user.username}/profile`}>{user.username}</NavLink></p>
                     <div className='commentInputParent'>
                     <textarea type='text' class='commentInput' placeholder='What are your thoughts?' value={commentText} onChange={(e) => setCommentText(e.target.value)}>Text</textarea>
                     </div>
+                    <div className='submitButtonParent'>
                     <button className='submitComment' onClick={handleCommentPost}>
                         Submit
                     </button>
+                    </div>
                 </div>
-                : ''}
+                {/* : ''} */}
                 
             </div>
             : ''}
@@ -168,6 +173,7 @@ function OnePost() {
             ))}
         </div>
         : ''}
+        </div>
         </div>
         </div>
 
