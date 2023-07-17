@@ -101,6 +101,7 @@
     height: 40rem;
     width: 60rem;
     object-fit: fill;
+    max-width: 46.5rem;
 }
 
 .editAndDeleteButtons {
@@ -182,4 +183,9 @@
 .submitComment:hover {
     cursor: pointer;
     background-color: rgb(8, 8, 194);
+}
+.submitComment:disabled {
+    background-color: lightgray;
+    color: gray;
+    cursor: auto;
 }

@@ -143,7 +143,7 @@ function OnePost() {
                     <textarea type='text' class='commentInput' placeholder='What are your thoughts?' value={commentText} onChange={(e) => setCommentText(e.target.value)}>Text</textarea>
                     </div>
                     <div className='submitButtonParent'>
-                    <button className='submitComment' onClick={handleCommentPost}>
+                    <button className='submitComment' onClick={handleCommentPost} disabled={!commentText.length}>
                         Submit
                     </button>
                     </div>
