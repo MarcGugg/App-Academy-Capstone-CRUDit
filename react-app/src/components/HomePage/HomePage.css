@@ -86,6 +86,8 @@
 .postHeader {
     margin-top: 0;
     color: black;
+    font-size: x-large;
+    font-weight: 900;
 }
 
 .postBodyParent {

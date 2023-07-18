@@ -42,10 +42,10 @@ function UserProfile() {
 
     return (
         <>
-        <h1>User Profile</h1>
+        {/* <h1>User Profile</h1>
         <h1 className="text-3xl font-bold underline">
       Hello world!
-    </h1>
+    </h1> */}
         {/* <button>
         <NavLink to={'/'}>Posts</NavLink>
         </button>
@@ -59,8 +59,22 @@ function UserProfile() {
         </div>
         <div className="buttons">
             {/* <button onClick={handleDetailsClick} className="detailsButton">User Details</button> */}
-            <button onClick={handlePostsClick} className="rounded-lg px-4 py-2 bg-red-600 text-red-100 hover:bg-red-700 duration-300">User Posts</button>
-            <button onClick={handleSubsClick} className="userSubsButton">User SubCRUDits</button>
+        <ul class="flex border-b">
+          <li class="-mb-px mr-1">
+            <a class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold" href="#" onClick={handlePostsClick}>User Posts</a>
+          </li>
+          <li class="-mb-px mr-1">
+            <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#" onClick={handleSubsClick}>User SubCRUDits</a>
+          </li>
+          <li class="mr-1">
+            <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#">Comments</a>
+          </li>
+          <li class="mr-1">
+            <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold hover:text-blue-800" href="#">Upvotes</a>
+          </li>
+        </ul>
+            {/* <button onClick={handlePostsClick} className="rounded-lg px-4 py-2 bg-red-600 text-red-100 hover:bg-red-700 duration-300">User Posts</button> */}
+            {/* <button onClick={handleSubsClick} className="userSubsButton">User SubCRUDits</button> */}
         </div>
         <div className="propCompenents">
             {
@@ -73,9 +87,9 @@ function UserProfile() {
             <UserSubs user={userProfile} />
             : ''}
         </div>
-        <div>
+        {/* <div>
             <NavLink to={`/tailwind_test`}>TailwindTest</NavLink>
-        </div>
+        </div> */}
         </>
     )
 }
