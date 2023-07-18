@@ -6,7 +6,7 @@ import UserPosts from "./userPosts"
 import UserSubs from "./userSubs"
 import UserDetails from "./userDetails"
 
-import './Profile.css'
+// import './Profile.css'
 
 function UserProfile() {
 
@@ -43,6 +43,9 @@ function UserProfile() {
     return (
         <>
         <h1>User Profile</h1>
+        <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
         {/* <button>
         <NavLink to={'/'}>Posts</NavLink>
         </button>
@@ -56,7 +59,7 @@ function UserProfile() {
         </div>
         <div className="buttons">
             {/* <button onClick={handleDetailsClick} className="detailsButton">User Details</button> */}
-            <button onClick={handlePostsClick} className="userPostsButton">User Posts</button>
+            <button onClick={handlePostsClick} className="rounded-lg px-4 py-2 bg-red-600 text-red-100 hover:bg-red-700 duration-300">User Posts</button>
             <button onClick={handleSubsClick} className="userSubsButton">User SubCRUDits</button>
         </div>
         <div className="propCompenents">
@@ -69,6 +72,9 @@ function UserProfile() {
             : subsShow ? 
             <UserSubs user={userProfile} />
             : ''}
+        </div>
+        <div>
+            <NavLink to={`/tailwind_test`}>TailwindTest</NavLink>
         </div>
         </>
     )
