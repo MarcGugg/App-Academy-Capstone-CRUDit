@@ -60,11 +60,20 @@ function UserProfile() {
         <div className="buttons">
             {/* <button onClick={handleDetailsClick} className="detailsButton">User Details</button> */}
         <ul class="flex border-b">
+          {/* border-l border-t border-r rounded-t gives each tab the active indicator when clicked */}
           <li class="-mb-px mr-1">
+            {postsShow ? 
             <a class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold" href="#" onClick={handlePostsClick}>User Posts</a>
+            : 
+            <a class="bg-white inline-block border-l  py-2 px-4 text-blue-700 font-semibold" href="#" onClick={handlePostsClick}>User Posts</a>
+            }
           </li>
           <li class="-mb-px mr-1">
+            {subsShow ? 
+            <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold border-r rounded-t border-l border-t" href="#" onClick={handleSubsClick}>User SubCRUDits</a>
+            : 
             <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#" onClick={handleSubsClick}>User SubCRUDits</a>
+            }
           </li>
           <li class="mr-1">
             <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#">Comments</a>

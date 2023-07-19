@@ -24,7 +24,7 @@ function UserPosts(user={user}) {
         <>
         <div className="userPostsHeaderParent">
         <div className="userPostsHeader">
-        <h1>User Posts</h1>
+        {/* <h1>User Posts</h1> */}
         </div>
         </div>
         <div className="userPostsParent">
