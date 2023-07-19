@@ -42,21 +42,7 @@ function UserProfile() {
 
     return (
         <>
-        {/* <h1>User Profile</h1>
-        <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1> */}
-        {/* <button>
-        <NavLink to={'/'}>Posts</NavLink>
-        </button>
-        <button>
-        <NavLink to={'/'}>SubCRUDits</NavLink>
-        </button> */}
-        <div className="userProfileInfo">
-            {/* <UserDetails user={userProfile}/> */}
-            <h1>{userProfile.username}</h1>
-            <h3>{userProfile.bio}</h3>
-        </div>
+
         <div className="buttons">
             {/* <button onClick={handleDetailsClick} className="detailsButton">User Details</button> */}
         <ul class="flex border-b">
@@ -82,19 +68,32 @@ function UserProfile() {
             <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold hover:text-blue-800" href="#">Upvotes</a>
           </li>
         </ul>
-            {/* <button onClick={handlePostsClick} className="rounded-lg px-4 py-2 bg-red-600 text-red-100 hover:bg-red-700 duration-300">User Posts</button> */}
-            {/* <button onClick={handleSubsClick} className="userSubsButton">User SubCRUDits</button> */}
         </div>
         <div className="propCompenents">
             {
-            // details ? 
-            // <UserDetails user={userProfile}/>
-            // : 
+ 
             postsShow ? 
             <UserPosts user={userProfile.posts}/>
             : subsShow ? 
             <UserSubs user={userProfile} />
             : ''}
+        </div>
+        <div class="flex items-center h-screen w-full justify-center">
+
+          <div class="max-w-xs">
+            <div class="bg-white shadow-xl rounded-lg py-3">
+              <div class="photo-wrapper p-2">
+                <img class="w-32 h-32 rounded-full mx-auto" src="https://www.redditstatic.com/avatars/avatar_default_02_A5A4A4.png" alt="John Doe" />
+          </div>
+          <div class="p-2">
+            <h3 class="text-center text-xl text-gray-900 font-medium leading-8">{userProfile.username}</h3>
+            <div class="text-center text-gray-400 text-xs font-semibold">
+                <p>{userProfile.bio}</p>
+            </div>
+          </div>
+          </div>
+          </div>      
+
         </div>
         {/* <div>
             <NavLink to={`/tailwind_test`}>TailwindTest</NavLink>
