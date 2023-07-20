@@ -324,10 +324,12 @@ export default function subcruditReducer(state=initialState, action) {
             // Object.values(newState6.oneSubcrudit).append(action.user)
             // newState7.oneSubcrudit[action.user.id] = {...action.user}
             action.user.users.map(user => console.log('FOLLOW SUB USER MAP', user))
+            action.user.users.map(user => state.oneSubcrudit.users[user.id] = {...user})
             // action.user.users.map(user => newState7.oneSubcrudit.users[user.id] = user)
             // newState7.oneSubcrudit.users = action.user.users
             // newState7.oneSubcrudit.users = {}
             // newState7.oneSubcrudit.users[action.user.id] = {...action.user}
+            console.log('NEW STATE 7', newState7)
 
             return newState7
         }
@@ -343,6 +345,7 @@ export default function subcruditReducer(state=initialState, action) {
             // newState7.oneSubcrudit.users = action.user.users
             // newState7.oneSubcrudit.users = {}
             // newState7.oneSubcrudit.users[action.user.id] = {...action.user}
+            delete newState8.oneSubcrudit.users[action.user.id]
 
             return newState8
         }

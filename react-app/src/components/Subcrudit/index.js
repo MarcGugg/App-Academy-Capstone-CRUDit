@@ -110,7 +110,7 @@ function Subcrudit() {
         <>
         <div className='wholeSub'>
             <div className='infoAndButtonBoxParent'>
-            <div class="rounded bg-white mb-4">
+            <div class="rounded bg-white mb-4 mt-12">
             <div class="p-3">
 			    	<div class="h-8 -m-3 bg-no-repeat bg-100%" style={{backgroundImage: "url(https://www.redditstatic.com/desktop2x/img/id-cards/banner@2x.png)"}}>
 			    	</div>
@@ -125,6 +125,20 @@ function Subcrudit() {
                             <button class="bg-cyan-400 text-sm text-white font-semibold rounded px-4 py-2 w-full">CREATE POST</button>
                         </NavLink>
                         : ''}
+                        {user ? !Object.keys(sub.users).includes(String(user.id)) ? 
+                            <div className='followButtonDiv'>
+                            <button className='bg-orange-600 text-sm text-white font-semibold rounded px-4 py-2 w-full' onClick={handleFollow}>
+                                Join Community
+                            </button>
+                        </div>
+                        :
+                        <div>
+                        <button className='bg-orange-600 text-sm text-white font-semibold rounded px-4 py-2 w-full' onClick={handleUnfollow}>
+                        Leave Community
+                        </button>
+                        </div> 
+                        : ''
+                        }
 			    	</div>
 			    </div>
             </div>
