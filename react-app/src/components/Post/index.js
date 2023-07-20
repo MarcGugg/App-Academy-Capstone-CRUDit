@@ -93,7 +93,7 @@ function OnePost() {
                 </p>
                 
             </div>
-            <h1>{post.header}</h1>
+            <h1 class="mb-6 text-5xl font-bold">{post.header}</h1>
             {Object.keys(post).includes('image') ? 
                 <div className='imageDiv'>
                     <img src={post.image.url}

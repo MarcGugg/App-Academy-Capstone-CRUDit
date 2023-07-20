@@ -111,6 +111,24 @@ function Subcrudit() {
         <>
         <div className='wholeSub'>
             <div className='infoAndButtonBoxParent'>
+            <div class="rounded bg-white mb-4">
+            <div class="p-3">
+			    	<div class="h-8 -m-3 bg-no-repeat bg-100%" style={{backgroundImage: "url(https://www.redditstatic.com/desktop2x/img/id-cards/banner@2x.png)"}}>
+			    	</div>
+			    	<div>
+			    		<div class="inline-flex items-center">
+			    			<img src="https://www.redditstatic.com/desktop2x/img/id-cards/snoo-home@2x.png" class="h-16"/>
+			    			<span class="text-lg ml-4 mt-6">{sub.name}</span>
+			    		</div>
+			    		<p class="font-normal mb-3 text-sm leading-normal">{sub.description}</p>
+                        {user ? 
+                        <NavLink to={`/subcrudits/${subName}/new_post`} style={{textDecoration: 'none', color: 'black'}}>
+                            <button class="bg-cyan-400 text-sm text-white font-semibold rounded px-4 py-2 w-full">CREATE POST</button>
+                        </NavLink>
+                        : ''}
+			    	</div>
+			    </div>
+            </div>
                 <div className='infoAndButtonBox'>
                 {/* <h1>Subcrudit page</h1> */}
                 <div className='subNameAndDesc'>
@@ -168,7 +186,8 @@ function Subcrudit() {
                                     </p>
                                     : ''}
                                     {/* {post.authorId} */}
-                                    <h1 className='subPostHeader'>{post.header}</h1>
+                                    {/* <h1 className='subPostHeader'>{post.header}</h1> */}
+                                    <h1 class="mb-5 text-3xl font-bold">{post.header}</h1>
                                     {postImages && Object.values(postImages).length && postImages[post.id]?.url ? 
                                     <div className='image'>
                                         {/* {Object.keys(postImages).includes(post.id) ?  */}
