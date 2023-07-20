@@ -7,6 +7,8 @@ import { deletePost, getOnePost, makeComment } from '../../store/post'
 import './Post.css'
 import { addMod } from '../../store/subcrudit'
 import CommentDeleteButton from '../CommentDelete'
+// import { Dropdown } from 'flowbite'
+// import { Dropdown } from 'flowbite-react'
 
 function OnePost() {
 
@@ -183,7 +185,23 @@ function OnePost() {
                 {/* <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
                         title="February 8th, 2022">Feb. 8, 2022</time></p> */}
             </div>
-            <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1"
+            {/* <Dropdown
+      label="Dropdown button"
+    >
+      <Dropdown.Item>
+        Dashboard
+      </Dropdown.Item>
+      <Dropdown.Item>
+        Settings
+      </Dropdown.Item>
+      <Dropdown.Item>
+        Earnings
+      </Dropdown.Item>
+      <Dropdown.Item>
+        Sign out
+      </Dropdown.Item>
+    </Dropdown> */}
+            {/* <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1"
                 class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 type="button">
                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
@@ -193,9 +211,9 @@ function OnePost() {
                     </path>
                 </svg>
                 <span class="sr-only">Comment settings</span>
-            </button>
+            </button> */}
             {/* <!-- Dropdown menu --> */}
-            <div id="dropdownComment1"
+            {/* <div id="dropdownComment1"
                 class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                     aria-labelledby="dropdownMenuIconHorizontalButton">
@@ -212,7 +230,7 @@ function OnePost() {
                             class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
                     </li>
                 </ul>
-            </div>
+            </div> */}
         </footer>
         <p class="text-gray-500 dark:text-gray-400">{comment.text}</p>
         <div class="flex items-center mt-4 space-x-4">

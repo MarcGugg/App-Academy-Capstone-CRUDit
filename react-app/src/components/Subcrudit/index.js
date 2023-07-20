@@ -9,7 +9,6 @@ import { getPostImages } from '../../store/post_image'
 import OpenModalButton from '../OpenModalButton'
 import DeletePostFromSub from '../DeletePostFromSubModal'
 
-
 import './Subcrudit.css'
 
 function Subcrudit() {
