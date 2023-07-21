@@ -125,20 +125,30 @@ function Subcrudit() {
                             <button class="bg-cyan-400 text-sm text-white font-semibold rounded px-4 py-2 w-full">CREATE POST</button>
                         </NavLink>
                         : ''}
-                        {user ? !Object.keys(sub.users).includes(String(user.id)) ? 
+                        {user && sub.ownerId !== user.id ? !Object.keys(sub.users).includes(String(user.id)) ? 
                             <div className='followButtonDiv'>
-                            <button className='bg-orange-600 text-sm text-white font-semibold rounded px-4 py-2 w-full' onClick={handleFollow}>
+                            <button className='bg-orange-600 text-sm text-white font-semibold rounded px-4 py-2 w-full mt-1' onClick={handleFollow}>
                                 Join Community
                             </button>
                         </div>
-                        :
+                        : 
                         <div>
-                        <button className='bg-orange-600 text-sm text-white font-semibold rounded px-4 py-2 w-full' onClick={handleUnfollow}>
+                        <button className='bg-orange-600 text-sm text-white font-semibold rounded px-4 py-2 w-full mt-1' onClick={handleUnfollow}>
                         Leave Community
                         </button>
                         </div> 
                         : ''
                         }
+                        {user && user.id === sub.ownerId ? 
+                            <div className='subEditAndDeleteButtons'>
+                                <NavLink to={`/subcrudits/${subName}/edit`} style={{textDecoration: 'none', color: 'white'}}>
+                                <button className='bg-cyan-400 text-sm text-white font-semibold rounded px-4 py-2 w-full mt-1'>
+                                Edit Sub Info
+                                </button>
+                                </NavLink>
+                                <button onClick={handleDeleteClick} className='bg-orange-600 text-sm text-white font-semibold rounded px-4 py-2 w-full mt-1'>Delete Sub</button>
+                            </div>
+                        : ''}
 			    	</div>
 			    </div>
             </div>
