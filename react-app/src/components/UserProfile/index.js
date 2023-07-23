@@ -78,6 +78,23 @@ function UserProfile() {
             <UserSubs user={userProfile} />
             : ''}
         </div>
+
+        {/* <div class="rounded bg-white mb-4">
+								<div class="p-3">
+									<div class="h-8 -m-3 bg-no-repeat bg-100%" style={{backgroundImage: "url(https://www.redditstatic.com/desktop2x/img/id-cards/banner@2x.png)"}}>
+									</div>
+									<div>
+										<div class="inline-flex items-center">
+											<img src="https://www.redditstatic.com/desktop2x/img/id-cards/snoo-home@2x.png" class="h-16"/>
+											<span class="text-lg ml-4 mt-6">r/popular</span>
+										</div>
+										<p class="font-normal mb-3 text-sm leading-normal">The best posts on Reddit for you, pulled from the most active communities on Reddit. Check here to see the most shared, upvoted, and commented content on the internet.</p>
+										<button class="bg-blue-dark text-sm text-white font-semibold rounded px-4 py-2 w-full">CREATE POST</button>
+									</div>
+								</div>
+							</div> */}
+
+
         <div class="flex items-center h-screen w-full justify-center">
 
           <div class="max-w-xs">
