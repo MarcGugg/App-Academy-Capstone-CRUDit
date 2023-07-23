@@ -26,6 +26,24 @@ function OnePost() {
 
     console.log('one post', post)
 
+    // WIP to enable editing comment on same page as post
+    useEffect(() => {
+        if (post) {
+            if (post.comments) {
+                Object.values(post.comments).map(comment => localStorage.setItem(`updateComment${comment.id}`, false))
+            }
+
+        }
+        console.log('LOCAL STORAGE')
+        console.log('LOCAL STORAGE')
+        console.log('LOCAL STORAGE')
+        console.log('LOCAL STORAGE')
+        console.log('LOCAL STORAGE', JSON.stringify(localStorage.getItem(`updateComment5`)))
+        console.log('LOCAL STORAGE')
+        console.log('LOCAL STORAGE')
+        console.log('LOCAL STORAGE')
+    }, [post])
+
     //for dropdown menu
     // const [clicked, setClicked] = useState(false)
     const [commentFormShow, setCommentFormShow] = useState(false)
@@ -55,6 +73,19 @@ function OnePost() {
         e.preventDefault()
         await dispatch(deletePost(postId))
         history.push('/')
+    }
+
+    const handleLocalStorageClick = async (e, value, commentId) => {
+        e.preventDefault()
+        
+        console.log('CLICKED', value ,commentId ,!value)
+        if (value === false) {
+            localStorage.setItem(`updateComment${commentId}`, true)
+        } else {
+            localStorage.setItem(`updateComment${commentId}`, false)
+        }
+        console.log('CLICKED', value ,commentId ,!value, localStorage)
+        console.log('LOCAL STORAGE', localStorage.getItem(`updateComment${commentId}`))
     }
 
     const handleModClick = async (e) => {
@@ -247,6 +278,17 @@ function OnePost() {
                     {user ? user.id === comment.authorId ?
                     <NavLink to={`/comments/${comment.id}/edit`} style={{textDecoration: 'none' , color: 'darkgray', fontWeight: '500'}}>Edit</NavLink>
                     : '' : ''}
+
+                    {/* work in progress for editing comment on the same page as post */}
+                    {/* <button value={JSON.parse(localStorage.getItem(`updateComment${comment.id}`))} onClick={(e) => localStorage.setItem(`updateComment${comment.id}`, JSON.stringify(e.target.value))}>change</button> */}
+                    <button value={localStorage.getItem(`updateComment${comment.id}`)} onClick={(e) => handleLocalStorageClick(e, e.target.value, comment.id)}>change</button>
+                    {/* <input 
+                        type='button'
+                        // value={JSON.parse(localStorage.getItem(`updateComment${comment.id}`))} 
+                        value='    change' 
+                        onClick={() => localStorage.setItem(`updateComment${comment.id}`, JSON.stringify(!JSON.parse(localStorage.getItem(`updateComment${comment.id}`))))}
+                    /> */}
+                    {localStorage.getItem(`updateComment${comment.id}`) === true ? <div><p>hello</p></div> : ''}
                 </div>
         </div>
     </article>
