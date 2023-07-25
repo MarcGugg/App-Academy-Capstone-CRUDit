@@ -353,8 +353,9 @@ export default function postReducer(state=initialState, action) {
         }
         case EDIT_COMMENT: {
             const newState10 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, singleComment: {...state.singleComment}}
-
+            
             newState10.editedComment = {...action.editedComment}
+            newState10.singlePost.comments[action.editedComment.id] = {...action.editedComment}
 
             return newState10
         }
