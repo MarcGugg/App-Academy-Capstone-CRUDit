@@ -26,24 +26,6 @@ function OnePost() {
 
     console.log('one post', post)
 
-    // WIP to enable editing comment on same page as post
-    useEffect(() => {
-        if (post) {
-            if (post.comments) {
-                Object.values(post.comments).map(comment => localStorage.setItem(`updateComment${comment.id}`, false))
-            }
-
-        }
-        console.log('LOCAL STORAGE')
-        console.log('LOCAL STORAGE')
-        console.log('LOCAL STORAGE')
-        console.log('LOCAL STORAGE')
-        console.log('LOCAL STORAGE', JSON.stringify(localStorage.getItem(`updateComment5`)))
-        console.log('LOCAL STORAGE')
-        console.log('LOCAL STORAGE')
-        console.log('LOCAL STORAGE')
-    }, [post])
-
     //for dropdown menu
     // const [clicked, setClicked] = useState(false)
     const [commentFormShow, setCommentFormShow] = useState(false)
@@ -73,19 +55,6 @@ function OnePost() {
         e.preventDefault()
         await dispatch(deletePost(postId))
         history.push('/')
-    }
-
-    const handleLocalStorageClick = async (e, value, commentId) => {
-        e.preventDefault()
-        
-        console.log('CLICKED', value ,commentId ,!value)
-        if (value === false) {
-            localStorage.setItem(`updateComment${commentId}`, true)
-        } else {
-            localStorage.setItem(`updateComment${commentId}`, false)
-        }
-        console.log('CLICKED', value ,commentId ,!value, localStorage)
-        console.log('LOCAL STORAGE', localStorage.getItem(`updateComment${commentId}`))
     }
 
     const handleModClick = async (e) => {
@@ -216,52 +185,6 @@ function OnePost() {
                 {/* <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
                         title="February 8th, 2022">Feb. 8, 2022</time></p> */}
             </div>
-            {/* <Dropdown
-      label="Dropdown button"
-    >
-      <Dropdown.Item>
-        Dashboard
-      </Dropdown.Item>
-      <Dropdown.Item>
-        Settings
-      </Dropdown.Item>
-      <Dropdown.Item>
-        Earnings
-      </Dropdown.Item>
-      <Dropdown.Item>
-        Sign out
-      </Dropdown.Item>
-    </Dropdown> */}
-            {/* <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1"
-                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                type="button">
-                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z">
-                    </path>
-                </svg>
-                <span class="sr-only">Comment settings</span>
-            </button> */}
-            {/* <!-- Dropdown menu --> */}
-            {/* <div id="dropdownComment1"
-                class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                    aria-labelledby="dropdownMenuIconHorizontalButton">
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
-                    </li>
-                </ul>
-            </div> */}
         </footer>
         <p class="text-gray-500 dark:text-gray-400">{comment.text}</p>
         <div class="flex items-center mt-4 space-x-4">
@@ -278,23 +201,59 @@ function OnePost() {
                     {user ? user.id === comment.authorId ?
                     <NavLink to={`/comments/${comment.id}/edit`} style={{textDecoration: 'none' , color: 'darkgray', fontWeight: '500'}}>Edit</NavLink>
                     : '' : ''}
-
-                    {/* work in progress for editing comment on the same page as post */}
-                    {/* <button value={JSON.parse(localStorage.getItem(`updateComment${comment.id}`))} onClick={(e) => localStorage.setItem(`updateComment${comment.id}`, JSON.stringify(e.target.value))}>change</button> */}
-                    <button value={localStorage.getItem(`updateComment${comment.id}`)} onClick={(e) => handleLocalStorageClick(e, e.target.value, comment.id)}>change</button>
-                    {/* <input 
-                        type='button'
-                        // value={JSON.parse(localStorage.getItem(`updateComment${comment.id}`))} 
-                        value='    change' 
-                        onClick={() => localStorage.setItem(`updateComment${comment.id}`, JSON.stringify(!JSON.parse(localStorage.getItem(`updateComment${comment.id}`))))}
-                    /> */}
-                    {localStorage.getItem(`updateComment${comment.id}`) === true ? <div><p>hello</p></div> : ''}
                 </div>
         </div>
     </article>
             ))}
         </div>
         : ''}
+        {/* dropdown menu for comments. useless bc necessary dependencies require react update that i couldn't get to work */}
+        {/* <Dropdown
+  label="Dropdown button"
+>
+  <Dropdown.Item>
+    Dashboard
+  </Dropdown.Item>
+  <Dropdown.Item>
+    Settings
+  </Dropdown.Item>
+  <Dropdown.Item>
+    Earnings
+  </Dropdown.Item>
+  <Dropdown.Item>
+    Sign out
+  </Dropdown.Item>
+</Dropdown> */}
+        {/* <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1"
+            class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            type="button">
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z">
+                </path>
+            </svg>
+            <span class="sr-only">Comment settings</span>
+        </button> */}
+        {/* <!-- Dropdown menu --> */}
+        {/* <div id="dropdownComment1"
+            class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                aria-labelledby="dropdownMenuIconHorizontalButton">
+                <li>
+                    <a href="#"
+                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
+                </li>
+            </ul>
+        </div> */}
 
 
         {/* original comment section */}
