@@ -20,6 +20,7 @@ function Subcrudit() {
 
     useEffect(async () => {
         await dispatch(getOneSub(subName))
+        // console.log('PICTURE CHECK', Object.keys(postImages).includes(post.id))
     }, [dispatch])
 
     const user = useSelector((state) => state.session.user)
@@ -68,6 +69,11 @@ function Subcrudit() {
 
     // console.log('AUTHOR IDS', authorIdArr)
     // console.log('AUTHORS', authors)
+    useEffect(() => {
+        console.log('POST IMAGES', postImages)
+        console.log('POST IMAGES KEYS' ,Object.keys(postImages))
+        console.log('PICTURE CHECK', Object.keys(postImages).includes('5'))
+    }, [postImages])
 
     const handleDeleteClick = async (e) => {
         e.preventDefault()
@@ -152,6 +158,71 @@ function Subcrudit() {
 			    	</div>
 			    </div>
             </div>
+            <div class="rounded bg-white mb-4">
+								<div class="p-3 text-xxs font-semibold w-full">TRENDING COMMUNITIES</div>
+								<div class="pb-4">
+									<div class="px-3 py-2">
+										<div class="flex">
+											<img class="h-8 w-8 border rounded-full mr-2" src="https://avatars0.githubusercontent.com/u/30317862?s=200&v=4"/>
+											<div class="flex flex-col font-medium">
+												<a href="#" class="text-xs text-black-alt no-underline leading-tight">r/tailwind</a>
+												<span class="text-xxs">1.000 subscribers</span>
+											</div>
+											<div class="flex ml-auto">
+												<button class="bg-blue-dark text-xs text-white font-semibold rounded px-4 ml-auto">SUBSCRIBE</button>
+											</div>
+										</div>
+									</div>
+									<div class="px-3 py-2">
+										<div class="flex">
+											<img class="h-8 w-8 border rounded-full mr-2" src="https://avatars0.githubusercontent.com/u/30317862?s=200&v=4"/>
+											<div class="flex flex-col font-medium">
+												<a href="#" class="text-xs text-black-alt no-underline leading-tight">r/tailwind</a>
+												<span class="text-xxs">1.000 subscribers</span>
+											</div>
+											<div class="flex ml-auto">
+												<button class="bg-blue-dark text-xs text-white font-semibold rounded px-4 ml-auto">SUBSCRIBE</button>
+											</div>
+										</div>
+									</div>
+									<div class="px-3 py-2">
+										<div class="flex">
+											<img class="h-8 w-8 border rounded-full mr-2" src="https://avatars0.githubusercontent.com/u/30317862?s=200&v=4"/>
+											<div class="flex flex-col font-medium">
+												<a href="#" class="text-xs text-black-alt no-underline leading-tight">r/tailwind</a>
+												<span class="text-xxs">1.000 subscribers</span>
+											</div>
+											<div class="flex ml-auto">
+												<button class="bg-blue-dark text-xs text-white font-semibold rounded px-4 ml-auto">SUBSCRIBE</button>
+											</div>
+										</div>
+									</div>
+									<div class="px-3 py-2">
+										<div class="flex">
+											<img class="h-8 w-8 border rounded-full mr-2" src="https://avatars0.githubusercontent.com/u/30317862?s=200&v=4"/>
+											<div class="flex flex-col font-medium">
+												<a href="#" class="text-xs text-black-alt no-underline leading-tight">r/tailwind</a>
+												<span class="text-xxs">1.000 subscribers</span>
+											</div>
+											<div class="flex ml-auto">
+												<button class="bg-blue-dark text-xs text-white font-semibold rounded px-4 ml-auto">SUBSCRIBE</button>
+											</div>
+										</div>
+									</div>
+									<div class="px-3 py-2">
+										<div class="flex">
+											<img class="h-8 w-8 border rounded-full mr-2" src="https://avatars0.githubusercontent.com/u/30317862?s=200&v=4"/>
+											<div class="flex flex-col font-medium">
+												<a href="#" class="text-xs text-black-alt no-underline leading-tight">r/tailwind</a>
+												<span class="text-xxs">1.000 subscribers</span>
+											</div>
+											<div class="flex ml-auto">
+												<button class="bg-blue-dark text-xs text-white font-semibold rounded px-4 ml-auto">SUBSCRIBE</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
                 <div className='infoAndButtonBox'>
                 {/* <h1>Subcrudit page</h1> */}
                 <div className='subNameAndDesc'>
@@ -255,6 +326,9 @@ function Subcrudit() {
                                     : ''}
                                
                                     <h1 class="mb-5 text-3xl font-bold">{post.header}</h1>
+                                    <div>{Object.keys(postImages)}</div>
+                                                            <div>{Object.keys(postImages).includes(post.id)}</div>
+                                                            <div>{postImages[post.id]?.url}</div>
                                     {postImages && Object.values(postImages).length && postImages[post.id]?.url ? 
                                     <div className='image'>
                                    
@@ -314,7 +388,10 @@ function Subcrudit() {
                                                              <h2 class="text-lg font-medium mb-1">{post.header}</h2>
                                                          </div>
                                                          <div className='image'>
-                                                             {Object.keys(postImages).includes(post.id) ? 
+                                                            {/* <div>{Object.keys(postImages)}</div>
+                                                            <div>{Object.keys(postImages).includes(post.id)}</div>
+                                                            <div>{postImages[post.id]?.url}</div> */}
+                                                             {Object.keys(postImages).includes(post.id.toString()) ? 
                                                              
                                                              <img src={postImages[post.id]?.url} 
                                                                      onError={(e) => {
@@ -326,6 +403,15 @@ function Subcrudit() {
                                                              // {/* :''} */}
                                                              : ''}
                                                              </div>
+                                                             {/* <p>Test</p> */}
+                                                             {/* <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Frog_on_palm_frond.jpg/1200px-Frog_on_palm_frond.jpg'/> */}
+                                                             {/* <img src={postImages[post.id]?.url} 
+                                                                     onError={(e) => {
+                                                                         e.target.onerror = null
+                                                                         e.target.src = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
+                                                                     }} 
+                                                                     alt = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
+                                                             className='postImageSrc-sub'/> */}
                                                          <div class="inline-flex items-center my-1">
                                                              <div class="flex hover:bg-grey-lighter p-1">
                                                                  <svg class="w-4 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-4 4v-4H2a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8zM5 7v2h2V7H5zm4 0v2h2V7H9zm4 0v2h2V7h-2z"/></svg>
