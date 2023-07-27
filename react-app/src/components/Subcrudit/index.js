@@ -396,21 +396,20 @@ function Subcrudit() {
                                                      <div class="w-11/12 pt-2">
                                                          <div class="flex items-center text-xs mb-2">
                                                              <a href="#" class="font-semibold no-underline hover:underline text-black flex items-center">
-                                                                 <img class="rounded-full border h-5 w-5" src="https://avatars0.githubusercontent.com/u/30317862?s=200&v=4"/>
+                                                                 <img class="rounded-full border h-5 w-5" src="https://www.redditstatic.com/desktop2x/img/id-cards/snoo-home@2x.png"/>
                                                                  <span class="ml-2">{subName}</span>
                                                              </a>
                                                              <span class="text-grey-light mx-1 text-xxs">•</span>
                                                              <span class="text-grey">Posted by</span>
-                                                             <a href="#" class="text-grey mx-1 no-underline hover:underline">{authors[post.authorId.toString()]?.username}</a>
+                                                             {/* authors[post.authorId.toString()]?.username is sometimes undefined for some reason */}
+                                                             {/* <a href="#" class="text-grey mx-1 no-underline hover:underline">{authors[post.authorId.toString()]?.username}</a> */} 
                                                              <span class="text-grey">2 hours ago</span>
                                                          </div>
                                                          <div>
                                                              <h2 class="text-lg font-medium mb-1">{post.header}</h2>
                                                          </div>
                                                          <div className='image'>
-                                                            {/* <div>{Object.keys(postImages)}</div>
-                                                            <div>{Object.keys(postImages).includes(post.id)}</div>
-                                                            <div>{postImages[post.id]?.url}</div> */}
+                                                  
                                                              {Object.keys(postImages).includes(post.id.toString()) ? 
                                                              
                                                              <img src={postImages[post.id]?.url} 
@@ -420,18 +419,10 @@ function Subcrudit() {
                                                                      }} 
                                                                      alt = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
                                                              className='postImageSrc-sub'/>
-                                                             // {/* :''} */}
+                                                        
                                                              : ''}
                                                              </div>
-                                                             {/* <p>Test</p> */}
-                                                             {/* <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Frog_on_palm_frond.jpg/1200px-Frog_on_palm_frond.jpg'/> */}
-                                                             {/* <img src={postImages[post.id]?.url} 
-                                                                     onError={(e) => {
-                                                                         e.target.onerror = null
-                                                                         e.target.src = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
-                                                                     }} 
-                                                                     alt = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
-                                                             className='postImageSrc-sub'/> */}
+                        
                                                          <div class="inline-flex items-center my-1">
                                                              <div class="flex hover:bg-grey-lighter p-1">
                                                                  <svg class="w-4 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-4 4v-4H2a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8zM5 7v2h2V7H5zm4 0v2h2V7H9zm4 0v2h2V7h-2z"/></svg>
