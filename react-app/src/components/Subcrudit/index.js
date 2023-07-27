@@ -243,8 +243,8 @@ function Subcrudit() {
 									</div>
 								</div>
 							</div>
-                <div className='infoAndButtonBox'>
-                {/* <h1>Subcrudit page</h1> */}
+                {/* <div className='infoAndButtonBox'>
+                
                 <div className='subNameAndDesc'>
                     <h1 className='subName' >{sub.name}</h1>
                     <div className='subDescDisplayParent'>
@@ -284,7 +284,7 @@ function Subcrudit() {
                     <button onClick={handleDeleteClick} className='subDeleteButton'>Delete Sub</button>
                 </div>
                 : ''}
-                </div>
+                </div> */}
             </div>
             <div className='subPagePostParent'>
                         {/* <div class="py-2">
@@ -401,7 +401,7 @@ function Subcrudit() {
                                                              </a>
                                                              <span class="text-grey-light mx-1 text-xxs">•</span>
                                                              <span class="text-grey">Posted by</span>
-                                                             {/* <a href="#" class="text-grey mx-1 no-underline hover:underline">{authors[post.authorId]?.username}</a> */}
+                                                             <a href="#" class="text-grey mx-1 no-underline hover:underline">{authors[post.authorId.toString()]?.username}</a>
                                                              <span class="text-grey">2 hours ago</span>
                                                          </div>
                                                          <div>
