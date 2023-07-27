@@ -192,6 +192,7 @@ export const unfollowSub = (subId, userId) => async dispatch => {
 
     if (res.ok) {
         console.log('UNFOLLOW SUB RES OK')
+        console.log('USER ID', userId) //correct user ID
         const user = await res.json()
         dispatch(actionUnfollowSub(user))
     }
@@ -335,18 +336,13 @@ export default function subcruditReducer(state=initialState, action) {
         }
         case UNFOLLOW_SUB: {
             console.log('UNFOLLOW SUB REDUCER HIT')
-            console.log('action user', action.user)
+            console.log('action user', action.user.id) //id is incorrect for some reason
             const newState8 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}} //need to normalize single sub users?
 
-            // Object.values(newState6.oneSubcrudit).append(action.user)
-            // newState7.oneSubcrudit[action.user.id] = {...action.user}
-            // action.user.users.map(user => console.log('UNFOLLOW SUB USER MAP', user))
-            // action.user.users.map(user => newState7.oneSubcrudit.users[user.id] = user)
-            // newState7.oneSubcrudit.users = action.user.users
-            // newState7.oneSubcrudit.users = {}
-            // newState7.oneSubcrudit.users[action.user.id] = {...action.user}
+            console.log('NEW STATE 8 BEFORE DELETE', newState8)
+            console.log('STATE ONE SUB', newState8.oneSubcrudit.users)
             delete newState8.oneSubcrudit.users[action.user.id]
-
+            console.log('NEW STATE 8 AFTER DELETE', newState8)
             return newState8
         }
         default:
