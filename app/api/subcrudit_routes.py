@@ -202,6 +202,7 @@ def add_mod(sub_id):
         return None
     
 @subcrudit_routes.route('/<int:sub_id>/follow', methods=['PUT'])
+@login_required
 def follow_sub(sub_id):
     # data = request.get_json()
     # user = User.query.get(data['userId'])
@@ -229,6 +230,7 @@ def follow_sub(sub_id):
     return {'User must log in'}
 
 @subcrudit_routes.route('/<int:sub_id>/unfollow', methods=['PUT'])
+@login_required
 def unfollow_sub(sub_id):
     sub = Subcrudit.query.get(sub_id)
 
@@ -264,7 +266,7 @@ def unfollow_sub(sub_id):
                 curr_user.followed_subs.remove(sub)
                 break
         db.session.commit()
-        return sub.to_dict_inclusive()
+        return user.to_dict()
     
     
     return {'User must log in'}
