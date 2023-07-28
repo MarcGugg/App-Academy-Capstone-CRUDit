@@ -5,6 +5,8 @@ from app.models.subs_mods import subs_mods
 from app.models.comment import Comment
 from app.models.comments_upvotes import comments_upvotes
 from app.models.comments_downvotes import comments_downvotes
+from app.models.posts_downvotes import posts_downvotes
+from app.models.posts_upvotes import posts_upvotes
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -30,6 +32,8 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', back_populates='author')
     comment_upvotes = db.relationship('Comment', secondary='comments_upvotes', back_populates='upvotes')
     comment_downvotes = db.relationship('Comment', secondary='comments_downvotes', back_populates='downvotes')
+    post_upvotes = db.relationship('Post', secondary='posts_upvotes', back_populates='upvotes')
+    post_downvotes = db.relationship('Post', secondary='posts_downvotes', back_populates='downvotes')
     
     @property
     def password(self):

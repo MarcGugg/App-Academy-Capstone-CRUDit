@@ -16,6 +16,8 @@ class Post(db.Model):
     subcrudit = db.relationship('Subcrudit', back_populates='posts')
     image = db.relationship('PostImage', back_populates='post', uselist=False)
     comments = db.relationship('Comment', back_populates='post')
+    upvotes = db.relationship('User', secondary='posts_upvotes', back_populates='post_upvotes')
+    downvotes = db.relationship('User', secondary='posts_downvotes', back_populates='post_downvotes')
     
 
     def to_dict(self):
