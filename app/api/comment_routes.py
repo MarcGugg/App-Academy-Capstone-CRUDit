@@ -135,4 +135,97 @@ def comment_by_post_id(post_id):
         return {'User must be logged in', 400}
     
 
+@comment_routes.route('/<int:comment_id/upvote', methods=['PUT'])
+@login_required
+def upvote_comment(comment_id):
+    comment = Comment.query.get(comment_id)
 
+    if comment:
+        
+        if current_user.is_authenticated:
+        
+            if current_user in comment.downvotes:
+        
+                comment.downvotes.remove(current_user)
+                current_user.comment_downvotes.remove(comment)
+        
+            comment.upvotes.append(current_user)
+        
+            current_user.comment_upvotes.append(comment)
+        
+            db.sesion.commit()
+        
+            return current_user.to_dict()
+        
+        return {'Message': 'User must log in'}
+    
+    return None
+
+@comment_routes.route('/<int:comment_id/downvote', methods=['PUT'])
+@login_required
+def downvote_comment(comment_id):
+    comment = Comment.query.get(comment_id)
+
+    if comment:
+    
+        if current_user.is_authenticated:
+    
+            if current_user in comment.upvotes:
+    
+                comment.upvotes.remove(current_user)
+                current_user.comment_downvotes.remove(comment)
+    
+            comment.downvotes.append(current_user)
+    
+            current_user.comment_downvotes.append(comment)
+    
+            db.sesion.commit()
+    
+            return current_user.to_dict()
+    
+        return {'Message': 'User must log in'}
+    
+    return None
+
+@comment_routes.route('/<int:comment_id/remove_downvote', methods=['PUT'])
+@login_required
+def remove_downvote(comment_id):
+    comment = Comment.query.get(comment_id)
+
+    if comment:
+    
+        if current_user.is_authenticated:
+    
+            if current_user in comment.downvotes:
+    
+                comment.downvotes.remove(current_user)
+                current_user.comment_downvotes.remove(comment)
+                return current_user.to_dict()
+    
+            return None
+    
+        return {'Message': 'User must log in'}
+    
+    return None
+
+@comment_routes.route('/<int:comment_id/remove_upvote', methods=['PUT'])
+@login_required
+def remove_upvote(comment_id):
+    comment = Comment.query.get(comment_id)
+
+    if comment:
+    
+        if current_user.is_authenticated:
+    
+            if current_user in comment.upvotes:
+    
+                comment.upvotes.remove(current_user)
+                current_user.comment_upvotes.remove(comment)
+                return current_user.to_dict()
+    
+            return None
+    
+        return {'Message': 'User must log in'}
+    
+    return None
+    
