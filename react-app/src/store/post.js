@@ -6,6 +6,7 @@ const EDIT_POST = 'posts/Edit'
 const DELETE_POST = 'posts/Delete'
 
 const UPVOTE_POST = 'posts/Upvote'
+const DOWNVOTE_POST = 'posts/Downvote'
 
 const MAKE_COMMENT = 'comments/Make'
 const DELETE_COMMENT = 'comments/Delete'
@@ -49,6 +50,11 @@ const actionUpvotePost = (currUser, upvotedPost) => ({
     upvotedPost
 })
 
+const actionDownvotePost = (currUser, downvotedPost) => ({
+    type: DOWNVOTE_POST,
+    currUser,
+    downvotedPost
+})
 
 //comments actions
 const actionMakeComment = (newComment) => ({
@@ -295,6 +301,22 @@ export const upvotePost = (postId) => async dispatch => {
     }
 }
 
+export const downvotePost = (postId) => async dispatch => {
+    const res = await fetch(`/api/posts/${postId}/downvote`, {
+        method: 'PUT',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            'postId': postId
+        })
+    })
+
+    if (res.ok) {
+        const result = await res.json()
+        let currUser = result[0]
+        let downvotedPost = result[1]
+        dispatch(actionDownvotePost(currUser, downvotedPost))
+    }
+}
 
 let initialState = {
     allPosts: {},
@@ -390,15 +412,35 @@ export default function postReducer(state=initialState, action) {
             return newState10
         }
         case UPVOTE_POST: {
-            console.log('UPVOTE POST REDUCER HIT')
-            console.log('UPVOTE POST ACTION', action)
             const newState11 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, upvotedPost: {...state.upvotedPost}}
-            newState11.upvotedPost = {...action.upvotedPost}
+            
+            newState11.allPosts[action.upvotedPost.id].downvotes = {}
+            Object.values(state.allPosts[action.upvotedPost.id].downvotes).map(user => newState11.allPosts[action.upvotedPost.id].downvotes[user.id] = {...user}) //normalize downvotes
+
+            if (Object.keys(newState11.allPosts[action.upvotedPost.id].downvotes).includes(action.currUser.id)) { //if user has downvoted the post, remove user from post downvotes
+                delete newState11.allPosts[action.upvotedPost.id].downvotes[action.currUser.id]
+            }
+            
             newState11.allPosts[action.upvotedPost.id].upvotes = {}
-            console.log('STATE ALL POSTS', state.allPosts[action.upvotedPost.id])
-            Object.values(state.allPosts[action.upvotedPost.id].upvotes).map(user => newState11.allPosts[action.upvotedPost.id].upvotes[user.id] = {...user}) ///normalize the upvotes array
+            Object.values(state.allPosts[action.upvotedPost.id].upvotes).map(user => newState11.allPosts[action.upvotedPost.id].upvotes[user.id] = {...user}) ///normalize upvotes 
             newState11.allPosts[action.upvotedPost.id].upvotes[action.currUser.id] = {...action.currUser}
             return newState11
+        }
+        case DOWNVOTE_POST: {
+            const newState12 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, upvotedPost: {...state.upvotedPost}}
+            
+            newState12.allPosts[action.downvotedPost.id].upvotes = {}
+            Object.values(state.allPosts[action.downvotedPost.id].upvotes).map(user => newState12.allPosts[action.downvotedPost.id].upvotes[user.id] = {...user}) ///normalize upvotes
+
+            if (Object.keys(newState12.allPosts[action.downvotedPost.id].upvotes).includes(action.currUser.id)) { //if user has upvoted the post, remove user from post upvotes
+                delete newState12.allPosts[action.downvotedPost.id].upvotes[action.currUser.id]
+            }
+
+            newState12.allPosts[action.downvotedPost.id].downvotes = {}
+            Object.values(state.allPosts[action.downvotedPost.id].downvotes).map(user => newState12.allPosts[action.downvotedPost.id].downvotes[user.id] = {...user}) ///normalize downvotes
+            newState12.allPosts[action.downvotedPost.id].downvotes[action.currUser.id] = {...action.currUser}
+            
+            return newState12
         }
         default:
             return state

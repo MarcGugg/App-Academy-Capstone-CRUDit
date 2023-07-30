@@ -8,6 +8,7 @@ import { getAllPosts } from '../../store/post'
 import './HomePage.css'
 import { getAllSubsReal } from '../../store/subcrudit'
 import { upvotePost } from '../../store/post'
+import { downvotePost } from '../../store/post'
 
 function HomePage() {
 
@@ -28,6 +29,11 @@ function HomePage() {
         e.preventDefault()
         dispatch(upvotePost(postId))
     }
+
+    const handleDownvote = async (e, postId) => {
+        e.preventDefault()
+        dispatch(downvotePost(postId))
+    } 
 
     if (!Object.values(posts).length) {
         return null
@@ -89,7 +95,8 @@ function HomePage() {
                         <div class="flex border border-grey-light-alt hover:border-grey rounded bg-white cursor-pointer">
                             <div class="w-1/12 flex flex-col text-center pt-2">
                                 {user && Object.values(post.upvotes).includes(user) ? 
-                                     <button class="text-xs text-orange-500" onClick={(e) => handleUpvote(e, post.id)}>
+                                // add handler for removing upvote 
+                                     <button class="text-xs text-orange-500">
                                      <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
                                  </button>
                                 : 
@@ -99,15 +106,16 @@ function HomePage() {
                                 </button>
                                 }
                                 
-                                <span class="text-xs font-semibold my-1" onClick={() => console.log(post.upvotes)}>{Object.values(post.upvotes).length}</span>
+                                <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes)}>{Object.values(post.upvotes).length - Object.values(post.downvotes).length}</span>
                                 
                                 {user && Object.values(post.downvotes).includes(user) ? 
+                                // add handler for removing downvote 
                                  <button class="text-xs text-cyan-600">
                                  <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
                              </button>
                                 : 
                                 
-                                <button class="text-xs">
+                                <button class="text-xs" onClick={(e) => handleDownvote(e, post.id)}>
                                     <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
                                 </button>
                                 }
