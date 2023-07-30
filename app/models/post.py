@@ -38,7 +38,9 @@ class Post(db.Model):
             'author': self.author.to_dict(),
             'subcrudit': self.subcrudit.to_dict(),
             'image': self.image.to_dict(),
-            'comments': [comment.to_dict_no_post() for comment in self.comments]
+            'comments': [comment.to_dict_no_post() for comment in self.comments],
+            'upvotes': [user.to_dict() for user in self.upvotes],
+            'downvotes': [user.to_dict() for user in self.downvotes]
         }
     def to_dict_no_image(self):
         # print('POST AUTHOR', self.author)
@@ -50,7 +52,9 @@ class Post(db.Model):
             'body': self.body,
             'author': self.author.to_dict(),
             'subcrudit': self.subcrudit.to_dict(),
-            'comments': [comment.to_dict_no_post() for comment in self.comments]
+            'comments': [comment.to_dict_no_post() for comment in self.comments],
+            'upvotes': [user.to_dict() for user in self.upvotes],
+            'downvotes': [user.to_dict() for user in self.downvotes]
         }
     def to_dict_no_comments(self):
         return {
@@ -62,6 +66,8 @@ class Post(db.Model):
             'author': self.author.to_dict(),
             'subcrudit': self.subcrudit.to_dict(),
             'image': self.image.to_dict(),
+            'upvotes': [user.to_dict() for user in self.upvotes],
+            'downvotes': [user.to_dict() for user in self.downvotes]
         }
     def to_dict_no_comments_no_image(self):
         return {
@@ -71,5 +77,7 @@ class Post(db.Model):
             'header': self.header,
             'body': self.body,
             'author': self.author.to_dict(),
-            'subcrudit': self.subcrudit.to_dict()
+            'subcrudit': self.subcrudit.to_dict(),
+            'upvotes': [user.to_dict() for user in self.upvotes],
+            'downvotes': [user.to_dict() for user in self.downvotes]
         }

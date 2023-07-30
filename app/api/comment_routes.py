@@ -135,7 +135,7 @@ def comment_by_post_id(post_id):
         return {'User must be logged in', 400}
     
 
-@comment_routes.route('/<int:comment_id/upvote', methods=['PUT'])
+@comment_routes.route('/<int:comment_id>/upvote', methods=['PUT'])
 @login_required
 def upvote_comment(comment_id):
     comment = Comment.query.get(comment_id)
@@ -161,7 +161,7 @@ def upvote_comment(comment_id):
     
     return None
 
-@comment_routes.route('/<int:comment_id/downvote', methods=['PUT'])
+@comment_routes.route('/<int:comment_id>/downvote', methods=['PUT'])
 @login_required
 def downvote_comment(comment_id):
     comment = Comment.query.get(comment_id)
@@ -187,7 +187,7 @@ def downvote_comment(comment_id):
     
     return None
 
-@comment_routes.route('/<int:comment_id/remove_downvote', methods=['PUT'])
+@comment_routes.route('/<int:comment_id>/remove_downvote', methods=['PUT'])
 @login_required
 def remove_downvote(comment_id):
     comment = Comment.query.get(comment_id)
@@ -208,7 +208,7 @@ def remove_downvote(comment_id):
     
     return None
 
-@comment_routes.route('/<int:comment_id/remove_upvote', methods=['PUT'])
+@comment_routes.route('/<int:comment_id>/remove_upvote', methods=['PUT'])
 @login_required
 def remove_upvote(comment_id):
     comment = Comment.query.get(comment_id)

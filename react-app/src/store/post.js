@@ -5,6 +5,8 @@ const CREATE_POST = 'posts/Create'
 const EDIT_POST = 'posts/Edit'
 const DELETE_POST = 'posts/Delete'
 
+const UPVOTE_POST = 'posts/Upvote'
+
 const MAKE_COMMENT = 'comments/Make'
 const DELETE_COMMENT = 'comments/Delete'
 const GET_COMMENT = 'comment/Get'
@@ -40,6 +42,13 @@ const actionDeletePost = (postId) => ({
     type: DELETE_POST,
     postId
 })
+
+const actionUpvotePost = (currUser, upvotedPost) => ({
+    type: UPVOTE_POST,
+    currUser,
+    upvotedPost
+})
+
 
 //comments actions
 const actionMakeComment = (newComment) => ({
@@ -266,12 +275,33 @@ export const editPost = (postId, header, body) => async dispatch => {
     }
 }
 
+export const upvotePost = (postId) => async dispatch => {
+    console.log('UPVOTE POST THUNK HIT')
+    const res = await fetch(`/api/posts/${postId}/upvote`, {
+        method: 'PUT',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            'postId': postId
+        })
+    })
+
+    if (res.ok) {
+        console.log('UPVOTE POST RES OK')
+        const result = await res.json()
+        console.log('UPVOTE POST RESULT', result)
+        let currUser = result[0]
+        let upvotedPost = result[1]
+        dispatch(actionUpvotePost(currUser, upvotedPost))
+    }
+}
+
 
 let initialState = {
     allPosts: {},
     singlePost: {},
     newPost: {},
-    singleComment: {}
+    singleComment: {},
+    upvotedPost: {}
 }
 export default function postReducer(state=initialState, action) {
     switch (action.type) {
@@ -358,6 +388,17 @@ export default function postReducer(state=initialState, action) {
             newState10.singlePost.comments[action.editedComment.id] = {...action.editedComment}
 
             return newState10
+        }
+        case UPVOTE_POST: {
+            console.log('UPVOTE POST REDUCER HIT')
+            console.log('UPVOTE POST ACTION', action)
+            const newState11 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, upvotedPost: {...state.upvotedPost}}
+            newState11.upvotedPost = {...action.upvotedPost}
+            newState11.allPosts[action.upvotedPost.id].upvotes = {}
+            console.log('STATE ALL POSTS', state.allPosts[action.upvotedPost.id])
+            Object.values(state.allPosts[action.upvotedPost.id].upvotes).map(user => newState11.allPosts[action.upvotedPost.id].upvotes[user.id] = {...user}) ///normalize the upvotes array
+            newState11.allPosts[action.upvotedPost.id].upvotes[action.currUser.id] = {...action.currUser}
+            return newState11
         }
         default:
             return state

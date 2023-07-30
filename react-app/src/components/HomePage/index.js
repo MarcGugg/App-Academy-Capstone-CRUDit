@@ -7,6 +7,7 @@ import { getAllPosts } from '../../store/post'
 
 import './HomePage.css'
 import { getAllSubsReal } from '../../store/subcrudit'
+import { upvotePost } from '../../store/post'
 
 function HomePage() {
 
@@ -22,6 +23,11 @@ function HomePage() {
         await dispatch(getAllPosts())
     }, [dispatch])
     // console.log('posts', posts)
+
+    const handleUpvote = async (e, postId) => {
+        e.preventDefault()
+        dispatch(upvotePost(postId))
+    }
 
     if (!Object.values(posts).length) {
         return null
@@ -78,19 +84,35 @@ function HomePage() {
             // </div>
             // </NavLink>
             <div style={{width:'44rem'}}>
-            <NavLink to={`/posts/${post.id}`} style={{ textDecoration: 'none'}}>
 
                         <div class="py-2">
                         <div class="flex border border-grey-light-alt hover:border-grey rounded bg-white cursor-pointer">
                             <div class="w-1/12 flex flex-col text-center pt-2">
-                                <button class="text-xs">
+                                {user && Object.values(post.upvotes).includes(user) ? 
+                                     <button class="text-xs text-orange-500" onClick={(e) => handleUpvote(e, post.id)}>
+                                     <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
+                                 </button>
+                                : 
+                                
+                                <button class="text-xs" onClick={(e) => handleUpvote(e, post.id)}>
                                     <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
                                 </button>
-                                <span class="text-xs font-semibold my-1">20k</span>
+                                }
+                                
+                                <span class="text-xs font-semibold my-1" onClick={() => console.log(post.upvotes)}>{Object.values(post.upvotes).length}</span>
+                                
+                                {user && Object.values(post.downvotes).includes(user) ? 
+                                 <button class="text-xs text-cyan-600">
+                                 <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
+                             </button>
+                                : 
+                                
                                 <button class="text-xs">
                                     <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
                                 </button>
+                                }
                             </div>
+            <NavLink to={`/posts/${post.id}`} style={{ textDecoration: 'none'}}>
                             <div class="w-11/12 pt-2">
                                 <div class="flex items-center text-xs mb-2">
                                     <a href="#" class="font-semibold no-underline hover:underline text-black flex items-center">
@@ -138,9 +160,9 @@ function HomePage() {
                                     </div>
                                 </div>
                             </div>
+            </NavLink>
                         </div>
                     </div>
-            </NavLink>
    </div>
         ))}
         </div>

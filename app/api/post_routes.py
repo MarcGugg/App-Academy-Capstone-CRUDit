@@ -243,7 +243,7 @@ def upvote_post(post_id):
         
             db.session.commit()
         
-            return current_user.to_dict()
+            return [current_user.to_dict(), post.to_dict()]
         
         return {'Message':'User must log in'}
     
