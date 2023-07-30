@@ -26,7 +26,9 @@ class Post(db.Model):
             'authorId': self.author_id,
             'subId': self.sub_id,
             'header': self.header,
-            'body': self.body
+            'body': self.body,
+            'upvotes': [user.to_dict() for user in self.upvotes],
+            'downvotes': [user.to_dict() for user in self.downvotes]
         }
     def to_dict_inclusive(self):
         return {

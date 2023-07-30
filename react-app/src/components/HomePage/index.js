@@ -107,6 +107,7 @@ function HomePage() {
                                 }
                                 
                                 <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes)}>{Object.values(post.upvotes).length - Object.values(post.downvotes).length}</span>
+                                {/* <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes.length)}>{(post.upvotes.length - post.downvotes.length).toString()}</span> */}
                                 
                                 {user && Object.values(post.downvotes).includes(user) ? 
                                 // add handler for removing downvote 

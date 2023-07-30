@@ -9,6 +9,8 @@ import { getPostImages } from '../../store/post_image'
 import OpenModalButton from '../OpenModalButton'
 import DeletePostFromSub from '../DeletePostFromSubModal'
 
+import { upvotePostFromSub } from '../../store/subcrudit'
+
 import './Subcrudit.css'
 
 function Subcrudit() {
@@ -95,6 +97,11 @@ function Subcrudit() {
         e.preventDefault()
         console.log('HANDLE UNFOLLOW')
         await dispatch(unfollowSub(sub.id, user.id))
+    }
+
+    const handleUpvoteFromSub = (e, postId) => {
+        e.preventDefault()
+        dispatch(upvotePostFromSub(postId))
     }
 
     if (!sub || !Object.values(sub).length ) {
@@ -380,19 +387,20 @@ function Subcrudit() {
 
                         {Object.values(sub.posts).map(post => (
                             <div style={{width:'44rem'}}>
-                                     <NavLink to={`/posts/${post.id}`} style={{ textDecoration: 'none'}}>
 
                                                  <div class="py-2">
                                                  <div class="flex border border-grey-light-alt hover:border-grey rounded bg-white cursor-pointer">
                                                      <div class="w-1/12 flex flex-col text-center pt-2">
-                                                         <button class="text-xs">
+                                                         <button class="text-xs" onClick={(e) => handleUpvoteFromSub(e, post.id)}>
+                                                         {/* <button class="text-xs"> */}
                                                              <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
                                                          </button>
-                                                         <span class="text-xs font-semibold my-1">20k</span>
+                                                         <span class="text-xs font-semibold my-1" onClick={() => console.log(Object.values(post.upvotes).length)}>20k</span>
                                                          <button class="text-xs">
                                                              <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
                                                          </button>
                                                      </div>
+                                     <NavLink to={`/posts/${post.id}`} style={{ textDecoration: 'none'}}>
                                                      <div class="w-11/12 pt-2">
                                                          <div class="flex items-center text-xs mb-2">
                                                              <a href="#" class="font-semibold no-underline hover:underline text-black flex items-center">
@@ -441,9 +449,9 @@ function Subcrudit() {
                                                              </div>
                                                          </div>
                                                      </div>
+                                     </NavLink>
                                                  </div>
                                              </div>
-                                     </NavLink>
                             </div>
                         ))}
                     </div>

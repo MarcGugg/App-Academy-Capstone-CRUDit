@@ -412,6 +412,7 @@ export default function postReducer(state=initialState, action) {
             return newState10
         }
         case UPVOTE_POST: {
+            console.log('ACTION', action)
             const newState11 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, upvotedPost: {...state.upvotedPost}}
             
             newState11.allPosts[action.upvotedPost.id].downvotes = {}
@@ -427,6 +428,7 @@ export default function postReducer(state=initialState, action) {
             return newState11
         }
         case DOWNVOTE_POST: {
+            console.log('ACTION', action)
             const newState12 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, upvotedPost: {...state.upvotedPost}}
             
             newState12.allPosts[action.downvotedPost.id].upvotes = {}
