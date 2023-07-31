@@ -473,14 +473,14 @@ export default function postReducer(state=initialState, action) {
             console.log('ACTION', action)
             const newState11 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, upvotedPost: {...state.upvotedPost}}
             
-            newState11.allPosts[action.upvotedPost.id].downvotes = {}
+            // newState11.allPosts[action.upvotedPost.id].downvotes = {}
             Object.values(state.allPosts[action.upvotedPost.id].downvotes).map(user => newState11.allPosts[action.upvotedPost.id].downvotes[user.id] = {...user}) //normalize downvotes
 
             if (Object.keys(newState11.allPosts[action.upvotedPost.id].downvotes).includes(action.currUser.id)) { //if user has downvoted the post, remove user from post downvotes
                 delete newState11.allPosts[action.upvotedPost.id].downvotes[action.currUser.id]
             }
             
-            newState11.allPosts[action.upvotedPost.id].upvotes = {}
+            // newState11.allPosts[action.upvotedPost.id].upvotes = {}
             Object.values(state.allPosts[action.upvotedPost.id].upvotes).map(user => newState11.allPosts[action.upvotedPost.id].upvotes[user.id] = {...user}) ///normalize upvotes 
             newState11.allPosts[action.upvotedPost.id].upvotes[action.currUser.id] = {...action.currUser}
             return newState11
@@ -489,14 +489,14 @@ export default function postReducer(state=initialState, action) {
             console.log('ACTION', action)
             const newState12 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, upvotedPost: {...state.upvotedPost}}
             
-            newState12.allPosts[action.downvotedPost.id].upvotes = {}
+            // newState12.allPosts[action.downvotedPost.id].upvotes = {}
             Object.values(state.allPosts[action.downvotedPost.id].upvotes).map(user => newState12.allPosts[action.downvotedPost.id].upvotes[user.id] = {...user}) ///normalize upvotes
 
             if (Object.keys(newState12.allPosts[action.downvotedPost.id].upvotes).includes(action.currUser.id)) { //if user has upvoted the post, remove user from post upvotes
                 delete newState12.allPosts[action.downvotedPost.id].upvotes[action.currUser.id]
             }
 
-            newState12.allPosts[action.downvotedPost.id].downvotes = {}
+            // newState12.allPosts[action.downvotedPost.id].downvotes = {}
             Object.values(state.allPosts[action.downvotedPost.id].downvotes).map(user => newState12.allPosts[action.downvotedPost.id].downvotes[user.id] = {...user}) ///normalize downvotes
             newState12.allPosts[action.downvotedPost.id].downvotes[action.currUser.id] = {...action.currUser}
             

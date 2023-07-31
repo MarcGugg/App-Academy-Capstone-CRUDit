@@ -11,7 +11,7 @@ const FOLLOW_SUB = 'subs/followSub'
 const UNFOLLOW_SUB = 'subs/unfollowSub'
 const ADD_MOD = 'subs/addMod'
 
-const UPVOTE_POST = 'posts/Upvote'
+const UPVOTE_POST = 'posts/Upvote/from_sub'
 
 const actionGetAllSubs = (subs) => ({
     type: GET_ALL_SUBS,
@@ -372,24 +372,24 @@ export default function subcruditReducer(state=initialState, action) {
             console.log('NEW STATE 8 AFTER DELETE', newState8)
             return newState8
         }
-        // case UPVOTE_POST: {
-        //     console.log('UPVOTE POST FROM SUB ACTION', action)
-        //     const newState9 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}} 
+        case UPVOTE_POST: {
+            console.log('UPVOTE POST FROM SUB ACTION', action)
+            const newState9 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}} 
             
-        //     newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes = {}
-        //     Object.values(state.oneSubcrudit.posts[action.upvotedPost.id].downvotes).map(user => newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[user.id] = {...user})
+            newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes = {}
+            Object.values(state.oneSubcrudit.posts[action.upvotedPost.id].downvotes).map(user => newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[user.id] = {...user})
 
-        //     if (Object.keys(newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes).includes(action.currUser.id)) { //if user has downvoted the post, remove user from post downvotes
-        //         delete newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[action.currUser.id]
-        //     }
+            if (Object.keys(newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes).includes(action.currUser.id)) { //if user has downvoted the post, remove user from post downvotes
+                delete newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[action.currUser.id]
+            }
 
-        //     newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes = {}
-        //     Object.values(state.oneSubcrudit.posts[action.upvotedPost.id].upvotes).map(user => newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes[user.id] = {...user}) ///normalize upvotes 
-        //     newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes[action.currUser.id] = {...action.currUser}
+            newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes = {}
+            Object.values(state.oneSubcrudit.posts[action.upvotedPost.id].upvotes).map(user => newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes[user.id] = {...user}) ///normalize upvotes 
+            newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes[action.currUser.id] = {...action.currUser}
 
-        //     return newState9
+            return newState9
 
-        // }
+        }
         default:
             return state
     } 
