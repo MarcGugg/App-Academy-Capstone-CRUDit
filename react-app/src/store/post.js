@@ -330,7 +330,65 @@ export default function postReducer(state=initialState, action) {
         case GET_ALL_POSTS: {
             // console.log('REDUCER')
             const newState = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
-            action.allPosts.map(post => newState.allPosts[post.id] = {...post})
+            console.log('ALL POSTS', newState.allPosts)
+            // const upvotes = {}
+            // const downvotes = {}
+
+            for (let post of Object.values(newState.allPosts)) {
+                // post.upvotes = {}
+                // post.downvotes = {}
+
+                const upvotes = {}
+                const downvotes = {}
+                console.log(post.upvotes)
+                for (let user of post.upvotes) {
+                    upvotes[user.id] = {...user}
+                }
+                for (let user of post.downvotes) {
+                    downvotes[user.id] = {...user}
+                }
+                console.log('upvotes', upvotes, 'downvotes', downvotes)
+
+                newState.allPosts[post.id].upvotes = {}
+                newState.allPosts[post.id].upvotes = {...upvotes}
+                
+                newState.allPosts[post.id].downvotes = {}
+                newState.allPosts[post.id].downvotes = {...downvotes}
+
+                console.log('all posts after normalization',newState.allPosts[post.id])
+            }
+            console.log('first post', newState.allPosts[1])
+            console.log('all posts reghureluoh', newState.allPosts)
+            
+            console.log('ALL POSTS 2', Object.values(newState.allPosts)[0])
+            console.log('STATE ALL POSTS', Object.values(state.allPosts)[0])
+            
+            // for (let post of Object.values(state.allPosts)) {
+            //     let newStatePost = {...newState.allPosts[post.id]}
+            //     // let newStatePost = newState.allPosts[post.id]
+            //     console.log('post upvotes', post.upvotes)
+            //     Object.values(post.upvotes).map(user => newState.allPosts[post.id].upvotes[user.id] = {...user})
+            //     // Object.values(post.downvotes).map(user => newStatePost.downvotes[user.id] = {...user})
+            //     // console.log('newStatePost upvotes', newStatePost.upvotes)
+            //     console.log(newState.allPosts)
+            // }
+            // for (let post of Object.values(state.allPosts)) {
+            //     console.log('POST', post)
+            //     console.log('POST UPVOTES', post.upvotes)
+            //     for (const user of Object.values(post.upvotes)) {
+            //         console.log('POST UPVOTES', post.upvotes)
+            //         const postId = post.id;
+            //         newState.allPosts[postId].upvotes[user.id] = { ...user };
+            //     }
+            // }
+        
+
+            console.log('newState allPosts', newState.allPosts)
+            console.log('OG STATE ALL POSTS',state.allPosts)
+            // newState.allPosts = {...state.allPosts}
+            // console.log('IURWGORWAUB',newState.allPosts)
+            action.allPosts.map(post => newState.allPosts[post.id] = {...post}) //DO NOT COMMENT THIS OUT OR HOME PAGE WILL BREAK
+            Object.values(state.allPosts).map(post => newState[post.id] = {...post}) //DO NOT COMMENT THIS OUT OR UPVOTES AND DOWNVOTES WILL NOT BE NORMALIZED
             return newState
         }
         case GET_ONE_POST: {
