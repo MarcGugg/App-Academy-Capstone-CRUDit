@@ -395,7 +395,7 @@ function Subcrudit() {
                                                          {/* <button class="text-xs"> */}
                                                              <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
                                                          </button>
-                                                         <span class="text-xs font-semibold my-1" onClick={() => console.log(Object.values(post.upvotes).length)}>20k</span>
+                                                         <span class="text-xs font-semibold my-1" onClick={() => console.log(Object.values(post.upvotes).length)}>{Object.values(post.upvotes).length - Object.values(post.downvotes).length}</span>
                                                          <button class="text-xs">
                                                              <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
                                                          </button>

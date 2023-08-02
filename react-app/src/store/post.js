@@ -341,10 +341,10 @@ export default function postReducer(state=initialState, action) {
                 const upvotes = {}
                 const downvotes = {}
                 console.log(post.upvotes)
-                for (let user of post.upvotes) {
+                for (let user in post.upvotes) {
                     upvotes[user.id] = {...user}
                 }
-                for (let user of post.downvotes) {
+                for (let user in post.downvotes) {
                     downvotes[user.id] = {...user}
                 }
                 console.log('upvotes', upvotes, 'downvotes', downvotes)

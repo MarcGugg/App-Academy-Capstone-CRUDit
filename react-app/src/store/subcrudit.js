@@ -272,7 +272,7 @@ export default function subcruditReducer(state=initialState, action) {
 
         }
         case GET_ONE_SUB: {
-            console.log('GET ONE SUB REDUCER HIT')
+            // console.log('GET ONE SUB REDUCER HIT')
             // const newState = {...state, oneSubcrudit: {...state.oneSubcrudit}, users: {...state.users}}
             const newState = {...state, oneSubcrudit: {...state.oneSubcrudit}}
             
@@ -287,12 +287,41 @@ export default function subcruditReducer(state=initialState, action) {
             const users = [...newState.oneSubcrudit.users]
             newState.oneSubcrudit.users = {}
             users.map(user => newState.oneSubcrudit.users[user.id] = user)
-            console.log('ONE SUB USERS',newState.oneSubcrudit.users)
-            console.log('GET ONE SUB STATE allSubcrudits', state.allSubcrudits)
+            // console.log('ONE SUB USERS',newState.oneSubcrudit.users)
+            // console.log('GET ONE SUB STATE allSubcrudits', state.allSubcrudits)
             // newState.allSubcrudits = [...state.allSubcrudits]
+            for (let post of Object.values(action.oneSub.posts)) {
+                console.log('POST', post)
+                console.log('blah', action.oneSub.posts[post.id])
+                console.log('upvotes', action.oneSub.posts[post.id]?.upvotes)
+                console.log('downvotes', action.oneSub.posts[post.id]?.upvotes)
+
+                const upvotes = {}
+                const downvotes = {}
+
+                for (let user in post.upvotes) {
+                    upvotes[user.id] = {...user}
+                }
+                console.log('post upvotes', upvotes)
+                for (let user in post.downvotes) {
+                    downvotes[user.id] = {...user}
+                }
+                console.log('post downvotes', downvotes)
+                
+                post.upvotes = {}
+                post.upvotes = {...upvotes}
+               
+                post.downvotes = {}
+                post.downvotes = {...downvotes}
+            }
+
+            console.log('action one sub posts', action.oneSub.posts)
+            console.log('new state 319', newState.oneSubcrudit.posts)
+            console.log('og state', state.oneSubcrudit.posts) //undefined
 
             action.oneSub.posts.map(post => newState.oneSubcrudit.posts[post.id] = {...post})
             action.oneSub.mods.map(mod => newState.oneSubcrudit.mods[mod.id] = {...mod})
+            // Object.values(state.oneSubcrudit.posts).map(post => newState.oneSubcrudit.posts[post.id] = {...post})
 
             return newState
         }
@@ -376,14 +405,14 @@ export default function subcruditReducer(state=initialState, action) {
             console.log('UPVOTE POST FROM SUB ACTION', action)
             const newState9 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}} 
             
-            newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes = {}
+            // newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes = {}
             Object.values(state.oneSubcrudit.posts[action.upvotedPost.id].downvotes).map(user => newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[user.id] = {...user})
 
             if (Object.keys(newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes).includes(action.currUser.id)) { //if user has downvoted the post, remove user from post downvotes
                 delete newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[action.currUser.id]
             }
 
-            newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes = {}
+            // newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes = {}
             Object.values(state.oneSubcrudit.posts[action.upvotedPost.id].upvotes).map(user => newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes[user.id] = {...user}) ///normalize upvotes 
             newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes[action.currUser.id] = {...action.currUser}
 
