@@ -31,9 +31,22 @@ function Comment({comment}) {
     return (
         <>
         {editMode == false ? 
-        
-        
-            <article class="p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-900">
+            // upvote and downvote buttons
+            <div className="flex flex-row"> 
+                <div>
+                    <div class="w-1/12 flex flex-col text-center pt-2">
+						<button class="text-xs">
+							<svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
+						</button>
+						<span class="text-xs font-semibold my-1">20k</span>
+						<button class="text-xs">
+							<svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
+						</button>
+					</div>
+            </div>
+            {/* rest of the comment component */}
+            {/* p-4 on article tag was originally p-6 */}
+            <article class="p-4 mb-6 text-base bg-white rounded-lg dark:bg-gray-900"> 
             <footer class="flex justify-between items-center mb-2">
             <div class="flex items-center">
                 <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white"><img
@@ -63,6 +76,7 @@ function Comment({comment}) {
                 </div>
             </div>
             </article>
+            </div>
         : 
         <article class="p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-900">
         <footer class="flex justify-between items-center mb-2">
