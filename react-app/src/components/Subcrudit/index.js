@@ -10,6 +10,7 @@ import OpenModalButton from '../OpenModalButton'
 import DeletePostFromSub from '../DeletePostFromSubModal'
 
 import { upvotePostFromSub } from '../../store/subcrudit'
+import { downvotePostFromSub } from '../../store/subcrudit'
 
 import './Subcrudit.css'
 
@@ -102,6 +103,11 @@ function Subcrudit() {
     const handleUpvoteFromSub = (e, postId) => {
         e.preventDefault()
         dispatch(upvotePostFromSub(postId))
+    }
+
+    const handleDownvoteFromSub = (e, postId) => {
+        e.preventDefault()
+        dispatch(downvotePostFromSub(postId))
     }
 
     if (!sub || !Object.values(sub).length ) {
@@ -396,7 +402,8 @@ function Subcrudit() {
                                                              <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
                                                          </button>
                                                          <span class="text-xs font-semibold my-1" onClick={() => console.log(Object.values(post.upvotes).length)}>{Object.values(post.upvotes).length - Object.values(post.downvotes).length}</span>
-                                                         <button class="text-xs">
+                                                         <button class="text-xs" onClick={(e) => handleDownvoteFromSub(e, post.id)}>
+                                                         {/* <button class="text-xs"> */}
                                                              <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
                                                          </button>
                                                      </div>
