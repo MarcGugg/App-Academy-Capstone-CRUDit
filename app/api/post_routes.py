@@ -311,9 +311,19 @@ def remove_upvote(post_id):
     
             if current_user in post.upvotes:
     
-                post.upvotes.remove(current_user)
-                current_user.post_upvotes.remove(post)
-                return current_user.to_dict()
+                for user in post.upvotes:
+                    if user.id == current_user.id:
+                        post.upvotes.remove(user)
+                
+                for upvoted_post in current_user.post_upvotes:
+                    if upvoted_post.id == post.id:
+                        current_user.post_upvotes.remove(post)
+
+                if post.image:
+                    return [current_user.to_dict(), post.to_dict_inclusive()]
+                else:
+                    return [current_user.to_dict(), post.to_dict_no_image()]
+                    
     
             return None
     
@@ -332,9 +342,18 @@ def remove_downvote(post_id):
     
             if current_user in post.downvotes:
     
-                post.downvotes.remove(current_user)
-                current_user.post_downvotes.remove(post)
-                return current_user.to_dict()
+                for user in post.downvotes:
+                    if user.id == current_user.id:
+                        post.downvotes.remove(user)
+                
+                    for downvoted_post in current_user.post_downvotes:
+                        if downvoted_post.id == post.id:
+                            current_user.post_downvotes.remove(post)
+
+                if post.image:
+                    return [current_user.to_dict(), post.to_dict_inclusive()]
+                else:
+                    return [current_user.to_dict(), post.to_dict_no_image()]
     
             return None
     

@@ -9,6 +9,8 @@ const DELETE_POST = 'posts/Delete'
 
 const UPVOTE_POST = 'posts/Upvote'
 const DOWNVOTE_POST = 'posts/Downvote'
+const REMOVE_UPVOTE = 'posts/removeUpvote'
+const REMOVE_DOWNVOTE = 'posts/removeDownvote'
 
 const MAKE_COMMENT = 'comments/Make'
 const DELETE_COMMENT = 'comments/Delete'
@@ -56,6 +58,17 @@ const actionDownvotePost = (currUser, downvotedPost) => ({
     type: DOWNVOTE_POST,
     currUser,
     downvotedPost
+})
+
+const actionRemoveUpvote = (currUser, post) => ({
+    type: REMOVE_UPVOTE,
+    currUser,
+    post
+})
+const actionRemoveDownvote = (currUser, post) => ({
+    type: REMOVE_DOWNVOTE,
+    currUser,
+    post
 })
 
 //comments actions
@@ -320,6 +333,40 @@ export const downvotePost = (postId) => async dispatch => {
     }
 }
 
+export const removeUpvote = (postId) => async dispatch => {
+    const res = await fetch(`/api/posts/${postId}/remove_upvote`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            'postId': postId
+        })
+    })
+
+    if (res.ok) {
+        const result = await res.json()
+        let currUser = result[0]
+        let post = result[1]
+        dispatch(actionRemoveUpvote(currUser, post))
+    }
+}
+
+export const removeDownvote = (postId) => async dispatch => {
+    const res = await fetch(`/api/posts/${postId}/remove_downvote`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            'postId': postId
+        })
+    })
+
+    if (res.ok) {
+        const result = await res.json()
+        let currUser = result[0]
+        let post = result[1]
+        dispatch(actionRemoveDownvote(currUser, post))
+    }
+}
+
 let initialState = {
     allPosts: {},
     singlePost: {},
@@ -490,7 +537,7 @@ export default function postReducer(state=initialState, action) {
             // Object.values(state.allPosts[action.upvotedPost.id].upvotes).map(user => newState11.allPosts[action.upvotedPost.id].upvotes[user.id] = {...user}) ///normalize upvotes 
             // newState11.allPosts[action.upvotedPost.id].upvotes[action.currUser.id] = {...action.currUser}
             newState11.allPosts[action.upvotedPost.id] = {...action.upvotedPost}
-            debugger
+            // debugger
             console.log('newState11', newState11)
             return newState11
         }
@@ -513,6 +560,22 @@ export default function postReducer(state=initialState, action) {
             newState12.allPosts[action.downvotedPost.id] = {...action.downvotedPost}
             
             return newState12
+        }
+        case REMOVE_UPVOTE: {
+            console.log('remove upvote action', action.post)
+            const newState13 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, upvotedPost: {...state.upvotedPost}}
+
+            newState13.allPosts[action.post.id] = {...action.post}
+
+            return newState13
+        }
+        case REMOVE_DOWNVOTE: {
+            console.log('remove upvote action', action.post)
+            const newState14 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, upvotedPost: {...state.upvotedPost}}
+
+            newState14.allPosts[action.post.id] = {...action.post}
+
+            return newState14
         }
         default:
             return state
