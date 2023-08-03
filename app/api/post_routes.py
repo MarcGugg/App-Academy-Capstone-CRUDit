@@ -319,6 +319,8 @@ def remove_upvote(post_id):
                     if upvoted_post.id == post.id:
                         current_user.post_upvotes.remove(post)
 
+                db.session.commit()
+
                 if post.image:
                     return [current_user.to_dict(), post.to_dict_inclusive()]
                 else:
@@ -349,6 +351,8 @@ def remove_downvote(post_id):
                     for downvoted_post in current_user.post_downvotes:
                         if downvoted_post.id == post.id:
                             current_user.post_downvotes.remove(post)
+
+                db.session.commit()
 
                 if post.image:
                     return [current_user.to_dict(), post.to_dict_inclusive()]

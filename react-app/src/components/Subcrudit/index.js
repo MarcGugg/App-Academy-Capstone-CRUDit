@@ -11,6 +11,7 @@ import DeletePostFromSub from '../DeletePostFromSubModal'
 
 import { upvotePostFromSub } from '../../store/subcrudit'
 import { downvotePostFromSub } from '../../store/subcrudit'
+import { removeDownvoteFromSub, removeUpvoteFromSub } from '../../store/subcrudit'
 
 import './Subcrudit.css'
 
@@ -110,6 +111,40 @@ function Subcrudit() {
         // debugger
         e.preventDefault()
         dispatch(downvotePostFromSub(postId))
+    }
+
+    const handleRemoveUpvoteFromSub = (e, postId) => {
+        e.preventDefault()
+        dispatch(removeUpvoteFromSub(postId))
+    }
+    const handleRemoveDownvoteFromSub = (e, postId) => {
+        e.preventDefault()
+        dispatch(removeDownvoteFromSub(postId))
+    }
+
+    const upvoteCheck = (post) => {
+        if (user) {
+            for (let i = 0; i < post.upvotes.length; i++) {
+                if (post.upvotes[i].id === user.id) {
+                    return true
+                }
+            }
+            return false
+        }
+        return false
+    }
+
+    const downvoteCheck = (post) => {
+        if (user) {
+            for (let i = 0; i < post.downvotes.length; i++) {
+                if (post.downvotes[i].id === user.id) {
+                    return true
+                }
+            }
+            return false
+        }
+        
+        return false
     }
 
     if (!sub || !Object.values(sub).length ) {
@@ -399,9 +434,9 @@ function Subcrudit() {
                                                  <div class="py-2">
                                                  <div class="flex border border-grey-light-alt hover:border-grey rounded bg-white cursor-pointer">
                                                      <div class="w-1/12 flex flex-col text-center pt-2">
-                                                        {user && Object.keys(post.upvotes).includes(user.id.toString()) ? 
+                                                        {user && upvoteCheck(post) ? 
                                                             // add handler for removing upvote 
-                                                            <button class="text-xs text-orange-500">
+                                                            <button class="text-xs text-orange-500" onClick={(e) => handleRemoveUpvoteFromSub(e, post.id)}>
                                                             <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
                                                             </button>
                                                         :
@@ -411,10 +446,10 @@ function Subcrudit() {
                                                              <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
                                                          </button>
                                                         }
-                                                         <span class="text-xs font-semibold my-1" onClick={() => console.log(Object.values(post.upvotes).length)}>{Object.values(post.upvotes).length - Object.values(post.downvotes).length}</span>
-                                                         {user && Object.keys(post.downvotes).includes(user.id.toString()) ? 
+                                                         <span class="text-xs font-semibold my-1" onClick={() => console.log(Object.values(post.upvotes).length)}>{post.upvotes.length - post.downvotes.length}</span>
+                                                         {user && downvoteCheck(post) ? 
                                                               // add handler for removing downvote 
-                                                            <button class="text-xs text-cyan-600">
+                                                            <button class="text-xs text-cyan-600" onClick={(e) => handleRemoveDownvoteFromSub(e, post.id)}>
                                                             <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
                                                             </button>
                                                          :

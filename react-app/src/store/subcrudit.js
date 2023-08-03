@@ -13,6 +13,8 @@ const ADD_MOD = 'subs/addMod'
 
 const UPVOTE_POST = 'posts/Upvote/from_sub'
 const DOWNVOTE_POST = 'posts/Downvote/from_sub'
+const REMOVE_UPVOTE = 'posts/undoUpvote/from_sub'
+const REMOVE_DOWNVOTE = 'posts/undoDownvote/from_sub'
 
 const actionGetAllSubs = (subs) => ({
     type: GET_ALL_SUBS,
@@ -74,6 +76,16 @@ const actionDownvotePost = (currUser, downvotedPost) => ({
     downvotedPost
 })
 
+const actionRemoveUpvote = (currUser, post) => ({
+    type: REMOVE_UPVOTE,
+    currUser,
+    post
+})
+const actionRemoveDownvote = (currUser, post) => ({
+    type: REMOVE_DOWNVOTE,
+    currUser,
+    post
+})
 
 export const getAllSubs = () => async dispatch => {
     console.log('ALL SUBS THINK HIT')
@@ -267,6 +279,40 @@ export const downvotePostFromSub = (postId) => async dispatch => {
     }
 }
 
+export const removeUpvoteFromSub = (postId) => async dispatch => {
+    const res = await fetch(`/api/posts/${postId}/remove_upvote`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            'postId': postId
+        })
+    })
+
+    if (res.ok) {
+        const result = await res.json()
+        let currUser = result[0]
+        let post = result[1]
+        dispatch(actionRemoveUpvote(currUser, post))
+    }
+}
+
+export const removeDownvoteFromSub = (postId) => async dispatch => {
+    const res = await fetch(`/api/posts/${postId}/remove_downvote`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            'postId': postId
+        })
+    })
+
+    if (res.ok) {
+        const result = await res.json()
+        let currUser = result[0]
+        let post = result[1]
+        dispatch(actionRemoveDownvote(currUser, post))
+    }
+}
+
 const initialState = {
     allSubcrudits: {},
     allSubsReal: {},
@@ -313,36 +359,36 @@ export default function subcruditReducer(state=initialState, action) {
             // console.log('ONE SUB USERS',newState.oneSubcrudit.users)
             // console.log('GET ONE SUB STATE allSubcrudits', state.allSubcrudits)
             // newState.allSubcrudits = [...state.allSubcrudits]
-            for (let post of Object.values(action.oneSub.posts)) {
-                console.log('POST', post)
-                console.log('blah', action.oneSub.posts[post.id])
-                console.log('upvotes', action.oneSub.posts[post.id]?.upvotes)
-                console.log('downvotes', action.oneSub.posts[post.id]?.upvotes)
+            // for (let post of Object.values(action.oneSub.posts)) {
+            //     console.log('POST', post)
+            //     console.log('blah', action.oneSub.posts[post.id])
+            //     console.log('upvotes', action.oneSub.posts[post.id]?.upvotes)
+            //     console.log('downvotes', action.oneSub.posts[post.id]?.upvotes)
 
-                const upvotes = {}
-                const downvotes = {}
+            //     const upvotes = {}
+            //     const downvotes = {}
 
-                for (let i = 0; i < post.upvotes.length; i++) {
-                    let user = post.upvotes[i]
-                    upvotes[user.id] = {...user}
-                }
-                console.log('post upvotes', upvotes)
-                for (let i = 0; i < post.downvotes.length; i++) {
-                    let user = post.downvotes[i]
-                    downvotes[user.id] = {...user}
-                }
-                console.log('post downvotes', downvotes)
+            //     for (let i = 0; i < post.upvotes.length; i++) {
+            //         let user = post.upvotes[i]
+            //         upvotes[user.id] = {...user}
+            //     }
+            //     console.log('post upvotes', upvotes)
+            //     for (let i = 0; i < post.downvotes.length; i++) {
+            //         let user = post.downvotes[i]
+            //         downvotes[user.id] = {...user}
+            //     }
+            //     console.log('post downvotes', downvotes)
                 
-                post.upvotes = {}
-                post.upvotes = {...upvotes}
+            //     post.upvotes = {}
+            //     post.upvotes = {...upvotes}
                
-                post.downvotes = {}
-                post.downvotes = {...downvotes}
-            }
+            //     post.downvotes = {}
+            //     post.downvotes = {...downvotes}
+            // }
 
-            console.log('action one sub posts', action.oneSub.posts)
-            console.log('new state 319', newState.oneSubcrudit.posts)
-            console.log('og state', state.oneSubcrudit.posts) //undefined
+            // console.log('action one sub posts', action.oneSub.posts)
+            // console.log('new state 319', newState.oneSubcrudit.posts)
+            // console.log('og state', state.oneSubcrudit.posts) //undefined
 
             action.oneSub.posts.map(post => newState.oneSubcrudit.posts[post.id] = {...post})
             action.oneSub.mods.map(mod => newState.oneSubcrudit.mods[mod.id] = {...mod})
@@ -430,17 +476,18 @@ export default function subcruditReducer(state=initialState, action) {
             console.log('UPVOTE POST FROM SUB ACTION', action)
             const newState9 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}} 
             
-            // newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes = {}
-            Object.values(state.oneSubcrudit.posts[action.upvotedPost.id].downvotes).map(user => newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[user.id] = {...user})
+            // // newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes = {}
+            // Object.values(state.oneSubcrudit.posts[action.upvotedPost.id].downvotes).map(user => newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[user.id] = {...user})
 
-            if (Object.keys(newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes).includes(action.currUser.id.toString())) { //if user has downvoted the post, remove user from post downvotes
-                delete newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[action.currUser.id]
-            }
+            // if (Object.keys(newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes).includes(action.currUser.id.toString())) { //if user has downvoted the post, remove user from post downvotes
+            //     delete newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[action.currUser.id]
+            // }
 
-            // newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes = {}
-            Object.values(state.oneSubcrudit.posts[action.upvotedPost.id].upvotes).map(user => newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes[user.id] = {...user}) ///normalize upvotes 
-            newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes[action.currUser.id] = {...action.currUser}
+            // // newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes = {}
+            // Object.values(state.oneSubcrudit.posts[action.upvotedPost.id].upvotes).map(user => newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes[user.id] = {...user}) ///normalize upvotes 
+            // newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes[action.currUser.id] = {...action.currUser}
 
+            newState9.oneSubcrudit.posts[action.upvotedPost.id] = {...action.upvotedPost}
             return newState9
 
         }
@@ -448,19 +495,37 @@ export default function subcruditReducer(state=initialState, action) {
             console.log('DOWNVOTE POST FROM SUB ACTION', action)
             const newState10 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}} 
             
-            // newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes = {}
-            Object.values(state.oneSubcrudit.posts[action.downvotedPost.id].upvotes).map(user => newState10.oneSubcrudit.posts[action.downvotedPost.id].upvotes[user.id] = {...user})
+            // // newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes = {}
+            // Object.values(state.oneSubcrudit.posts[action.downvotedPost.id].upvotes).map(user => newState10.oneSubcrudit.posts[action.downvotedPost.id].upvotes[user.id] = {...user})
 
-            if (Object.keys(newState10.oneSubcrudit.posts[action.downvotedPost.id].upvotes).includes(action.currUser.id.toString())) { //if user has upvoted the post, remove user from post upvotes
-                delete newState10.oneSubcrudit.posts[action.downvotedPost.id].upvotes[action.currUser.id]
-            }
+            // if (Object.keys(newState10.oneSubcrudit.posts[action.downvotedPost.id].upvotes).includes(action.currUser.id.toString())) { //if user has upvoted the post, remove user from post upvotes
+            //     delete newState10.oneSubcrudit.posts[action.downvotedPost.id].upvotes[action.currUser.id]
+            // }
 
-            // newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes = {}
-            Object.values(state.oneSubcrudit.posts[action.downvotedPost.id].downvotes).map(user => newState10.oneSubcrudit.posts[action.downvotedPost.id].downvotes[user.id] = {...user}) ///normalize upvotes 
-            newState10.oneSubcrudit.posts[action.downvotedPost.id].downvotes[action.currUser.id] = {...action.currUser}
+            // // newState9.oneSubcrudit.posts[action.upvotedPost.id].upvotes = {}
+            // Object.values(state.oneSubcrudit.posts[action.downvotedPost.id].downvotes).map(user => newState10.oneSubcrudit.posts[action.downvotedPost.id].downvotes[user.id] = {...user}) ///normalize upvotes 
+            // newState10.oneSubcrudit.posts[action.downvotedPost.id].downvotes[action.currUser.id] = {...action.currUser}
+
+            newState10.oneSubcrudit.posts[action.downvotedPost.id] = {...action.downvotedPost}
 
             return newState10
 
+        }
+        case REMOVE_UPVOTE: {
+            console.log('remove upvote action', action.post)
+            const newState11 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+
+            newState11.oneSubcrudit.posts[action.post.id] = {...action.post}
+
+            return newState11
+        }
+        case REMOVE_DOWNVOTE: {
+            console.log('remove downvote action', action.post)
+            const newState12 = {...state, allSubcrudits: {...state.allSubcrudits}, oneSubcrudit: {...state.oneSubcrudit}}
+
+            newState12.oneSubcrudit.posts[action.post.id] = {...action.post}
+
+            return newState12
         }
         default:
             return state
