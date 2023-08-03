@@ -94,7 +94,7 @@ function HomePage() {
                         <div class="py-2">
                         <div class="flex border border-grey-light-alt hover:border-grey rounded bg-white cursor-pointer">
                             <div class="w-1/12 flex flex-col text-center pt-2">
-                                {user && Object.keys(post.upvotes).includes(user.id) ? 
+                                {user && Object.keys(post.upvotes).includes(user.id.toString()) ? 
                                 // add handler for removing upvote 
                                      <button class="text-xs text-orange-500">
                                      <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
@@ -109,7 +109,7 @@ function HomePage() {
                                 <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes)}>{Object.values(post.upvotes).length - Object.values(post.downvotes).length}</span>
                                 {/* <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes.length)}>{(post.upvotes.length - post.downvotes.length).toString()}</span> */}
                                 
-                                {user && Object.keys(post.downvotes).includes(user.id) ? 
+                                {user && Object.keys(post.downvotes).includes(user.id.toString()) ? 
                                 // add handler for removing downvote 
                                  <button class="text-xs text-cyan-600">
                                  <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>

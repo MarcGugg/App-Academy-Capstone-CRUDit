@@ -1,3 +1,5 @@
+import {merge} from 'lodash'
+
 const GET_ALL_POSTS = 'posts/getAll'
 const GET_ONE_POST = 'posts/getOne'
 const GET_AUTHOR = 'posts/getAuthor'
@@ -341,10 +343,13 @@ export default function postReducer(state=initialState, action) {
                 const upvotes = {}
                 const downvotes = {}
                 console.log(post.upvotes)
-                for (let user in post.upvotes) {
+                for (let i = 0; i < post.upvotes.length; i++) {
+                    // debugger
+                    let user = post.upvotes[i]
                     upvotes[user.id] = {...user}
                 }
-                for (let user in post.downvotes) {
+                for (let i = 0; i < post.downvotes.length; i++) {
+                    let user = post.downvotes[i]
                     downvotes[user.id] = {...user}
                 }
                 console.log('upvotes', upvotes, 'downvotes', downvotes)
@@ -388,7 +393,7 @@ export default function postReducer(state=initialState, action) {
             // newState.allPosts = {...state.allPosts}
             // console.log('IURWGORWAUB',newState.allPosts)
             action.allPosts.map(post => newState.allPosts[post.id] = {...post}) //DO NOT COMMENT THIS OUT OR HOME PAGE WILL BREAK
-            Object.values(state.allPosts).map(post => newState[post.id] = {...post}) //DO NOT COMMENT THIS OUT OR UPVOTES AND DOWNVOTES WILL NOT BE NORMALIZED
+            Object.values(state.allPosts).map(post => newState.allPosts[post.id] = {...post}) //DO NOT COMMENT THIS OUT OR UPVOTES AND DOWNVOTES WILL NOT BE NORMALIZED
             return newState
         }
         case GET_ONE_POST: {
@@ -472,11 +477,12 @@ export default function postReducer(state=initialState, action) {
         case UPVOTE_POST: {
             console.log('ACTION', action)
             const newState11 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, upvotedPost: {...state.upvotedPost}}
-            
+            // const newState11 = merge({}, state) //deep copies state
+            // debugger
             // newState11.allPosts[action.upvotedPost.id].downvotes = {}
             Object.values(state.allPosts[action.upvotedPost.id].downvotes).map(user => newState11.allPosts[action.upvotedPost.id].downvotes[user.id] = {...user}) //normalize downvotes
 
-            if (Object.keys(newState11.allPosts[action.upvotedPost.id].downvotes).includes(action.currUser.id)) { //if user has downvoted the post, remove user from post downvotes
+            if (Object.keys(newState11.allPosts[action.upvotedPost.id].downvotes).includes(action.currUser.id.toString())) { //if user has downvoted the post, remove user from post downvotes
                 delete newState11.allPosts[action.upvotedPost.id].downvotes[action.currUser.id]
             }
             
@@ -488,11 +494,13 @@ export default function postReducer(state=initialState, action) {
         case DOWNVOTE_POST: {
             console.log('ACTION', action)
             const newState12 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}, upvotedPost: {...state.upvotedPost}}
+            // const newState12 = merge({}, state) //deep copies state
             
             // newState12.allPosts[action.downvotedPost.id].upvotes = {}
             Object.values(state.allPosts[action.downvotedPost.id].upvotes).map(user => newState12.allPosts[action.downvotedPost.id].upvotes[user.id] = {...user}) ///normalize upvotes
 
-            if (Object.keys(newState12.allPosts[action.downvotedPost.id].upvotes).includes(action.currUser.id)) { //if user has upvoted the post, remove user from post upvotes
+            if (Object.keys(newState12.allPosts[action.downvotedPost.id].upvotes).includes(action.currUser.id.toString())) { //if user has upvoted the post, remove user from post upvotes
+                console.log('DOWNVOTE IF STATEMENT')
                 delete newState12.allPosts[action.downvotedPost.id].upvotes[action.currUser.id]
             }
 

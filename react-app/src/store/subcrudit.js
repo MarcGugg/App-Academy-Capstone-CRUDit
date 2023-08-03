@@ -322,11 +322,13 @@ export default function subcruditReducer(state=initialState, action) {
                 const upvotes = {}
                 const downvotes = {}
 
-                for (let user in post.upvotes) {
+                for (let i = 0; i < post.upvotes.length; i++) {
+                    let user = post.upvotes[i]
                     upvotes[user.id] = {...user}
                 }
                 console.log('post upvotes', upvotes)
-                for (let user in post.downvotes) {
+                for (let i = 0; i < post.downvotes.length; i++) {
+                    let user = post.downvotes[i]
                     downvotes[user.id] = {...user}
                 }
                 console.log('post downvotes', downvotes)
@@ -431,7 +433,7 @@ export default function subcruditReducer(state=initialState, action) {
             // newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes = {}
             Object.values(state.oneSubcrudit.posts[action.upvotedPost.id].downvotes).map(user => newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[user.id] = {...user})
 
-            if (Object.keys(newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes).includes(action.currUser.id)) { //if user has downvoted the post, remove user from post downvotes
+            if (Object.keys(newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes).includes(action.currUser.id.toString())) { //if user has downvoted the post, remove user from post downvotes
                 delete newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes[action.currUser.id]
             }
 
@@ -449,7 +451,7 @@ export default function subcruditReducer(state=initialState, action) {
             // newState9.oneSubcrudit.posts[action.upvotedPost.id].downvotes = {}
             Object.values(state.oneSubcrudit.posts[action.downvotedPost.id].upvotes).map(user => newState10.oneSubcrudit.posts[action.downvotedPost.id].upvotes[user.id] = {...user})
 
-            if (Object.keys(newState10.oneSubcrudit.posts[action.downvotedPost.id].upvotes).includes(action.currUser.id)) { //if user has upvoted the post, remove user from post upvotes
+            if (Object.keys(newState10.oneSubcrudit.posts[action.downvotedPost.id].upvotes).includes(action.currUser.id.toString())) { //if user has upvoted the post, remove user from post upvotes
                 delete newState10.oneSubcrudit.posts[action.downvotedPost.id].upvotes[action.currUser.id]
             }
 
