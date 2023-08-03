@@ -247,8 +247,11 @@ def upvote_post(post_id):
             current_user.post_upvotes.append(post)
         
             db.session.commit()
-        
-            return [current_user.to_dict(), post.to_dict()]
+
+            if post.image:
+                return [current_user.to_dict(), post.to_dict_inclusive()]
+            else:
+                return [current_user.to_dict(), post.to_dict_no_image()]
         
         return {'Message':'User must log in'}
     
@@ -287,7 +290,10 @@ def downvote_post(post_id):
         
             db.session.commit()
         
-            return [current_user.to_dict(), post.to_dict()]
+            if post.image:
+                return [current_user.to_dict(), post.to_dict_inclusive()]
+            else:
+                return [current_user.to_dict(), post.to_dict_no_image()]
         
         return {'Message':'User must log in'}
     

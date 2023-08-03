@@ -101,11 +101,13 @@ function Subcrudit() {
     }
 
     const handleUpvoteFromSub = (e, postId) => {
+        // debugger
         e.preventDefault()
         dispatch(upvotePostFromSub(postId))
     }
 
     const handleDownvoteFromSub = (e, postId) => {
+        // debugger
         e.preventDefault()
         dispatch(downvotePostFromSub(postId))
     }

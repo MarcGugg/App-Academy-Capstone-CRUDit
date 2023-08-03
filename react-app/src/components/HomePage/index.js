@@ -19,21 +19,49 @@ function HomePage() {
     const posts = useSelector((state) => state.posts.allPosts)
     
     useEffect(async () => {
+        debugger
         await dispatch(getAllPosts())
         await dispatch(getAllSubsReal())
-        await dispatch(getAllPosts())
+        // await dispatch(getAllPosts())
     }, [dispatch])
     // console.log('posts', posts)
 
     const handleUpvote = async (e, postId) => {
+        // debugger
         e.preventDefault()
         dispatch(upvotePost(postId))
     }
 
     const handleDownvote = async (e, postId) => {
+        // debugger
         e.preventDefault()
         dispatch(downvotePost(postId))
     } 
+
+    const upvoteCheck = (post) => {
+        if (user) {
+            for (let i = 0; i < post.upvotes.length; i++) {
+                if (post.upvotes[i].id === user.id) {
+                    return true
+                }
+            }
+            return false
+        }
+        return false
+    }
+
+    const downvoteCheck = (post) => {
+        if (user) {
+            for (let i = 0; i < post.downvotes.length; i++) {
+                if (post.downvotes[i].id === user.id) {
+                    return true
+                }
+            }
+            return false
+        }
+        
+        return false
+    }
 
     if (!Object.values(posts).length) {
         return null
@@ -94,7 +122,7 @@ function HomePage() {
                         <div class="py-2">
                         <div class="flex border border-grey-light-alt hover:border-grey rounded bg-white cursor-pointer">
                             <div class="w-1/12 flex flex-col text-center pt-2">
-                                {user && Object.keys(post.upvotes).includes(user.id.toString()) ? 
+                                {user && upvoteCheck(post) ? 
                                 // add handler for removing upvote 
                                      <button class="text-xs text-orange-500">
                                      <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
@@ -106,10 +134,10 @@ function HomePage() {
                                 </button>
                                 }
                                 
-                                <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes)}>{Object.values(post.upvotes).length - Object.values(post.downvotes).length}</span>
+                                <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes)}>{post.upvotes.length - post.downvotes.length}</span>
                                 {/* <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes.length)}>{(post.upvotes.length - post.downvotes.length).toString()}</span> */}
                                 
-                                {user && Object.keys(post.downvotes).includes(user.id.toString()) ? 
+                                {user && downvoteCheck(post) ? 
                                 // add handler for removing downvote 
                                  <button class="text-xs text-cyan-600">
                                  <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
@@ -126,7 +154,7 @@ function HomePage() {
                                 <div class="flex items-center text-xs mb-2">
                                     <a href="#" class="font-semibold no-underline hover:underline text-black flex items-center">
                                         <img class="rounded-full border h-5 w-5" src="https://www.redditstatic.com/desktop2x/img/id-cards/snoo-home@2x.png"/>
-                                        <span class="ml-2">{post.subcrudit.name}</span>
+                                        <span class="ml-2">{post.subcrudit?.name}</span>
                                     </a>
                                     <span class="text-grey-light mx-1 text-xxs">•</span>
                                     <span class="text-grey">Posted by</span>
