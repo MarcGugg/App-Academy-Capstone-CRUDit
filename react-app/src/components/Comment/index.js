@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
 import { useSelector} from "react-redux"
 import { useState, useEffect } from "react"
 import CommentDeleteButton from "../CommentDelete"
-import { editComment } from "../../store/post"
+import { editComment, upvoteComment, downvoteComment, removeCommentDownvote, removeCommentUpvote } from "../../store/post"
 import { useDispatch } from "react-redux"
 
 function Comment({comment}) {
@@ -27,6 +27,52 @@ function Comment({comment}) {
         dispatch(editComment(comment.id, newText))
         setEditMode(false)
     }
+
+    const handleUpvoteComment = (e, commentId) => {
+        e.preventDefault()
+        dispatch(upvoteComment(commentId))
+    }
+
+    const handleDownvoteComment = (e, commentId) => {
+        e.preventDefault()
+        dispatch(downvoteComment(commentId))
+    }
+
+    const handleRemoveCommentDownvote = (e, commentId) => {
+        e.preventDefault()
+        dispatch(removeCommentDownvote(commentId))
+    }
+
+    const handleRemoveCommentUpvote = (e, commentId) => {
+        e.preventDefault()
+        dispatch(removeCommentUpvote(commentId))
+    }
+
+    const upvoteCheck = (comment) => {
+        if (user) {
+            for (let i = 0; i < comment.upvotes.length; i++) {
+                if (comment.upvotes[i].id === user.id) {
+                    return true
+                }
+            }
+            return false
+        }
+
+        return false
+    }
+    
+    const downvoteCheck = (comment) => {
+        if (user) {
+            for (let i = 0; i < comment.downvotes.length; i++) {
+                if (comment.downvotes[i].id === user.id) {
+                    return true
+                }
+            }
+            return false
+        }
+
+        return false
+    }
     
     return (
         <>
@@ -35,13 +81,27 @@ function Comment({comment}) {
             <div className="flex flex-row"> 
                 <div>
                     <div class="w-1/12 flex flex-col text-center pt-2">
-						<button class="text-xs">
+                        {user && upvoteCheck(comment) ? 
+                        <button class="text-xs text-orange-500" onClick={(e) => handleRemoveCommentUpvote(e, comment.id)}>
+                        <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
+                        </button>
+                        : 
+                        
+						<button class="text-xs" onClick={(e) => handleUpvoteComment(e, comment.id)}>
 							<svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
 						</button>
-						<span class="text-xs font-semibold my-1">20k</span>
-						<button class="text-xs">
+                        }
+						<span class="text-xs font-semibold my-1">{comment.upvotes.length - comment.downvotes.length}</span>
+						{user && downvoteCheck(comment) ? 
+                        <button class="text-xs text-cyan-600" onClick={(e) => handleRemoveCommentDownvote(e, comment.id)}>
+                        <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
+                        </button>
+                        : 
+                        
+                        <button class="text-xs" onClick={(e) => handleDownvoteComment(e, comment.id)}>
 							<svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
 						</button>
+                        }
 					</div>
             </div>
             {/* rest of the comment component */}

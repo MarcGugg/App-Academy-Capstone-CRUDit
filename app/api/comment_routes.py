@@ -146,16 +146,21 @@ def upvote_comment(comment_id):
         
             if current_user in comment.downvotes:
         
-                comment.downvotes.remove(current_user)
-                current_user.comment_downvotes.remove(comment)
+                for user in comment.downvotes:
+                    if user.id == current_user.id:
+                        comment.downvotes.remove(user)
+
+                for downvoted_comment in current_user.comment_downvotes:
+                    if downvoted_comment.id == comment.id:
+                        current_user.comment_downvotes.remove(downvoted_comment)
         
             comment.upvotes.append(current_user)
         
             current_user.comment_upvotes.append(comment)
         
-            db.sesion.commit()
+            db.session.commit()
         
-            return current_user.to_dict()
+            return comment.to_dict_no_post()
         
         return {'Message': 'User must log in'}
     
@@ -171,17 +176,21 @@ def downvote_comment(comment_id):
         if current_user.is_authenticated:
     
             if current_user in comment.upvotes:
-    
-                comment.upvotes.remove(current_user)
-                current_user.comment_downvotes.remove(comment)
+                for user in comment.upvotes:
+                    if user.id == current_user.id:
+                        comment.upvotes.remove(user)
+
+                for upvoted_comment in current_user.comment_upvotes:
+                    if upvoted_comment.id == comment.id:
+                        current_user.comment_upvotes.remove(upvoted_comment)
     
             comment.downvotes.append(current_user)
     
             current_user.comment_downvotes.append(comment)
     
-            db.sesion.commit()
+            db.session.commit()
     
-            return current_user.to_dict()
+            return comment.to_dict_no_post()
     
         return {'Message': 'User must log in'}
     
@@ -197,10 +206,18 @@ def remove_downvote(comment_id):
         if current_user.is_authenticated:
     
             if current_user in comment.downvotes:
-    
-                comment.downvotes.remove(current_user)
-                current_user.comment_downvotes.remove(comment)
-                return current_user.to_dict()
+
+                for user in comment.downvotes:
+                    if user.id == current_user.id:
+                        comment.downvotes.remove(user)
+                
+                for downvoted_comment in current_user.comment_downvotes:
+                    if downvoted_comment.id == comment.id:
+                        current_user.comment_downvotes.remove(downvoted_comment)
+
+
+                db.session.commit()
+                return comment.to_dict_no_post()
     
             return None
     
@@ -218,10 +235,17 @@ def remove_upvote(comment_id):
         if current_user.is_authenticated:
     
             if current_user in comment.upvotes:
-    
-                comment.upvotes.remove(current_user)
-                current_user.comment_upvotes.remove(comment)
-                return current_user.to_dict()
+                for user in comment.upvotes:
+                    if user.id == current_user.id:
+                        comment.upvotes.remove(user)
+                
+                for upvoted_comment in current_user.comment_upvotes:
+                    if upvoted_comment.id == comment.id:
+                        current_user.comment_upvotes.remove(upvoted_comment)
+
+
+                db.session.commit()
+                return comment.to_dict_no_post()
     
             return None
     

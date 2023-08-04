@@ -16,6 +16,10 @@ const MAKE_COMMENT = 'comments/Make'
 const DELETE_COMMENT = 'comments/Delete'
 const GET_COMMENT = 'comment/Get'
 const EDIT_COMMENT = 'comment/Edit'
+const UPVOTE_COMMENT = 'comment/Upvote'
+const DOWNVOTE_COMMENT = 'comment/Downvote'
+const REMOVE_COMMENT_UPVOTE = 'comment/removeUpvote'
+const REMOVE_COMMENT_DOWNVOTE = 'comment/removeDownvote'
 
 //posts
 const actionGetAllPosts =(allPosts) => ({
@@ -92,7 +96,87 @@ const actionEditComment = (editedComment) => ({
     editedComment
 })
 
+const actionUpvoteComment = (comment) => ({
+    type: UPVOTE_COMMENT,
+    comment
+})
+
+const actionDownvoteComment = (comment) => ({
+    type: DOWNVOTE_COMMENT,
+    comment
+})
+
+const actionRemoveCommentUpvote = (comment) => ({
+    type: REMOVE_COMMENT_UPVOTE,
+    comment
+}) 
+
+const actionRemoveCommentDownvote = (comment) => ({
+    type: REMOVE_COMMENT_DOWNVOTE,
+    comment
+}) 
+
 //comments thunks
+export const upvoteComment = (commentId) => async dispatch => {
+    const res = await fetch(`/api/comments/${commentId}/upvote`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            'comment_id': commentId
+        })
+    })
+
+    if (res.ok) {
+        const comment = await res.json()
+        dispatch(actionUpvoteComment(comment))
+    }
+}
+
+export const downvoteComment = (commentId) => async dispatch => {
+    const res = await fetch(`/api/comments/${commentId}/downvote`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            'comment_id': commentId
+        })
+    })
+
+    if (res.ok) {
+        const comment = await res.json()
+        dispatch(actionDownvoteComment(comment))
+    }
+}
+
+export const removeCommentDownvote = (commentId) => async dispatch => {
+    const res = await fetch(`/api/comments/${commentId}/remove_downvote`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            'comment_id': commentId
+        })
+    })
+
+    if (res.ok) {
+        const comment = await res.json()
+        dispatch(actionRemoveCommentDownvote(comment))
+    }
+}
+
+export const removeCommentUpvote = (commentId) => async dispatch => {
+    const res = await fetch(`/api/comments/${commentId}/remove_upvote`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            'comment_id': commentId
+        })
+    })
+
+    if (res.ok) {
+        const comment = await res.json()
+        dispatch(actionRemoveCommentUpvote(comment))
+    }
+}
+
 export const makeComment = (postId, text) => async dispatch => {
     const res = await fetch(`/api/comments/from_post/${postId}`, {
         method: 'POST',
@@ -576,6 +660,34 @@ export default function postReducer(state=initialState, action) {
             newState14.allPosts[action.post.id] = {...action.post}
 
             return newState14
+        }
+        case UPVOTE_COMMENT: {
+            const newState15 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+
+            newState15.singlePost.comments[action.comment.id] = {...action.comment}
+            
+            return newState15
+        }
+        case DOWNVOTE_COMMENT: {
+            const newState16 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+
+            newState16.singlePost.comments[action.comment.id] = {...action.comment}
+            
+            return newState16
+        }
+        case REMOVE_COMMENT_DOWNVOTE: {
+            const newState17 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+
+            newState17.singlePost.comments[action.comment.id] = {...action.comment}
+            
+            return newState17
+        }
+        case REMOVE_COMMENT_UPVOTE: {
+            const newState18 = {...state, allPosts: {...state.allPosts}, singlePost: {...state.singlePost}}
+
+            newState18.singlePost.comments[action.comment.id] = {...action.comment}
+            
+            return newState18
         }
         default:
             return state
