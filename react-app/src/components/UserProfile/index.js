@@ -5,6 +5,8 @@ import { getUserProfile } from "../../store/profile"
 import UserPosts from "./userPosts"
 import UserSubs from "./userSubs"
 import UserDetails from "./userDetails"
+import UserComments from "./userComments"
+import UserUpvotes from "./userUpvotes"
 
 // import './Profile.css'
 
@@ -23,6 +25,8 @@ function UserProfile() {
     const [details, setDetails] = useState(false)
     const [postsShow, setPostsShow] = useState(true)
     const [subsShow, setSubsShow] = useState(false)
+    const [commentsShow, setCommentsShow] = useState(false)
+    const [upvotesShow, setUpvotesShow] = useState(false)
 
     const handleDetailsClick = () => {
         setDetails(true)
@@ -33,11 +37,29 @@ function UserProfile() {
         setDetails(false)
         setPostsShow(true)
         setSubsShow(false)
+        setCommentsShow(false)
+        setUpvotesShow(false)
     }
     const handleSubsClick = () => {
         setDetails(false)
         setPostsShow(false)
         setSubsShow(true)
+        setCommentsShow(false)
+        setUpvotesShow(false)
+    }
+    const handleCommentsClick = () => {
+      setDetails(false)
+      setPostsShow(false)
+      setSubsShow(false)
+      setUpvotesShow(false)
+      setCommentsShow(true)
+    }
+    const handleUpvotesClick = () => {
+      setDetails(false)
+      setPostsShow(false)
+      setSubsShow(false)
+      setCommentsShow(false)
+      setUpvotesShow(true)
     }
 
     return (
@@ -62,10 +84,18 @@ function UserProfile() {
             }
           </li>
           <li class="mr-1">
-            <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#">Comments</a>
+            {commentsShow ? 
+            <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold border-r rounded-t border-l border-t" href="#" onClick={handleCommentsClick}>Comments</a>
+            :
+            <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#" onClick={handleCommentsClick}>Comments</a>
+            }
           </li>
           <li class="mr-1">
-            <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold hover:text-blue-800" href="#">Upvotes</a>
+            {upvotesShow ? 
+            <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold border-r rounded-t border-l border-t" href="#" onClick={handleUpvotesClick}>Upvotes</a>
+            :
+            <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold hover:text-blue-800" href="#" onClick={handleUpvotesClick}>Upvotes</a>
+            }
           </li>
         </ul>
         </div>
@@ -76,6 +106,11 @@ function UserProfile() {
             <UserPosts user={userProfile.posts}/>
             : subsShow ? 
             <UserSubs user={userProfile} />
+            : commentsShow ? 
+            <UserComments comments={userProfile.comments}/>
+            : 
+            upvotesShow ? 
+            <UserUpvotes upvotes={userProfile.upvotes}/>
             : ''}
         </div>
 
