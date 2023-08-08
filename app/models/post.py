@@ -19,7 +19,7 @@ class Post(db.Model):
     upvotes = db.relationship('User', secondary='posts_upvotes', back_populates='post_upvotes')
     downvotes = db.relationship('User', secondary='posts_downvotes', back_populates='post_downvotes')
     
-
+    # perhaps add another to_dict method that excludes upvotes and downvotes
     def to_dict(self):
         return {
             'id': self.id,

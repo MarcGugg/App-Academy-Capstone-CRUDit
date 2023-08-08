@@ -47,3 +47,13 @@ class Comment(db.Model):
             'downvotes': [user.to_dict() for user in self.downvotes],
             'postId': self.post_id
         }
+    def to_dict_no_author(self):
+        return {           
+            'id': self.id,
+            'text': self.text,
+            'authorId': self.author_id,
+            'upvotes': [user.to_dict() for user in self.upvotes],
+            'downvotes': [user.to_dict() for user in self.downvotes],
+            'postId': self.post_id,
+            'post': self.post.to_dict()
+        }

@@ -62,7 +62,7 @@ class User(db.Model, UserMixin):
             'allSubcruddits': [sub.to_dict() for sub in self.all_subcrudits],
             'posts': [post.to_dict() for post in self.posts],
             'moddedSubs': [modded_sub.to_dict() for modded_sub in self.modded_subs],
-            'comments': [comment.to_dict() for comment in self.comments],
+            'comments': [comment.to_dict_inclusive() for comment in self.comments],
             'upvotes': [post.to_dict_no_image() for post in self.post_upvotes],
             'downvotes': [post.to_dict_no_image() for post in self.post_downvotes]
         }
