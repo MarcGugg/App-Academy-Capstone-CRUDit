@@ -44,7 +44,22 @@ function UserPosts(user={user}) {
                     <div className="flex justify-center">
 
                     <div style={{width:'44rem'}}>
-        
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
+                    {/* RE-ADD POST DELETE BUTTON FROM LINES 38-42 */}
                                 <div class="py-2">
                                 <div class="flex border border-grey-light-alt hover:border-grey rounded bg-white cursor-pointer">
                                     <div class="w-1/12 flex flex-col text-center pt-2">
@@ -130,6 +145,11 @@ function UserPosts(user={user}) {
                                 </div>
                             </div>
            </div>
+                {currUser && post.authorId == currUser.id ?
+                        <div className="modalDeleteButton">
+                            <OpenModalButton modalComponent={<DeletePost postId={post.id} username={username}/>} buttonText={'Delete'}/>
+                        </div> 
+                        : ''}
                     </div>
         
                 ))}
