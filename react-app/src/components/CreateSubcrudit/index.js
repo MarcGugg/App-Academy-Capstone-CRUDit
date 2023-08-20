@@ -54,19 +54,24 @@ function CreateSubcruditForm() {
 
     return (
         <>
-        <div className='headerParent'>
-        <h1>Create New Sub</h1>
-        </div>
+        <div className='all'>
+        {/* <div className='headerParent'>
+        </div> */}
         <div className='formParent'>
         <form onSubmit={handleSubmit} className='createSubForm'>
+        <h1 className='createSubHeader'>Create A New Sub</h1>
             <input type='text' className='subFormName' value={name} onChange={(e) => setName(e.target.value)} placeholder='Give your SubCRUDdit a name!'></input>
             {valErrs.length > 0 && name.length < 3 ? <p>Name must be at least 3 characters!</p> : ''}
             {valErrs.length > 0 && name.includes('/') ? <p>SubCRUDit name cannot include a '/' character.</p> : ''}
             {valErrs.length > 0 && name.includes(' ') ? <p>SubCRUDit name cannot have empty spaces.</p> : ''}
             <textarea className='subDesc' value={description} onChange={(e) => setDescription(e.target.value)} placeholder='Write a brief descripion of what your new SubCRUDit will be all about!'></textarea>
             {valErrs.length > 0 && !description ? <p>Description is required!</p> : ''}
-            <button type='submit' className='createButton'>Create</button>
+            <button type='submit' className='"inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-cyan-400 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"'>Create</button>
         </form>
+        </div>
+        <div>
+            <h1 className='bottomBorder'></h1>
+        </div>
         </div>
         </>
     )
