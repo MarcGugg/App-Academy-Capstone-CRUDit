@@ -62,8 +62,8 @@ function CreatePostForm() {
         <div className="bg-gray-100 min-h-screen flex justify-center items-center">
             <div className="w-full p-4">
 
-    <h1 className="postFormHeader text-2xl font-bold mb-4">Create Post</h1>
-    <div className="everything">
+    <h1 className="postFormHeader text-2xl font-bold mb-4 flex justify-center">Create Post</h1>
+    <div className="everything flex justify-center">
         <form onSubmit={handleSubmit} className="createPostForm bg-white p-6 rounded-md shadow-md w-1/4">
             <div className="postHeaderParent mb-4">
                 <input type="text" value={header} onChange={(e) => setHeader(e.target.value)} placeholder="Set your post's header" className="postHeaderInput w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500" />
