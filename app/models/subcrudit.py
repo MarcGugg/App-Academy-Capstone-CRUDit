@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from app.models.subs_mods import subs_mods
+from app.models.subs_users import subs_users
 
 
 class Subcrudit(db.Model):
@@ -18,6 +19,7 @@ class Subcrudit(db.Model):
 
     mods = db.relationship('User', secondary='subs_mods', back_populates='modded_subs')
 
+    users = db.relationship('User', secondary='subs_users', back_populates='followed_subs')
 
     def to_dict(self):
         return {
@@ -34,5 +36,6 @@ class Subcrudit(db.Model):
             'ownerId': self.owner_id,
             'owner': self.owner.to_dict(),
             'mods': [mod.to_dict() for mod in self.mods],
-            'posts': [post.to_dict() for post in self.posts]
+            'posts': [post.to_dict() for post in self.posts],
+            'users': [user.to_dict() for user in self.users]
         }

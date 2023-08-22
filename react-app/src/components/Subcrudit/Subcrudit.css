@@ -4,6 +4,8 @@
     justify-content: center;
     overflow-y: hidden;
     z-index: 0;
+    background-color: lightgrey;
+    min-height: 62vw;
     /* background-color: rgba(169, 169, 169, 0.568); */
 }
 

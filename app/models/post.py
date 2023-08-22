@@ -15,15 +15,20 @@ class Post(db.Model):
     author = db.relationship('User', back_populates='posts')
     subcrudit = db.relationship('Subcrudit', back_populates='posts')
     image = db.relationship('PostImage', back_populates='post', uselist=False)
+    comments = db.relationship('Comment', back_populates='post')
+    upvotes = db.relationship('User', secondary='posts_upvotes', back_populates='post_upvotes')
+    downvotes = db.relationship('User', secondary='posts_downvotes', back_populates='post_downvotes')
     
-
+    # perhaps add another to_dict method that excludes upvotes and downvotes
     def to_dict(self):
         return {
             'id': self.id,
             'authorId': self.author_id,
             'subId': self.sub_id,
             'header': self.header,
-            'body': self.body
+            'body': self.body,
+            'upvotes': [user.to_dict() for user in self.upvotes],
+            'downvotes': [user.to_dict() for user in self.downvotes]
         }
     def to_dict_inclusive(self):
         return {
@@ -34,7 +39,10 @@ class Post(db.Model):
             'body': self.body,
             'author': self.author.to_dict(),
             'subcrudit': self.subcrudit.to_dict(),
-            'image': self.image.to_dict()
+            'image': self.image.to_dict(),
+            'comments': [comment.to_dict_no_post() for comment in self.comments],
+            'upvotes': [user.to_dict() for user in self.upvotes],
+            'downvotes': [user.to_dict() for user in self.downvotes]
         }
     def to_dict_no_image(self):
         # print('POST AUTHOR', self.author)
@@ -45,5 +53,33 @@ class Post(db.Model):
             'header': self.header,
             'body': self.body,
             'author': self.author.to_dict(),
-            'subcrudit': self.subcrudit.to_dict()
+            'subcrudit': self.subcrudit.to_dict(),
+            'comments': [comment.to_dict_no_post() for comment in self.comments],
+            'upvotes': [user.to_dict() for user in self.upvotes],
+            'downvotes': [user.to_dict() for user in self.downvotes]
+        }
+    def to_dict_no_comments(self):
+        return {
+            'id': self.id,
+            'authorId': self.author_id,
+            'subId': self.sub_id,
+            'header': self.header,
+            'body': self.body,
+            'author': self.author.to_dict(),
+            'subcrudit': self.subcrudit.to_dict(),
+            'image': self.image.to_dict(),
+            'upvotes': [user.to_dict() for user in self.upvotes],
+            'downvotes': [user.to_dict() for user in self.downvotes]
+        }
+    def to_dict_no_comments_no_image(self):
+        return {
+            'id': self.id,
+            'authorId': self.author_id,
+            'subId': self.sub_id,
+            'header': self.header,
+            'body': self.body,
+            'author': self.author.to_dict(),
+            'subcrudit': self.subcrudit.to_dict(),
+            'upvotes': [user.to_dict() for user in self.upvotes],
+            'downvotes': [user.to_dict() for user in self.downvotes]
         }

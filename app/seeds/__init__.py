@@ -5,6 +5,7 @@ from app.models.db import db, environment, SCHEMA
 from app.seeds.post_images import seed_post_images, undo_post_images
 from app.seeds.posts import seed_posts, undo_posts
 from app.seeds.subcrudits import seed_subcrudits, undo_subcrudits
+from app.seeds.comments import seed_comments, undo_comments
 
 
 # Creates a seed group to hold our commands
@@ -24,10 +25,12 @@ def seed():
         undo_subcrudits()
         undo_posts()
         undo_post_images()
+        seed_comments()
     seed_users()
     seed_subcrudits()
     seed_posts()
     seed_post_images()
+    seed_comments()
     # Add other seed functions here
 
 
@@ -38,4 +41,5 @@ def undo():
     undo_subcrudits()
     undo_posts()
     undo_post_images()
+    undo_comments()
     # Add other undo functions here

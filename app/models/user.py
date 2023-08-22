@@ -2,6 +2,11 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app.models.subs_mods import subs_mods
+from app.models.comment import Comment
+from app.models.comments_upvotes import comments_upvotes
+from app.models.comments_downvotes import comments_downvotes
+from app.models.posts_downvotes import posts_downvotes
+from app.models.posts_upvotes import posts_upvotes
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -22,6 +27,14 @@ class User(db.Model, UserMixin):
 
     modded_subs = db.relationship('Subcrudit', secondary='subs_mods', back_populates='mods')
 
+    followed_subs = db.relationship('Subcrudit', secondary='subs_users', back_populates='users')
+
+    comments = db.relationship('Comment', back_populates='author')
+    comment_upvotes = db.relationship('Comment', secondary='comments_upvotes', back_populates='upvotes')
+    comment_downvotes = db.relationship('Comment', secondary='comments_downvotes', back_populates='downvotes')
+    post_upvotes = db.relationship('Post', secondary='posts_upvotes', back_populates='upvotes')
+    post_downvotes = db.relationship('Post', secondary='posts_downvotes', back_populates='downvotes')
+    
     @property
     def password(self):
         return self.hashed_password
@@ -48,5 +61,8 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             'allSubcruddits': [sub.to_dict() for sub in self.all_subcrudits],
             'posts': [post.to_dict() for post in self.posts],
-            'moddedSubs': [modded_sub.to_dict() for modded_sub in self.modded_subs]
+            'moddedSubs': [modded_sub.to_dict() for modded_sub in self.modded_subs],
+            'comments': [comment.to_dict_inclusive() for comment in self.comments],
+            'upvotes': [post.to_dict_no_image() for post in self.post_upvotes],
+            'downvotes': [post.to_dict_no_image() for post in self.post_downvotes]
         }

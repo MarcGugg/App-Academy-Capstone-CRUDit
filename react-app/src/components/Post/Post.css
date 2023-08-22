@@ -1,3 +1,50 @@
+.blackBorder {
+    background-color: black;
+}
+.wholePostPageParent {
+    /* border: 3px solid red; */
+    /* height: 100%;
+    background-color: rgba(169, 169, 169, 0.568); */
+    /* overflow-y: scroll; */
+    min-height: 100vw;
+    /* background-color: rgba(169, 169, 169, 0.568); */
+    background-color: rgb(169 169 169 / 83%);
+    width: 69rem;
+    /* padding-right: 16rem; */
+    padding-right: 73rem;
+    padding-left: 16rem;
+    margin-left: 33rem;
+    clear:both;
+}
+.wholePostPage {
+    /* border: 3px solid blue;
+    display: flex;
+    justify-content: center;
+    flex-direction: column; */
+    
+    /* ignore */
+    /* height: 100vw;
+    margin-top: none;
+    padding-top: none; */
+    /* ignore */
+
+    /* border: 3px solid blue; */
+    /* display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 814px;
+    margin-left: 50rem;
+    background-color: white; */
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 814px;
+    margin-left: 9rem;
+    background-color: white;
+    clear: both;
+}
+
 .postParent {
     display: flex;
     justify-content: center;
@@ -8,14 +55,18 @@
 }
 
 .post {
-    width: 80vw;
+    width: 40vw;
     padding: 2rem;
-    border: 1px solid darkgray;
+    /* border: 1px solid darkgray; */
     border-radius: 4px;
     /* border: 3px solid blue; */
     z-index: 1;
     background-color: white;
     word-wrap: break-word;
+    
+    /* new */
+    margin: 1rem;
+    /* margin-right: 28rem; */
 }
 
 /* .post {
@@ -52,6 +103,7 @@
     height: 40rem;
     width: 60rem;
     object-fit: fill;
+    max-width: 46.5rem;
 }
 
 .editAndDeleteButtons {
@@ -69,4 +121,73 @@
     background-color: rgb(95, 94, 94);
     cursor: pointer;
     box-shadow: 1px 1px 1px darkgray;
+}
+
+/* comments */
+.commentsSection {
+    /* background-color: white; */
+    /* margin: none; */
+    /* padding: none; */
+    /* width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; */
+
+    margin-left: -34rem;
+    /* border: 3px solid pink; */
+}
+.commentButton {
+    margin-left: 5.4rem;
+}
+.commentInputParent {
+    display: flex;
+    justify-content: center;
+    height: 15rem;
+    /* border: 3px solid red; */
+}
+.commentInput {
+    /* width: 30rem;
+    border: 3px solid blue; */
+    width: 53rem;
+    margin-right: 4rem;
+}
+
+.comment {
+    /* background-color: white; */
+    border-left: 2px solid rgb(238, 235, 235);
+    margin: 1rem;
+    padding: 1rem;
+    width: 41vw;
+    margin-left: 35.5rem;
+    /* background-color: white; */
+}
+.commentText {
+    /* border: 3px solid red; */
+    display: flex;
+    /* justify-content: center; */
+}
+
+.submitButtonParent {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submitComment {
+    color: white;
+    background-color: blue;
+    margin-right: 4.1rem;
+    font-size: large;
+    font-weight: bold;
+    margin-top: 0.1rem;
+    height: 2rem;
+    width: 5.5rem;
+}
+.submitComment:hover {
+    cursor: pointer;
+    background-color: rgb(8, 8, 194);
+}
+.submitComment:disabled {
+    background-color: lightgray;
+    color: gray;
+    cursor: auto;
 }

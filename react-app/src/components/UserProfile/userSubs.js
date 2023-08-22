@@ -12,7 +12,7 @@ function UserSubs(user={user}) {
         <>
         <div className='userSubsHeaderParent'>
             <div>
-                <h1>User SubCRUDits</h1>
+                {/* <h1>User SubCRUDits</h1> */}
             </div>
         </div>
         <div className='userSubsPropParent'>

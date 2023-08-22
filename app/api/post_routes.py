@@ -54,10 +54,14 @@ def get_post(post_id):
     post = Post.query.get(post_id)
 
     if post:
-        if post.image:
+        if post.image and post.comments:
             return post.to_dict_inclusive()
-        else:
+        elif post.image and not post.comments:
+            return post.to_dict_no_comments()
+        elif post.comments and not post.image:
             return post.to_dict_no_image()
+        else: #no comments and no image
+            return post.to_dict_no_comments_no_image()
     return None
 
 @post_routes.route('/authors/<int:author_id>')
@@ -216,5 +220,147 @@ def delete_post(post_id):
             
 
         return {'Error': 'User must sign in to delete a post.'}, 403
+    
+    return None
+
+@post_routes.route('/<int:post_id>/upvote', methods=['PUT'])
+@login_required
+def upvote_post(post_id):
+    post = Post.query.get(post_id)
+
+    if post:
+        
+        if current_user.is_authenticated:
+        
+            if current_user in post.downvotes:
+                
+                for user in post.downvotes:
+                    if user.id == current_user.id:
+                        post.downvotes.remove(user)
+                
+                for downvoted_post in current_user.post_downvotes:
+                    if downvoted_post.id == post.id:
+                        current_user.post_downvotes.remove(downvoted_post)
+        
+            post.upvotes.append(current_user)
+        
+            current_user.post_upvotes.append(post)
+        
+            db.session.commit()
+
+            if post.image:
+                return [current_user.to_dict(), post.to_dict_inclusive()]
+            else:
+                return [current_user.to_dict(), post.to_dict_no_image()]
+        
+        return {'Message':'User must log in'}
+    
+    return None
+
+@post_routes.route('/<int:post_id>/downvote', methods=['PUT'])
+@login_required
+def downvote_post(post_id):
+    post = Post.query.get(post_id)
+
+    if post:
+        
+        if current_user.is_authenticated:
+        
+            if current_user in post.upvotes:
+                print("")
+                print("")
+                print("")
+                print("")
+                print("USER", current_user.to_dict())
+                print("")
+                print("")
+                print("")
+                print("")
+                for user in post.upvotes:
+                    if user.id == current_user.id:
+                        post.upvotes.remove(user)
+
+                for upvoted_post in current_user.post_upvotes:
+                    if upvoted_post.id == post.id:
+                        current_user.post_upvotes.remove(upvoted_post)
+        
+            post.downvotes.append(current_user)
+        
+            current_user.post_downvotes.append(post)
+        
+            db.session.commit()
+        
+            if post.image:
+                return [current_user.to_dict(), post.to_dict_inclusive()]
+            else:
+                return [current_user.to_dict(), post.to_dict_no_image()]
+        
+        return {'Message':'User must log in'}
+    
+    return None
+
+
+@post_routes.route('/<int:post_id>/remove_upvote', methods=['PUT'])
+@login_required
+def remove_upvote(post_id):
+    post = Post.query.get(post_id)
+
+    if post:
+    
+        if current_user.is_authenticated:
+    
+            if current_user in post.upvotes:
+    
+                for user in post.upvotes:
+                    if user.id == current_user.id:
+                        post.upvotes.remove(user)
+                
+                for upvoted_post in current_user.post_upvotes:
+                    if upvoted_post.id == post.id:
+                        current_user.post_upvotes.remove(post)
+
+                db.session.commit()
+
+                if post.image:
+                    return [current_user.to_dict(), post.to_dict_inclusive()]
+                else:
+                    return [current_user.to_dict(), post.to_dict_no_image()]
+                    
+    
+            return None
+    
+        return {'Message': 'User must log in'}
+    
+    return None
+
+@post_routes.route('/<int:post_id>/remove_downvote', methods=['PUT'])
+@login_required
+def remove_downvote(post_id):
+    post = Post.query.get(post_id)
+
+    if post:
+    
+        if current_user.is_authenticated:
+    
+            if current_user in post.downvotes:
+    
+                for user in post.downvotes:
+                    if user.id == current_user.id:
+                        post.downvotes.remove(user)
+                
+                    for downvoted_post in current_user.post_downvotes:
+                        if downvoted_post.id == post.id:
+                            current_user.post_downvotes.remove(post)
+
+                db.session.commit()
+
+                if post.image:
+                    return [current_user.to_dict(), post.to_dict_inclusive()]
+                else:
+                    return [current_user.to_dict(), post.to_dict_no_image()]
+    
+            return None
+    
+        return {'Message': 'User must log in'}
     
     return None

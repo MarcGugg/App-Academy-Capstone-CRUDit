@@ -1,165 +1,54 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from "react"
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
 
-import { NavLink } from 'react-router-dom'
-
-import { getAllPosts } from '../../store/post'
-
-import './HomePage.css'
-import { getAllSubsReal } from '../../store/subcrudit'
-import { upvotePost } from '../../store/post'
-import { downvotePost } from '../../store/post'
-import { removeUpvote } from '../../store/post'
-import { removeDownvote } from '../../store/post'
-
-function HomePage() {
-
-    const dispatch = useDispatch()
-
-    
-    const user = useSelector((state) => state.session.user)
-    const posts = useSelector((state) => state.posts.allPosts)
-    
-    useEffect(async () => {
-        // debugger
-        await dispatch(getAllPosts())
-        await dispatch(getAllSubsReal())
-        // await dispatch(getAllPosts())
-    }, [dispatch])
-    // console.log('posts', posts)
-
-    const handleUpvote = async (e, postId) => {
-        // debugger
-        e.preventDefault()
-        dispatch(upvotePost(postId))
-    }
-
-    const handleDownvote = async (e, postId) => {
-        // debugger
-        e.preventDefault()
-        dispatch(downvotePost(postId))
-    } 
-
-    const handleRemoveUpvote = async (e, postId) => {
-        e.preventDefault()
-        dispatch(removeUpvote(postId))
-    }
-
-    const handleRemoveDownvote = async (e, postId) => {
-        e.preventDefault()
-        dispatch(removeDownvote(postId))
-    }
-
-    const upvoteCheck = (post) => {
-        if (user) {
-            for (let i = 0; i < post.upvotes.length; i++) {
-                if (post.upvotes[i].id === user.id) {
-                    return true
-                }
-            }
-            return false
-        }
-        return false
-    }
-
-    const downvoteCheck = (post) => {
-        if (user) {
-            for (let i = 0; i < post.downvotes.length; i++) {
-                if (post.downvotes[i].id === user.id) {
-                    return true
-                }
-            }
-            return false
-        }
-        
-        return false
-    }
-
-    if (!Object.values(posts).length) {
+function UserUpvotes(upvotes={upvotes}) {
+    if (!upvotes || !Object.values(upvotes).length)  {
         return null
     }
 
+    if (upvotes) {
+        console.log('UPVOTES', upvotes)
+    }
     return (
         <>
-        <div className='wholePage'>
-        <div className='headerAndCreateButtonParent'>
-            <div className='headerAndCreateButton'>
-            <h1 className='homePageText'>Home Page</h1>
-            {user ? 
-                <div className='createSubButtonDiv'>
-                    <button className='createSubButton'>
-                        <NavLink to={'/subcrudits/create/new'} style={{textDecoration:'none'}}>
-                            Create A New SubCRUDit
+        {upvotes.upvotes && Object.values(upvotes.upvotes).length > 0 ? 
+        
+        Object.values(upvotes.upvotes).map(post => (
+            <div className="flex justify-center">
 
-                        </NavLink>
-                    </button>
-                </div>
-            : ''}
-            </div>
-        </div>
-        <div className='homePagePostParent'>
-        {Object.values(posts).map(post => (
-            // <NavLink to={`/posts/${post.id}`} style={{ textDecoration: 'none'}}>
-            // <div className='homePagePostLink'>
-            //     <p className='author-subcrudit'>
-            //         <p className='subcruditName'>
-            //             <NavLink to={`/subcrudits/${post.subcrudit.name}`} 
-            //             style={{textDecoration:'none', color:'black'}}>
-            //                 {post.subcrudit.name}</NavLink>
-            //             </p>
-            //         <p className='authorUsername'>Posted by {post.author.username}</p>
-            //     </p>
-            //     <h1 className='postHeader'>{post.header}</h1>
-            //     {Object.keys(post).includes('image') ? 
-            //         <div className='postImage'>
-            //             <img src={post.image.url}
-            //                 onError={(e) => {
-            //                     e.target.onerror = null
-            //                     e.target.src = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
-            //                 }} 
-            //                 alt = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
-            //             className='postImageSrc'
-            //             />
-            //         </div>
-            //     : ''}
-            //     <div className='postBodyParent'>
-            //         <p className='postBody'>
-            //         {post.body}
-            //         </p>
-            //     </div>
-            // </div>
-            // </NavLink>
             <div style={{width:'44rem'}}>
 
                         <div class="py-2">
                         <div class="flex border border-grey-light-alt hover:border-grey rounded bg-white cursor-pointer">
                             <div class="w-1/12 flex flex-col text-center pt-2">
-                                {user && upvoteCheck(post) ? 
+                                {/* {user && upvoteCheck(post) ? 
                                 // add handler for removing upvote 
                                      <button class="text-xs text-orange-500" onClick={(e) => handleRemoveUpvote(e, post.id)}>
                                      <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
                                  </button>
-                                : 
+                                :  */}
                                 
-                                <button class="text-xs" onClick={(e) => handleUpvote(e, post.id)}>
+                                {/* <button class="text-xs" onClick={(e) => handleUpvote(e, post.id)}> */}
+                                <button class="text-xs">
                                     <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10v8h6v-8h5l-8-8-8 8h5z"/></svg>
                                 </button>
-                                }
+                                {/* } */}
                                 
                                 <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes)}>{post.upvotes.length - post.downvotes.length}</span>
                                 {/* <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes.length)}>{(post.upvotes.length - post.downvotes.length).toString()}</span> */}
                                 
-                                {user && downvoteCheck(post) ? 
+                                {/* {user && downvoteCheck(post) ? 
                                 // add handler for removing downvote 
                                  <button class="text-xs text-cyan-600" onClick={(e) => handleRemoveDownvote(e, post.id)}>
                                  <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
                              </button>
-                                : 
+                                :  */}
                                 
-                                <button class="text-xs" onClick={(e) => handleDownvote(e, post.id)}>
+                                {/* <button class="text-xs" onClick={(e) => handleDownvote(e, post.id)}> */}
+                                <button class="text-xs">
                                     <svg class="w-5 fill-current text-grey" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg>
                                 </button>
-                                }
+                                {/* } */}
                             </div>
             <NavLink to={`/posts/${post.id}`} style={{ textDecoration: 'none'}}>
                             <div class="w-11/12 pt-2">
@@ -176,7 +65,7 @@ function HomePage() {
                                 <div>
                                     <h2 class="text-lg font-medium mb-1">{post.header}</h2>
                                 </div>
-                                <div className='image'>
+                                {/* <div className='image'>
                          
                                     {Object.keys(post).includes('image') ? 
                                     
@@ -189,7 +78,7 @@ function HomePage() {
                                     className='postImageSrc-sub'/>
                                
                                     : ''}
-                                    </div>
+                                    </div> */}
 
                                 <div class="inline-flex items-center my-1">
                                     <div class="flex hover:bg-grey-lighter p-1">
@@ -213,11 +102,12 @@ function HomePage() {
                         </div>
                     </div>
    </div>
-        ))}
-        </div>
-        </div>
+            </div>
+
+        ))
+        : ''}
         </>
     )
 }
 
-export default HomePage
+export default UserUpvotes

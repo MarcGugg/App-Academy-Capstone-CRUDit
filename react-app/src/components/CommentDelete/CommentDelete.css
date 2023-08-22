@@ -1,0 +1,9 @@
+.deleteButton {
+    border: none;
+    background: none;
+    color: darkgray;
+    font-weight: bold;
+}
+.deleteButton:hover {
+    cursor: pointer;
+}

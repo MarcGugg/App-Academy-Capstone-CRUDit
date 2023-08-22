@@ -29,10 +29,11 @@
 }
 .loginButton {
     background-color: rgba(233, 22, 22, 0.87);
-    color: white;
+    /* color: white; */
     width: 10rem;
     height: 2rem;
     border-radius: 30px;
+    border: 2px solid black;
 }
 
 .demoButtonParent {

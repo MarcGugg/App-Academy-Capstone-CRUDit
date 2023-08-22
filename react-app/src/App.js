@@ -14,6 +14,8 @@ import CreatePostForm from "./components/CreatePost";
 import EditPostForm from "./components/EditPost";
 import UserProfile from "./components/UserProfile";
 import SearchResults from "./components/SearchResults";
+import EditComment from './components/EditComment'
+import TailwindTest from "./components/Test/tailwindTest";
 
 function App() {
   const dispatch = useDispatch();
@@ -59,6 +61,12 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path='/comments/:commentId/edit'>
+            <EditComment />
+          </Route>
+          <Route path='/tailwind_test'>
+            <TailwindTest />
           </Route>
         </Switch>
       )}

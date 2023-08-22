@@ -1,17 +1,39 @@
-
+/* .all {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(218, 237, 243);
+    min-height: 100vw;
+}
 
 .headerParent {
     display: flex;
     justify-content: center;
+    border: 3px solid red;
+    width: 40rem;
+    margin-right: 53rem;
 }
-
+.bottomBorder {
+    width: 60rem;
+    height: 5rem;
+    background-color: rgb(245, 243, 243);
+}
 .headerParent h1 {
+    border-bottom: 2px solid black;
+}
+.createSubHeader {
+    font-weight: bolder;
+    font-size: x-large;
+    margin-bottom: 3px;
     border-bottom: 2px solid black;
 }
 
 .formParent {
     display: flex;
     justify-content: center;
+    width: 60rem;
+    background-color: white;
+    height: 30rem;
 }
 
 .createSubForm {
@@ -23,23 +45,21 @@
 .subFormName {
     border: 2px solid gray;
     border-radius: 10px;
-    width: 25rem;
+    width: 50rem;
     height: 2rem;
 }
 
 .subDesc {
     border: 2px solid gray;
     border-radius: 10px;
-    width: 25rem;
+    width: 50rem;
     height: 20rem;
     margin-top: 1rem;
-    /* margin-left: 3.5rem; */
 }
 
 .createButton {
     border-radius: 10px;
     background-color: orange;
-    color: white;
     width: 10rem;
     height: 3rem;
     margin-left: 8rem;
@@ -52,4 +72,65 @@
 .createButton:hover {
     cursor: pointer;
     background-color: darkorange;
+} */
+
+body, h1, h2, h3, p, input, textarea, button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-family: Arial, sans-serif;
+}
+
+/* Style for the entire form container */
+.all {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Style for the form header */
+.createSubHeader {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Style for the form inputs and text areas */
+.subFormName,
+.subDesc {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style for validation error messages */
+.form-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Style for the create button */
+.createButton {
+    background-color: #0079d3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.createButton:hover {
+    background-color: #005aac;
+}
+
+/* Style for the bottom border */
+.bottomBorder {
+    border-bottom: 1px solid #ccc;
+    margin-top: 20px;
 }
