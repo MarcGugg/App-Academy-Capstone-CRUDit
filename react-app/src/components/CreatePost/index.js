@@ -26,11 +26,24 @@ function CreatePostForm() {
         setValErrs(errs)
         
         if (!errs.length) {
-            const post = await dispatch(createPost(subcruditId, header, body, image))
+            const formData = new FormData()
+            formData.append('image', image)
+            formData.append('header', header)
+            formData.append('body', body)
+            console.log('FORM DATA', formData.get('image'))
+            console.log('FORM DATA', formData.get('header'))
+            console.log('FORM DATA', formData.get('body'))
+            const post = await dispatch(createPost(subcruditId, formData))
             // await dispatch(createPost(subcruditId, header, body, image))
     
             console.log('post dispatch', post)
     
+            //COMMENT THIS BACK IN
+            //COMMENT THIS BACK IN
+            //COMMENT THIS BACK IN
+            //COMMENT THIS BACK IN
+            //COMMENT THIS BACK IN
+            //COMMENT THIS BACK IN
             history.push(`/posts/${post.id}`)
         }
     }
@@ -73,9 +86,19 @@ function CreatePostForm() {
                 <textarea value={body} onChange={(e) => setBody(e.target.value)} placeholder="Write the post body" className="postBodyInput w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500" />
             </div>
             {valErrs.length > 0 && !body ? <p className="text-red-500">Body is required</p> : ''}
+            
+            
             <div className="postImageInputParent mb-4">
-                <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Include an image to make your post stand out" className="postImageInput w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500" />
+                {/* <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Include an image to make your post stand out" className="postImageInput w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500" /> */}
+                <input 
+                type='file'
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
+                />
             </div>
+            
+            
+            
             <div className="postButtonParent">
                 <button type="submit" className="postFormButton bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
                     Post
