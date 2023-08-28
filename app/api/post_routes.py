@@ -257,9 +257,15 @@ def delete_post(post_id):
             print('')
             # if post.author_id == current_user.id:
             if post.image:
+                print("")
+                print("")
+                print("")
+                print("IMAGE", post.image.to_dict())
+                print("")
+                print("")
                 image_to_delete = post.image.to_dict()
-                remove_file_from_s3(image_to_delete)
-                db.session.delete(image_to_delete)
+                remove_file_from_s3(image_to_delete['url'])
+                db.session.delete(post.image)
                 
             db.session.delete(post)
             db.session.commit()
