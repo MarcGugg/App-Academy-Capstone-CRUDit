@@ -226,6 +226,13 @@ def delete_post(post_id):
     print('')
     print('')
     post = Post.query.get(post_id)
+    print('')
+    print('')
+    print('')
+    print('POST', post)
+    print('')
+    print('')
+    print('')
 
     if post:
         print('')
@@ -249,6 +256,10 @@ def delete_post(post_id):
             print('')
             print('')
             # if post.author_id == current_user.id:
+            if post.image:
+                image_to_delete = post.image.to_dict()
+                remove_file_from_s3(image_to_delete)
+                db.session.delete(image_to_delete)
                 
             db.session.delete(post)
             db.session.commit()

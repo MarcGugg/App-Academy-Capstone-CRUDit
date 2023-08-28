@@ -242,6 +242,7 @@ export const getOneComment = (commentId) => async dispatch => {
 
 export const deletePost = (postId) => async dispatch => {
     console.log('DELETE POST THUNK HIT')
+    console.log('POST ID', postId)
     const res = await fetch(`/api/posts/${postId}/delete`, {
         method: 'DELETE',
         headers: {"Content-Type": "application/json"}
