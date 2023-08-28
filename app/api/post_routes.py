@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from app.models import  User, PostImage, db, Subcrudit, Post
 from app.forms.create_post import CreatePostForm
 from app.forms.edit_post import EditPostForm
+from app.api.AWS_helpers import upload_file_to_s3, remove_file_from_s3, get_unique_filename
 
 post_routes = Blueprint('/posts', __name__)
 
@@ -104,6 +105,16 @@ def create_post(subcrud_name):
         if form.validate_on_submit():
             # print('BACKEND FORM VALIDATED')
             data = form.data
+            print('')
+            print('')
+            print('')
+            print('')
+            print('FORM DATA', data)
+            print('')
+            print('')
+            print('')
+            print('')
+            print('')
             new_post = Post(
                 author_id = current_user.id,
                 sub_id = sub.id,
@@ -129,6 +140,30 @@ def create_post(subcrud_name):
             db.session.add(new_post)
             db.session.commit()
 
+            if data['image']:
+
+                file = data['image']
+                print('')
+                print('')
+                print('')
+                print('FILE', file)
+                print('NAME', file.filename)
+                print('')
+
+                file.filename = get_unique_filename(file.filename)
+                upload = upload_file_to_s3(file)
+                img_url = None
+                if 'url' in upload:
+                    img_url = upload['url']
+
+                new_post_img = PostImage(
+                    url = img_url,
+                    post_id = new_post.id
+                )
+
+                db.session.add(new_post_img)
+                db.session.commit()
+
             # print('')
             # print('')
             # print('')
@@ -140,6 +175,7 @@ def create_post(subcrud_name):
             # print('')
             # print('')
             # print('')
+
 
             return new_post.to_dict_no_image()
 

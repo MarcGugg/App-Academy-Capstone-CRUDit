@@ -298,13 +298,11 @@ export const getAuthors = (authorIdArr) => async dispatch => {
 }
 
 export const addImageToPost = (newPost, image) => async dispatch => {
-    // console.log('ASSOCIATE IMAGE THUNK HIT')
+    console.log('ASSOCIATE IMAGE THUNK HIT', image)
     const res = await fetch(`/api/post_images/${newPost.id}/add_image`, {
         method: 'POST',
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            'url': image
-        })
+        // headers: {"Content-Type": "application/json"},
+        body: image
     })
 
     if (res.ok) {
@@ -315,26 +313,22 @@ export const addImageToPost = (newPost, image) => async dispatch => {
     }
 } 
 
-export const createPost = (subcrudditId, header, body, image) => async dispatch => {
-    // console.log('NEW POST THUNK HIT')
+export const createPost = (subcrudditId, formData) => async dispatch => {
+    console.log('NEW POST THUNK HIT', formData)
     let res;
-    if (image) {
+    if (formData.get('image')) {
         // console.log('IN IMAGE CONDITIONAL')
         res = await fetch(`/api/posts/${subcrudditId}/new_post`, {
             method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                'header': header,
-                'body': body
-            })
+            // headers: {"Content-Type": "application/json"},
+            body: formData
         })
 
         if (res.ok) {
             const newPost = await res.json()
-            // console.log('NEW POST', newPost)
-            // const newPostWithImage= await dispatch(addImageToPost(newPost, image))
-            await dispatch(addImageToPost(newPost, image))
-            // console.log('NEW POST WITH IMAGE', newPostWithImage)
+       
+            // await dispatch(addImageToPost(newPost, formData.get('image')))
+       
             dispatch(actionCreatePost(newPost))
             return newPost
         }
@@ -342,11 +336,8 @@ export const createPost = (subcrudditId, header, body, image) => async dispatch 
         // console.log('IN ELSE STATEMENT')
         res = await fetch(`/api/posts/${subcrudditId}/new_post`, {
             method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                'header': header,
-                'body': body
-            })
+            // headers: {"Content-Type": "application/json"},
+            body: formData
         })
         
         if (res.ok) {
