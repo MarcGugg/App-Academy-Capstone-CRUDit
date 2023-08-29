@@ -25,7 +25,7 @@ def seed():
         undo_subcrudits()
         undo_posts()
         undo_post_images()
-        seed_comments()
+        undo_comments()
     seed_users()
     seed_subcrudits()
     seed_posts()
