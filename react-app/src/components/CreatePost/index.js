@@ -89,6 +89,7 @@ function CreatePostForm() {
             
             
             <div className="postImageInputParent mb-4">
+                <p>Add a picture to your post.</p>
                 {/* <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Include an image to make your post stand out" className="postImageInput w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500" /> */}
                 <input 
                 type='file'

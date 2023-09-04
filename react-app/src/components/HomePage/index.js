@@ -83,18 +83,32 @@ function HomePage() {
         <>
         <div className='wholePage'>
         <div className='headerAndCreateButtonParent'>
-            <div className='headerAndCreateButton'>
-            <h1 className='homePageText'>Home Page</h1>
-            {user ? 
-                <div className='createSubButtonDiv'>
-                    <button className='createSubButton'>
-                        <NavLink to={'/subcrudits/create/new'} style={{textDecoration:'none'}}>
-                            Create A New SubCRUDit
-
-                        </NavLink>
-                    </button>
-                </div>
-            : ''}
+            {/* <div className='headerAndCreateButton'> */}
+            {/* <h1 className='homePageText'>Home Page</h1> */}
+            <div class="rounded bg-white mb-4 mt-12">
+            <div class="p-3">
+									<div class="h-8 -m-3 bg-no-repeat bg-100%" style={{backgroundImage: "url(https://www.redditstatic.com/desktop2x/img/id-cards/banner@2x.png)"}}>
+									</div>
+									<div>
+										<div class="inline-flex items-center">
+											<img src="https://www.redditstatic.com/desktop2x/img/id-cards/snoo-home@2x.png" class="h-16"/>
+											<span class="text-lg ml-4 mt-6">Home Page</span>
+										</div>
+										<p class="font-normal mb-3 text-sm leading-normal">The best posts on CRUDit for you, pulled from the most active communities on the site. Hire Marc Guggenheim!</p>
+										<button class="bg-blue-dark text-sm text-white font-semibold rounded px-4 py-2 w-full">CREATE POST</button>
+									</div>
+                                    {user ? 
+                                        <div className='createSubButtonDiv'>
+                                            <button className='bg-cyan-400 text-sm text-white font-semibold rounded px-4 py-2 w-full'>
+                                                <NavLink to={'/subcrudits/create/new'} style={{textDecoration:'none'}}>
+                                                    Create A New SubCRUDit
+                                    
+                                                </NavLink>
+                                            </button>
+                                        </div>
+                                    : ''}
+								</div>
+            {/* </div> */}
             </div>
         </div>
         <div className='homePagePostParent'>
@@ -164,13 +178,13 @@ function HomePage() {
             <NavLink to={`/posts/${post.id}`} style={{ textDecoration: 'none'}}>
                             <div class="w-11/12 pt-2">
                                 <div class="flex items-center text-xs mb-2">
-                                    <a href="#" class="font-semibold no-underline hover:underline text-black flex items-center">
+                                    <p class="font-semibold no-underline hover:underline text-black flex items-center">
                                         <img class="rounded-full border h-5 w-5" src="https://www.redditstatic.com/desktop2x/img/id-cards/snoo-home@2x.png"/>
                                         <span class="ml-2">{post.subcrudit?.name}</span>
-                                    </a>
+                                    </p>
                                     <span class="text-grey-light mx-1 text-xxs">•</span>
                                     <span class="text-grey">Posted by</span>
-                                    <a href="#" class="text-grey mx-1 no-underline hover:underline">{post.author.username}</a>
+                                    <p class="text-grey mx-1 no-underline">{post.author.username}</p>
                                     <span class="text-grey">2 hours ago</span>
                                 </div>
                                 <div>
