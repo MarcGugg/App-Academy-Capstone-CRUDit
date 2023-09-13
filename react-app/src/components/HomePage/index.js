@@ -160,7 +160,7 @@ function HomePage() {
                                 </button>
                                 }
                                 
-                                <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes)}>{post.upvotes.length - post.downvotes.length}</span>
+                                <span class="text-xs font-semibold my-1 mr-8" onClick={() => console.log(post,post.upvotes)}>{post.upvotes.length - post.downvotes.length}</span>
                                 {/* <span class="text-xs font-semibold my-1" onClick={() => console.log(post,post.upvotes.length)}>{(post.upvotes.length - post.downvotes.length).toString()}</span> */}
                                 
                                 {user && downvoteCheck(post) ? 
