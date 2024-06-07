@@ -155,6 +155,12 @@ def create_post(subcrud_name):
                 img_url = None
                 if 'url' in upload:
                     img_url = upload['url']
+                    print('')
+                    print('')
+                    print('')
+                    print('IMAGE URL', img_url)
+                    print('')
+                    print('')
 
                 new_post_img = PostImage(
                     url = img_url,
